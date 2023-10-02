@@ -1,0 +1,15 @@
+spring:
+  data:
+    mongodb:
+      username: db-root-username
+      password: db-root-secret
+      port: 27017
+      database: dispensa-disciplinas
+      host: localhost
+
+logging:
+  level:
+    org.springframework.data.mongodb.core.MongoTemplate: DEBUG
+
+server:
+  port: 8080

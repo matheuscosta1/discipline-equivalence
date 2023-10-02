@@ -1,0 +1,318 @@
+{
+	"info": {
+		"_postman_id": "601aad72-283e-478d-92d6-b6607b393001",
+		"name": "Equivalencia de Disciplinas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6694150"
+	},
+	"item": [
+		{
+			"name": "Faculdades",
+			"item": [
+				{
+					"name": "Registra faculdade",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Federal Uberlandia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/register-college",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"register-college"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca faculdades",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Federal Uberlandia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/find-colleges",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"find-colleges"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Disciplinas",
+			"item": [
+				{
+					"name": "Registra disciplina",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"workLoad\": \"60\",\n    \"originCode\": \"FAMAT123\",\n    \"course\": \"Ciência da Computação\",\n    \"menu\": \"Limites; Derivadas\",\n    \"college\": \"Universidade Federal de Uberlândia\",\n    \"name\": \"Cálculo 3\",\n    \"program\": \"Limites; Derivadas\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/register-discipline",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"register-discipline"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca disciplina pelo código",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Federal Uberlandia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/find-discipline?disciplineCode=FAMAT0001",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"find-discipline"
+							],
+							"query": [
+								{
+									"key": "disciplineCode",
+									"value": "FAMAT0001"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca disciplinas",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"courseName\": \"Ciência da Computação\",\n    \"collegeName\": \"Universidade Federal de Uberlândia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/find-disciplines",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"find-disciplines"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cursos",
+			"item": [
+				{
+					"name": "Registra curso",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Dança\",\n    \"collegeName\": \"Federal Uberlandia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/register-course",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"register-course"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca cursos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Federal Uberlandia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/find-courses",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"find-courses"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca cursos por faculdade",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Federal Uberlandia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/find-courses?college=Universidade Federal de Uberlândia",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"find-courses"
+							],
+							"query": [
+								{
+									"key": "college",
+									"value": "Universidade Federal de Uberlândia"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Calcular Equivalência",
+			"item": [
+				{
+					"name": "Cálculo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"originCode\": \"FAMAT0002\",\n    \"destinyCode\": \"FAMAT123\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/register-discipline-equivalence",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"register-discipline-equivalence"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

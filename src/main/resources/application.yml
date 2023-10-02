@@ -1,0 +1,28 @@
+info:
+  app:
+    name: @project.artifactId@
+    version: @project.version@
+server:
+  servlet:
+    context-path: /@project.artifactId@
+spring:
+  application:
+    name: @project.artifactId@
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  endpoint:
+    health:
+      show-details: always
+    logfile:
+      external-file: application.log
+
+logging:
+  file:
+    name: application.log
+  logback:
+    rollingpolicy:
+      max-file-size: 500MB
