@@ -6,18 +6,17 @@ import br.com.tcc.project.command.interfaces.CommandChainReceiver;
 import br.com.tcc.project.command.interfaces.Receiver;
 import br.com.tcc.project.gateway.ReceiverResolver;
 import br.com.tcc.project.gateway.exception.ReceiverNotFoundException;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import lombok.Setter;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.ConfigurableApplicationContext;
-
-import java.util.Arrays;
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class ApplicationContextAwareReceiverResolver
     implements ApplicationContextAware, InitializingBean, ReceiverResolver {

@@ -1,6 +1,5 @@
 package br.com.tcc.project.gateway;
 
-
 import br.com.tcc.project.command.interfaces.Command;
 import br.com.tcc.project.command.interfaces.Receiver;
 

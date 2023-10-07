@@ -24,8 +24,6 @@ public class SwaggerConfiguration {
 
   @Bean
   public GroupedOpenApi internal() {
-    return GroupedOpenApi.builder()
-            .packagesToScan("br.com.tcc.project")
-            .group("Local").build();
+    return GroupedOpenApi.builder().packagesToScan("br.com.tcc.project").group("Local").build();
   }
 }

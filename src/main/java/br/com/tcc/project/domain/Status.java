@@ -4,5 +4,6 @@ import lombok.*;
 
 @AllArgsConstructor
 public enum Status {
-  EQUIVALENCE, NON_EQUIVALENCE
+  EQUIVALENCE,
+  NON_EQUIVALENCE
 }

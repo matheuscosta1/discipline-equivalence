@@ -1,6 +1,5 @@
 package br.com.tcc.project.command.exception;
 
-
 import br.com.tcc.project.gateway.exception.GatewayException;
 
 public class CollegeNotFoundException extends GatewayException {

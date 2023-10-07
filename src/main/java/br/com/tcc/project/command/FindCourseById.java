@@ -9,18 +9,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 @GenerateCommandFactory
-public class RegisterDiscipline extends AbstractCommand<RegisterDiscipline.Request, Void> {
+public class FindCourseById extends AbstractCommand<FindCourseById.Request, CourseDocument> {
 
   @Setter
   @Getter
   @Builder
   public static class Request {
-    private Integer workLoad;
-    private String originCode;
-    private String menu;
-    private String name;
-    private String program;
-    private CollegeDocument collegeDocument;
-    private CourseDocument courseDocument;
+    private Integer courseId;
   }
 }

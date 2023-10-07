@@ -1,4 +1,5 @@
 package br.com.tcc.project.command.interfaces;
+
 public interface Command<P, R> {
   void setExecutionId(String executionId);
 

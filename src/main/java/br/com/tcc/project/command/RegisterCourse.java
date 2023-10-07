@@ -1,6 +1,7 @@
 package br.com.tcc.project.command;
 
 import br.com.tcc.project.command.impl.AbstractCommand;
+import br.com.tcc.project.command.repositoy.model.CollegeDocument;
 import br.com.tcc.project.gateway.annotation.processor.GenerateCommandFactory;
 import lombok.Builder;
 import lombok.Getter;
@@ -14,6 +15,6 @@ public class RegisterCourse extends AbstractCommand<RegisterCourse.Request, Void
   @Builder
   public static class Request {
     private String name;
-    private String collegeName;
+    private CollegeDocument collegeDocument;
   }
 }

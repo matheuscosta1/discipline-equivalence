@@ -1,10 +1,9 @@
 package br.com.tcc.project.command.repositoy.model;
 
+import javax.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
 
 @Setter
 @Getter
@@ -17,7 +16,7 @@ public class CollegeDocument {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  @Column(length=50, nullable=false)
+  @Column(length = 50, nullable = false)
   private String name;
 
   public CollegeDocument(Integer id, String name) {
@@ -25,6 +24,5 @@ public class CollegeDocument {
     this.name = name;
   }
 
-  public CollegeDocument() {
-  }
+  public CollegeDocument() {}
 }

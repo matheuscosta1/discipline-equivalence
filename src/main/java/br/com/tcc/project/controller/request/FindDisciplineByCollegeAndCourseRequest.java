@@ -14,9 +14,9 @@ public class FindDisciplineByCollegeAndCourseRequest {
 
   @Schema(example = "Ciência da Computação", description = "Nome do curso.")
   @NotBlank
-  private String courseName;
+  private Integer courseId;
 
   @Schema(example = "id = '6390066b03e4d22f3c6ba423'", description = "Identificador da faculdade.")
   @NotBlank
-  private String collegeName;
+  private Integer collegeId;
 }

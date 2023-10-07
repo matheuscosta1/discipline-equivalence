@@ -1,28 +1,25 @@
-/*package br.com.tcc.project.command.discipline.receiver;
+package br.com.tcc.project.command.discipline.receiver;
 
-import static org.springframework.data.mongodb.core.query.Criteria.where;
-import static org.springframework.data.mongodb.core.query.Query.query;
-
+import br.com.tcc.project.command.repositoy.DisciplineRepository;
+import br.com.tcc.project.command.repositoy.mapper.DisciplineDocumentMapper;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.FindDisciplineByCode;
 import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
+import br.com.tcc.project.response.DisciplineResponse;
 import lombok.Setter;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 
 @CommandReceiver(FindDisciplineByCode.class)
 public class FindDisciplineByCodeReceiver
-    extends AbstractReceiver<FindDisciplineByCode.Request, DisciplineDocument> {
+    extends AbstractReceiver<FindDisciplineByCode.Request, DisciplineResponse> {
 
-  @Autowired @Setter private MongoTemplate mongoTemplate;
+  @Autowired @Setter private DisciplineRepository disciplineRepository;
+  private final DisciplineDocumentMapper mapper = Mappers.getMapper(DisciplineDocumentMapper.class);
 
   @Override
-  protected DisciplineDocument doExecute(FindDisciplineByCode.Request parameter) {
-
-    return mongoTemplate.findOne(
-        query(where(DisciplineDocument.FieldName.ORIGIN_CODE).is(parameter.getDisciplineCode())),
-        DisciplineDocument.class);
+  protected DisciplineResponse doExecute(FindDisciplineByCode.Request parameter) {
+    return mapper.map(disciplineRepository.findByOriginCode(parameter.getDisciplineCode()));
   }
 }
-*/

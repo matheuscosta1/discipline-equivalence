@@ -11,5 +11,5 @@ INSERT INTO discipline_equivalence.course (id, name, college_id) VALUES (5, 'Eng
 INSERT INTO discipline_equivalence.course (id, name, college_id) VALUES (6, 'Ciencia da Computacao', 2);
 
 ## Discipline
-INSERT INTO discipline_equivalence.discipline (id, name, originCode, menu, program, workLoad, college_id, course_id) VALUES (1, "Calculo I", "FAMAT1", "Limites;Derivadas", "Limites", "60", 1, 1);
-INSERT INTO discipline_equivalence.discipline (id, name, originCode, menu, program, workLoad, college_id, course_id) VALUES (2, "Programacao Procedimental", "PP0001", "Lacos;Condicionais", "Lacos", "60", 2, 3);
+INSERT INTO discipline_equivalence.discipline (id, name, origin_code, menu, program, work_load, college_id, course_id) VALUES (1, "Calculo I", "FAMAT1", "Limites;Derivadas", "Limites", "60", 1, 1);
+INSERT INTO discipline_equivalence.discipline (id, name, origin_code, menu, program, work_load, college_id, course_id) VALUES (2, "Programacao Procedimental", "PP0001", "Lacos;Condicionais", "Lacos", "60", 2, 3);

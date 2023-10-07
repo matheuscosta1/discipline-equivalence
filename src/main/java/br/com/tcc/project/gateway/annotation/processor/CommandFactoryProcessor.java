@@ -4,21 +4,19 @@ import br.com.tcc.project.command.interfaces.Command;
 import com.google.auto.service.AutoService;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
-
-import javax.annotation.processing.*;
-import javax.lang.model.SourceVersion;
-import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
-import javax.tools.JavaFileObject;
 import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
+import javax.annotation.processing.*;
+import javax.lang.model.SourceVersion;
+import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
+import javax.tools.JavaFileObject;
 
-@SupportedAnnotationTypes(
-    "br.com.tcc.project.gateway.annotation.processor.GenerateCommandFactory")
+@SupportedAnnotationTypes("br.com.tcc.project.gateway.annotation.processor.GenerateCommandFactory")
 @SupportedSourceVersion(SourceVersion.RELEASE_11)
 @AutoService(Processor.class)
 public class CommandFactoryProcessor extends AbstractProcessor {

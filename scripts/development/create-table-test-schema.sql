@@ -19,10 +19,10 @@ create table discipline
     id int auto_increment
         primary key,
     name varchar(255) null,
-    originCode varchar(255) null,
+    origin_code varchar(255) null,
     menu varchar(255) null,
     program varchar(255) null,
-    workLoad varchar(255) null,
+    work_load varchar(255) null,
     college_id int not null,
     course_id int not null,
     constraint FKfr6rjc04htbtc3xas2b9xmq7r

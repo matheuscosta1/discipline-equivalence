@@ -1,10 +1,8 @@
 package br.com.tcc.project.gateway.annotation;
 
-
 import br.com.tcc.project.gateway.CommandGateway;
-import org.springframework.context.annotation.Import;
-
 import java.lang.annotation.*;
+import org.springframework.context.annotation.Import;
 
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)

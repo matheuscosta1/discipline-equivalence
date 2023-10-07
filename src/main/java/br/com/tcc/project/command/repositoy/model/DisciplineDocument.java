@@ -1,12 +1,9 @@
 package br.com.tcc.project.command.repositoy.model;
 
+import javax.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
 
 @Setter
 @Getter
@@ -16,31 +13,39 @@ import javax.persistence.Table;
 public class DisciplineDocument {
 
   @Id
-  private String id;
-
-  private Integer workLoad;
-
-  private String originCode;
-
-  private String course;
-
-  private String menu;
-
-  private String college;
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Integer id;
 
   private String name;
 
+  @Column(name = "origin_code", length = 50, nullable = false)
+  private String originCode;
+
+  private String menu;
+
   private String program;
-  public DisciplineDocument() {
-  }
-  public DisciplineDocument(String id, Integer workLoad, String originCode, String course, String menu, String college, String name, String program) {
+
+  @Column(name = "work_load", length = 50, nullable = false)
+  private String workLoad;
+
+  @ManyToOne
+  @JoinColumn(name = "collegeId")
+  private CollegeDocument college;
+
+  @ManyToOne
+  @JoinColumn(name = "courseId")
+  private CourseDocument course;
+
+  public DisciplineDocument() {}
+
+  public DisciplineDocument(Integer id, String name, String originCode, String menu, String program, String workLoad, CollegeDocument college, CourseDocument course) {
     this.id = id;
-    this.workLoad = workLoad;
-    this.originCode = originCode;
-    this.course = course;
-    this.menu = menu;
-    this.college = college;
     this.name = name;
+    this.originCode = originCode;
+    this.menu = menu;
     this.program = program;
+    this.workLoad = workLoad;
+    this.college = college;
+    this.course = course;
   }
 }

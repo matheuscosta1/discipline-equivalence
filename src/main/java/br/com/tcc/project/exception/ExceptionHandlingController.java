@@ -126,6 +126,7 @@ public class ExceptionHandlingController {
                 : ""));
     return response;
   }
+
   @ExceptionHandler({GatewayException.class})
   @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
   public ErrorResponse gatewayException(final GatewayException e) {

@@ -1,13 +1,14 @@
 package br.com.tcc.project.controller;
 
-import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.command.FindAllCourse;
 import br.com.tcc.project.command.FindAllCourseByCollege;
+import br.com.tcc.project.command.FindCollegeById;
 import br.com.tcc.project.command.RegisterCourse;
-import br.com.tcc.project.command.repositoy.model.CourseDocument;
+import br.com.tcc.project.command.repositoy.model.CollegeDocument;
 import br.com.tcc.project.controller.mapper.RegisterDisciplineControllerMapper;
 import br.com.tcc.project.controller.request.RegisterCourseRequest;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
+import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.CourseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -35,11 +36,16 @@ public class CourseController {
   @PostMapping("register-course")
   public ResponseEntity<Void> registerCourse(@Valid @RequestBody RegisterCourseRequest request) {
 
+    CollegeDocument collegeDocument =
+        commandGateway.invoke(
+            FindCollegeById.class,
+            FindCollegeById.Request.builder().collegeId(request.getCollegeId()).build());
+
     commandGateway.invoke(
         RegisterCourse.class,
         RegisterCourse.Request.builder()
             .name(request.getName())
-            .collegeName(request.getCollegeName())
+            .collegeDocument(collegeDocument)
             .build());
 
     return ResponseEntity.ok().build();

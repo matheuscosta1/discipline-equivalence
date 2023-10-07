@@ -1,11 +1,10 @@
 package br.com.tcc.project.command.impl;
 
+import br.com.tcc.project.command.exception.CommandNotSetException;
 import br.com.tcc.project.command.interfaces.Command;
 import br.com.tcc.project.command.interfaces.CommandListener;
 import br.com.tcc.project.command.interfaces.Invoker;
-import br.com.tcc.project.command.exception.CommandNotSetException;
 import br.com.tcc.project.exception.IllegalArgumentExceptionThrowHelper;
-
 import java.util.Optional;
 
 public class DefaultInvoker<P, R> implements Invoker<P, R> {

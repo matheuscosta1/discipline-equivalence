@@ -1,15 +1,15 @@
 package br.com.tcc.project.controller;
 
-import br.com.tcc.project.gateway.CommandGateway;
-import br.com.tcc.project.command.FindAllDisciplineByCollegeAndCourse;
-import br.com.tcc.project.command.FindDisciplineByCode;
-import br.com.tcc.project.command.RegisterDiscipline;
+import br.com.tcc.project.command.*;
 import br.com.tcc.project.command.repositoy.model.CollegeDocument;
+import br.com.tcc.project.command.repositoy.model.CourseDocument;
 import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
 import br.com.tcc.project.controller.mapper.RegisterDisciplineControllerMapper;
 import br.com.tcc.project.controller.request.FindDisciplineByCollegeAndCourseRequest;
 import br.com.tcc.project.controller.request.RegisterDisciplineRequest;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
+import br.com.tcc.project.gateway.CommandGateway;
+import br.com.tcc.project.response.DisciplineResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -37,7 +37,16 @@ public class DisciplineController {
   public ResponseEntity<Void> registerDiscipline(
       @Valid @RequestBody RegisterDisciplineRequest request) {
 
-    commandGateway.invoke(RegisterDiscipline.class, registerDisciplineMapper.map(request));
+    CollegeDocument collegeDocument =
+            commandGateway.invoke(
+                    FindCollegeById.class,
+                    FindCollegeById.Request.builder().collegeId(request.getCollegeId()).build());
+
+    CourseDocument courseDocument = commandGateway.invoke(
+            FindCourseById.class,
+            FindCourseById.Request.builder().courseId(request.getCourseId()).build());
+
+    commandGateway.invoke(RegisterDiscipline.class, registerDisciplineMapper.map(request, collegeDocument, courseDocument));
 
     return ResponseEntity.ok().build();
   }
@@ -45,10 +54,10 @@ public class DisciplineController {
   @Operation(summary = "Find discipline by code", description = "Find discipline by code")
   @DocApiResponsesError
   @GetMapping("find-discipline")
-  public ResponseEntity<DisciplineDocument> findDisciplineByCode(
+  public ResponseEntity<DisciplineResponse> findDisciplineByCode(
       @RequestParam(value = "disciplineCode") String disciplineCode) {
 
-    DisciplineDocument disciplineDocument =
+    DisciplineResponse disciplineDocument =
         commandGateway.invoke(
             FindDisciplineByCode.class,
             FindDisciplineByCode.Request.builder().disciplineCode(disciplineCode).build());
@@ -61,15 +70,24 @@ public class DisciplineController {
       description = "Find discipline by college and course")
   @DocApiResponsesError
   @GetMapping("find-disciplines")
-  public ResponseEntity<List<CollegeDocument>> findAllDisciplineByCollegeAndCourse(
+  public ResponseEntity<List<DisciplineResponse>> findAllDisciplineByCollegeAndCourse(
       @RequestBody FindDisciplineByCollegeAndCourseRequest request) {
 
-    List<CollegeDocument> colleges =
+    CollegeDocument collegeDocument =
+            commandGateway.invoke(
+                    FindCollegeById.class,
+                    FindCollegeById.Request.builder().collegeId(request.getCollegeId()).build());
+
+    CourseDocument courseDocument = commandGateway.invoke(
+            FindCourseById.class,
+            FindCourseById.Request.builder().courseId(request.getCourseId()).build());
+
+    List<DisciplineResponse> colleges =
         commandGateway.invoke(
             FindAllDisciplineByCollegeAndCourse.class,
             FindAllDisciplineByCollegeAndCourse.Request.builder()
-                .collegeName(request.getCollegeName())
-                .courseName(request.getCourseName())
+                .collegeId(collegeDocument.getId())
+                .courseId(courseDocument.getId())
                 .build());
 
     return ResponseEntity.ok(colleges);

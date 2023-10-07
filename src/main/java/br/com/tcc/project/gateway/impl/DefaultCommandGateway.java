@@ -1,21 +1,21 @@
 package br.com.tcc.project.gateway.impl;
 
+import br.com.tcc.project.command.impl.DefaultInvoker;
 import br.com.tcc.project.command.interfaces.Command;
 import br.com.tcc.project.command.interfaces.CommandChain;
-import br.com.tcc.project.command.interfaces.Invoker;
 import br.com.tcc.project.command.interfaces.CommandChainReceiver;
 import br.com.tcc.project.command.interfaces.CommandListener;
-import br.com.tcc.project.command.impl.DefaultInvoker;
+import br.com.tcc.project.command.interfaces.Invoker;
 import br.com.tcc.project.gateway.CommandFactory;
 import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.gateway.ReceiverResolver;
-
 import java.util.UUID;
 
 public class DefaultCommandGateway implements CommandGateway, CommandChainReceiver {
 
   private final ReceiverResolver receiverResolver;
   private CommandListener commandListener;
+
   @SuppressWarnings("java:S3740")
   private CommandFactory commandFactory = new ReflectionCommandFactory();
 

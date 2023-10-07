@@ -6,6 +6,10 @@ import br.com.tcc.project.gateway.CommandFactory;
 import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.gateway.impl.DelegateCommandFactory;
 import br.com.tcc.project.gateway.impl.DelegateCommandListener;
+import java.util.Map;
+import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.config.BeanPostProcessor;
 import org.springframework.beans.factory.support.BeanDefinitionBuilder;
@@ -15,11 +19,6 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.annotation.AnnotationAttributes;
 import org.springframework.core.type.AnnotationMetadata;
-
-import java.util.Map;
-import java.util.Objects;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 @SuppressWarnings("java:S3740")
 public class DelegateCommandListernerRegistrar implements ImportBeanDefinitionRegistrar {

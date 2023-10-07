@@ -20,19 +20,11 @@ public class RegisterDisciplineRequest {
   @NotBlank
   private String originCode;
 
-  @Schema(example = "Ciência da Computação", description = "Nome do curso.")
-  @NotBlank
-  private String course;
-
   @Schema(
       example = "Variáveis; Comandos condicionais; Estrutura de repetição; Funções; Ponteiros",
       description = "Ementa da disciplina.")
   @NotBlank
   private String menu;
-
-  @Schema(example = "Universidade Federal de Uberlândia", description = "Nome da faculdade.")
-  @NotBlank
-  private String college;
 
   @Schema(example = "Programação Procedimental", description = "Nome da disciplina.")
   @NotBlank
@@ -41,4 +33,12 @@ public class RegisterDisciplineRequest {
   @Schema(example = "Abobrinha..", description = "Programa da disciplina.")
   @NotBlank
   private String program;
+
+  @Schema(example = "Universidade Federal de Uberlândia", description = "Nome da faculdade.")
+  @NotNull
+  private Integer collegeId;
+
+  @Schema(example = "Ciência da Computação", description = "Nome do curso.")
+  @NotNull
+  private Integer courseId;
 }

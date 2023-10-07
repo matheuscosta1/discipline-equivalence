@@ -1,13 +1,13 @@
-/*package br.com.tcc.project.command.discipline.receiver;
+package br.com.tcc.project.command.discipline.receiver;
 
-import br.com.tcc.project.gateway.annotation.CommandReceiver;
-import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.RegisterCourse;
 import br.com.tcc.project.command.discipline.mapper.RegisterCourseMapper;
+import br.com.tcc.project.command.impl.AbstractReceiver;
+import br.com.tcc.project.command.repositoy.CourseRepository;
+import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import lombok.Setter;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 
 @CommandReceiver(RegisterCourse.class)
 public class RegisterCourseReceiver extends AbstractReceiver<RegisterCourse.Request, Void> {
@@ -15,12 +15,11 @@ public class RegisterCourseReceiver extends AbstractReceiver<RegisterCourse.Requ
   private final RegisterCourseMapper registerCourseMapper =
       Mappers.getMapper(RegisterCourseMapper.class);
 
-  @Autowired @Setter private MongoTemplate mongoTemplate;
+  @Autowired @Setter private CourseRepository courseRepository;
 
   @Override
   protected Void doExecute(RegisterCourse.Request parameter) {
-    mongoTemplate.save(registerCourseMapper.map(parameter));
+    courseRepository.save(registerCourseMapper.map(parameter));
     return null;
   }
 }
-*/

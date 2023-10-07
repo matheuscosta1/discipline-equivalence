@@ -1,10 +1,10 @@
 package br.com.tcc.project.gateway.impl;
 
+import br.com.tcc.project.command.interfaces.Command;
+import br.com.tcc.project.command.interfaces.CommandListener;
 import java.util.Collection;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import br.com.tcc.project.command.interfaces.Command;
-import br.com.tcc.project.command.interfaces.CommandListener;
 
 public class DelegateCommandListener implements CommandListener {
 

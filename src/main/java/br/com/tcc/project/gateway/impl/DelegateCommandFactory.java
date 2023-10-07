@@ -3,7 +3,6 @@ package br.com.tcc.project.gateway.impl;
 import br.com.tcc.project.command.interfaces.Command;
 import br.com.tcc.project.exception.IllegalArgumentExceptionThrowHelper;
 import br.com.tcc.project.gateway.CommandFactory;
-
 import java.util.Map;
 
 @SuppressWarnings("java:S3740")

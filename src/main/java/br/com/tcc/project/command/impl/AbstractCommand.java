@@ -1,8 +1,8 @@
 package br.com.tcc.project.command.impl;
 
+import br.com.tcc.project.command.exception.ReceiverNotSetException;
 import br.com.tcc.project.command.interfaces.Command;
 import br.com.tcc.project.command.interfaces.Receiver;
-import br.com.tcc.project.command.exception.ReceiverNotSetException;
 import br.com.tcc.project.exception.IllegalArgumentExceptionThrowHelper;
 import br.com.tcc.project.gateway.annotation.processor.GenerateCommandFactory;
 

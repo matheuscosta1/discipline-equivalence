@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
 @EnableJpaRepositories("br.com.tcc.project.*")
-@ComponentScan(basePackages = { "br.com.tcc.project.*" })
+@ComponentScan(basePackages = {"br.com.tcc.project.*"})
 @EntityScan("br.com.tcc.project.*")
 public class DisciplineEquivalenceApplication {
   public static void main(String[] args) {

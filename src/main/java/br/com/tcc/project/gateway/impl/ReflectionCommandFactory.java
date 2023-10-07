@@ -1,6 +1,5 @@
 package br.com.tcc.project.gateway.impl;
 
-
 import br.com.tcc.project.command.interfaces.Command;
 import br.com.tcc.project.gateway.CommandFactory;
 import org.springframework.beans.BeanUtils;

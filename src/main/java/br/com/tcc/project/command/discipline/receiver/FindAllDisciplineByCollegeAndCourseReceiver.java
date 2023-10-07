@@ -1,34 +1,32 @@
-/*package br.com.tcc.project.command.discipline.receiver;
+package br.com.tcc.project.command.discipline.receiver;
 
-import static org.springframework.data.mongodb.core.query.Criteria.where;
-import static org.springframework.data.mongodb.core.query.Query.query;
-
-import br.com.tcc.project.gateway.annotation.CommandReceiver;
-import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.FindAllDisciplineByCollegeAndCourse;
+import br.com.tcc.project.command.impl.AbstractReceiver;
+import br.com.tcc.project.command.repositoy.DisciplineRepository;
+import br.com.tcc.project.command.repositoy.mapper.CourseDocumentMapper;
+import br.com.tcc.project.command.repositoy.mapper.DisciplineDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
+import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import java.util.List;
+
+import br.com.tcc.project.response.DisciplineResponse;
 import lombok.Setter;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 
 @CommandReceiver(FindAllDisciplineByCollegeAndCourse.class)
 public class FindAllDisciplineByCollegeAndCourseReceiver
     extends AbstractReceiver<
-        FindAllDisciplineByCollegeAndCourse.Request, List<DisciplineDocument>> {
+        FindAllDisciplineByCollegeAndCourse.Request, List<DisciplineResponse>> {
 
-  @Autowired @Setter private MongoTemplate mongoTemplate;
+  @Autowired @Setter private DisciplineRepository disciplineRepository;
+  private final DisciplineDocumentMapper mapper = Mappers.getMapper(DisciplineDocumentMapper.class);
 
   @Override
-  protected List<DisciplineDocument> doExecute(
+  protected List<DisciplineResponse> doExecute(
       FindAllDisciplineByCollegeAndCourse.Request parameter) {
-    return mongoTemplate.find(
-        query(
-            where(DisciplineDocument.FieldName.COLLEGE)
-                .is(parameter.getCollegeName())
-                .and(DisciplineDocument.FieldName.COURSE)
-                .is(parameter.getCourseName())),
-        DisciplineDocument.class);
+
+    return mapper.map(disciplineRepository.findByCollegeIdAndCourseId(
+            parameter.getCollegeId(), parameter.getCourseId()));
   }
 }
-*/

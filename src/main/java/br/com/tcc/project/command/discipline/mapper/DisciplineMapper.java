@@ -1,14 +1,17 @@
 package br.com.tcc.project.command.discipline.mapper;
 
 import br.com.tcc.project.command.RegisterCourse;
+import br.com.tcc.project.command.RegisterDiscipline;
 import br.com.tcc.project.command.repositoy.model.CourseDocument;
+import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
-public interface RegisterCourseMapper {
+public interface DisciplineMapper {
 
   @Mapping(target = "name", source = "source.name")
   @Mapping(target = "college", source = "source.collegeDocument")
-  CourseDocument map(RegisterCourse.Request source);
+  @Mapping(target = "course", source = "source.courseDocument")
+  DisciplineDocument map(RegisterDiscipline.Request source);
 }
