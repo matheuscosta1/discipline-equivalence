@@ -4,10 +4,11 @@ import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.command.FindAllCourse;
 import br.com.tcc.project.command.FindAllCourseByCollege;
 import br.com.tcc.project.command.RegisterCourse;
-import br.com.tcc.project.command.mongo.model.CourseDocument;
+import br.com.tcc.project.command.repositoy.model.CourseDocument;
 import br.com.tcc.project.controller.mapper.RegisterDisciplineControllerMapper;
 import br.com.tcc.project.controller.request.RegisterCourseRequest;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
+import br.com.tcc.project.response.CourseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
@@ -47,9 +48,9 @@ public class CourseController {
   @Operation(summary = "Find course by college id", description = "Find course by college id")
   @DocApiResponsesError
   @GetMapping("find-courses")
-  public ResponseEntity<List<CourseDocument>> findAllCourse() {
+  public ResponseEntity<List<CourseResponse>> findAllCourse() {
 
-    List<CourseDocument> courses =
+    List<CourseResponse> courses =
         commandGateway.invoke(
             FindAllCourse.class, FindAllCourse.Request.builder().nothing("nothing").build());
 
@@ -59,10 +60,10 @@ public class CourseController {
   @Operation(summary = "Find course by college id", description = "Find course by college id")
   @DocApiResponsesError
   @GetMapping("find-courses-by-college")
-  public ResponseEntity<List<CourseDocument>> findCoursesByCollegeName(
+  public ResponseEntity<List<CourseResponse>> findCoursesByCollegeName(
       @RequestParam String college) {
 
-    List<CourseDocument> courses =
+    List<CourseResponse> courses =
         commandGateway.invoke(
             FindAllCourseByCollege.class,
             FindAllCourseByCollege.Request.builder().collegeName(college).build());

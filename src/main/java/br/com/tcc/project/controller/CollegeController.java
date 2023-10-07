@@ -2,7 +2,7 @@ package br.com.tcc.project.controller;
 
 import br.com.tcc.project.command.FindAllCollege;
 import br.com.tcc.project.command.RegisterCollege;
-import br.com.tcc.project.command.mongo.model.CollegeDocument;
+import br.com.tcc.project.command.repositoy.model.CollegeDocument;
 import br.com.tcc.project.controller.mapper.RegisterDisciplineControllerMapper;
 import br.com.tcc.project.controller.request.RegisterCollegeRequest;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;

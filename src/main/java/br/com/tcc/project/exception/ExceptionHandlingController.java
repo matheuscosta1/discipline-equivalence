@@ -126,6 +126,11 @@ public class ExceptionHandlingController {
                 : ""));
     return response;
   }
+  @ExceptionHandler({GatewayException.class})
+  @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+  public ErrorResponse gatewayException(final GatewayException e) {
+    return ErrorResponse.builder().message(e.getMessage()).code(e.getCode()).build();
+  }
 
   @ExceptionHandler({Exception.class})
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -160,11 +165,5 @@ public class ExceptionHandlingController {
   public ErrorResponse handleNotFoundException(final ClassNotFoundException exception) {
     LOGGER.error(exception.getMessage(), exception);
     return ErrorResponse.builder().message(exception.getMessage()).build();
-  }
-
-  @ExceptionHandler({GatewayException.class})
-  @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
-  public ErrorResponse gatewayException(final GatewayException e) {
-    return ErrorResponse.builder().message(e.getMessage()).code(e.getCode()).build();
   }
 }

@@ -1,7 +1,7 @@
 package br.com.tcc.project.command.discipline.mapper;
 
 import br.com.tcc.project.command.RegisterCourse;
-import br.com.tcc.project.command.mongo.model.CourseDocument;
+import br.com.tcc.project.command.repositoy.model.CourseDocument;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring")

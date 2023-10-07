@@ -1,6 +1,6 @@
 package br.com.tcc.project.controller.response;
 
-import br.com.tcc.project.command.mongo.model.DisciplineDocument;
+import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
 import br.com.tcc.project.domain.MenuEquivalence;
 import br.com.tcc.project.domain.Status;
 import io.swagger.v3.oas.annotations.media.Schema;

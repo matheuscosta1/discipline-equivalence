@@ -1,4 +1,4 @@
-package br.com.tcc.project.command.discipline.receiver;
+/*package br.com.tcc.project.command.discipline.receiver;
 
 import static org.springframework.data.mongodb.core.query.Criteria.where;
 import static org.springframework.data.mongodb.core.query.Query.query;
@@ -6,7 +6,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.FindAllDisciplineByCollegeAndCourse;
-import br.com.tcc.project.command.mongo.model.DisciplineDocument;
+import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
 import java.util.List;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,3 +31,4 @@ public class FindAllDisciplineByCollegeAndCourseReceiver
         DisciplineDocument.class);
   }
 }
+*/
