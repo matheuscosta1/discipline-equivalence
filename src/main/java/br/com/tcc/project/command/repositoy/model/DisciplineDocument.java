@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Builder
 @Entity
-@Table(name = "discipline")
+@Table(name = "disciplina")
 public class DisciplineDocument {
 
   @Id

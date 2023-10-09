@@ -9,11 +9,12 @@ import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
+
 import javax.validation.Valid;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -42,12 +43,16 @@ public class CollegeController {
   @Operation(summary = "Find colleges", description = "Find all colleges")
   @DocApiResponsesError
   @GetMapping("faculdades")
-  public ResponseEntity<List<CollegeDocument>> findAllColleges() {
+  public ResponseEntity<Page<CollegeDocument>> findAllColleges(
+      @RequestParam(value="pagina", defaultValue="0", required = false) Integer pagina,
+      @RequestParam(value="paginas", defaultValue="25", required = false) Integer paginas,
+      @RequestParam(value="orderBy", defaultValue="nome", required = false) String orderBy,
+      @RequestParam(value="direction", defaultValue="ASC", required = false) String direction,
+      @RequestParam(value="nome", required = false) String nome
+      ) {
+    Page<CollegeDocument> resultado = commandGateway.invoke(
+            FindAllCollege.class, FindAllCollege.Request.builder().pagina(pagina).paginas(paginas).orderBy(orderBy).direction(direction).nome(nome).build());
 
-    List<CollegeDocument> colleges =
-        commandGateway.invoke(
-            FindAllCollege.class, FindAllCollege.Request.builder().nothing("nothing").build());
-
-    return ResponseEntity.ok(colleges);
+    return ResponseEntity.ok(resultado);
   }
 }

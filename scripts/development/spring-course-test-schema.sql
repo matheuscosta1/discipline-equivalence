@@ -1,15 +1,15 @@
-## College
-INSERT INTO discipline_equivalence.college (id, name) VALUES (1, 'Universidade Federal de Uberlandia');
-INSERT INTO discipline_equivalence.college (id, name) VALUES (2, 'Universidade Federal de Minas Gerais');
+## faculdade
+INSERT INTO equivalencia_disciplina.faculdade (id, nome) VALUES (1, 'Universidade Federal de Uberlandia');
+INSERT INTO equivalencia_disciplina.faculdade (id, nome) VALUES (2, 'Universidade Federal de Minas Gerais');
 
-## Course
-INSERT INTO discipline_equivalence.course (id, name, college_id) VALUES (1, 'Matematica', 1);
-INSERT INTO discipline_equivalence.course (id, name, college_id) VALUES (2, 'Engenharia Mecanica', 1);
-INSERT INTO discipline_equivalence.course (id, name, college_id) VALUES (3, 'Ciencia da Computacao', 1);
-INSERT INTO discipline_equivalence.course (id, name, college_id) VALUES (4, 'Engenharia Civil', 2);
-INSERT INTO discipline_equivalence.course (id, name, college_id) VALUES (5, 'Engenharia Mecanica', 2);
-INSERT INTO discipline_equivalence.course (id, name, college_id) VALUES (6, 'Ciencia da Computacao', 2);
+## curso
+INSERT INTO equivalencia_disciplina.curso (id, nome, faculdade_id) VALUES (1, 'Matematica', 1);
+INSERT INTO equivalencia_disciplina.curso (id, nome, faculdade_id) VALUES (2, 'Engenharia Mecanica', 1);
+INSERT INTO equivalencia_disciplina.curso (id, nome, faculdade_id) VALUES (3, 'Ciencia da Computacao', 1);
+INSERT INTO equivalencia_disciplina.curso (id, nome, faculdade_id) VALUES (4, 'Engenharia Civil', 2);
+INSERT INTO equivalencia_disciplina.curso (id, nome, faculdade_id) VALUES (5, 'Engenharia Mecanica', 2);
+INSERT INTO equivalencia_disciplina.curso (id, nome, faculdade_id) VALUES (6, 'Ciencia da Computacao', 2);
 
-## Discipline
-INSERT INTO discipline_equivalence.discipline (id, name, origin_code, menu, program, work_load, college_id, course_id) VALUES (1, "Calculo I", "FAMAT1", "Limites;Derivadas", "Limites", "60", 1, 1);
-INSERT INTO discipline_equivalence.discipline (id, name, origin_code, menu, program, work_load, college_id, course_id) VALUES (2, "Programacao Procedimental", "PP0001", "Lacos;Condicionais", "Lacos", "60", 2, 3);
+## disciplina
+INSERT INTO equivalencia_disciplina.disciplina (id, nome, codigo_origem, ementa, programa, carga_horaria, faculdade_id, curso_id) VALUES (1, "Calculo I", "FAMAT1", "Limites;Derivadas", "Limites", "60", 1, 1);
+INSERT INTO equivalencia_disciplina.disciplina (id, nome, codigo_origem, ementa, programa, carga_horaria, faculdade_id, curso_id) VALUES (2, "Programacao Procedimental", "PP0001", "Lacos;Condicionais", "Lacos", "60", 2, 3);

@@ -9,7 +9,7 @@ import lombok.Setter;
 @Getter
 @Builder
 @Entity
-@Table(name = "college")
+@Table(name = "faculdade")
 public class CollegeDocument {
 
   @Id
@@ -17,11 +17,11 @@ public class CollegeDocument {
   private Integer id;
 
   @Column(length = 50, nullable = false)
-  private String name;
+  private String nome;
 
-  public CollegeDocument(Integer id, String name) {
+  public CollegeDocument(Integer id, String nome) {
     this.id = id;
-    this.name = name;
+    this.nome = nome;
   }
 
   public CollegeDocument() {}

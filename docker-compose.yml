@@ -4,8 +4,8 @@ services:
   mysqlsrv:
     image: mysql:5.7
     environment:
-      MYSQL_ROOT_PASSWORD: "discipline_equivalence"
-      MYSQL_DATABASE: "discipline_equivalence"
+      MYSQL_ROOT_PASSWORD: "equivalencia_disciplina"
+      MYSQL_DATABASE: "equivalencia_disciplina"
     ports:
       - "3306:3306"
     volumes:

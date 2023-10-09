@@ -26,7 +26,7 @@ public class FindAllCourseByCollegeIdReceiver
 
   @Override
   protected List<CourseResponse> doExecute(FindAllCourseByCollege.Request parameter) {
-    CollegeDocument collegeDocument = collegeRepository.findByName(parameter.getCollegeName());
+    CollegeDocument collegeDocument = collegeRepository.findByNome(parameter.getCollegeName());
     if (collegeDocument == null) {
       throw new CollegeNotFoundException(
           MessageFormat.format(

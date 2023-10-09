@@ -1,8 +1,8 @@
 spring:
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/discipline_equivalence
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/equivalencia_disciplina
     username: root
-    password: discipline_equivalence
+    password: equivalencia_disciplina
   jpa:
     show-sql: true
     hibernate:
