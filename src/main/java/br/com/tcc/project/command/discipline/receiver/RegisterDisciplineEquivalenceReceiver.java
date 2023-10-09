@@ -3,10 +3,8 @@
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.RegisterDisciplineEquivalence;
-import br.com.tcc.project.command.discipline.mapper.RegisterDisciplineMapper;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.mongodb.core.MongoTemplate;
 
 @CommandReceiver(RegisterDisciplineEquivalence.class)
 public class RegisterDisciplineEquivalenceReceiver
@@ -21,5 +19,4 @@ public class RegisterDisciplineEquivalenceReceiver
     mongoTemplate.save(registerDisciplineMapper.map(parameter));
     return null;
   }
-}
-*/
+}*/

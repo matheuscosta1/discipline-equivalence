@@ -14,5 +14,5 @@ public class RegisterCollegeRequest {
 
   @Schema(example = "Universidade Federal de Uberlândia", description = "Nome da faculdade.")
   @NotBlank
-  private String name;
+  private String nome;
 }

@@ -1,4 +1,4 @@
-/*package br.com.tcc.project.command.discipline.receiver;
+package br.com.tcc.project.command.discipline.receiver;
 
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import br.com.tcc.project.command.impl.AbstractReceiver;
@@ -15,7 +15,7 @@ public class ValidateDisciplineWorkLoadIsUnderMinimumParametersToGiveEquivalence
 
     return parameter
         .getDestinyDiscipline()
-        .getWorkLoad()
-        .equals(parameter.getOriginDiscipline().getWorkLoad());
+        .getCargaHoraria()
+        .equals(parameter.getOriginDiscipline().getCargaHoraria());
   }
-}*/
+}

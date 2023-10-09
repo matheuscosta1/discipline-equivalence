@@ -30,18 +30,18 @@ public class CollegeController {
 
   @Operation(summary = "Register new college", description = "Register new college")
   @DocApiResponsesError
-  @PostMapping("register-college")
+  @PostMapping("faculdades")
   public ResponseEntity<Void> registerCollege(@Valid @RequestBody RegisterCollegeRequest request) {
 
     commandGateway.invoke(
-        RegisterCollege.class, RegisterCollege.Request.builder().name(request.getName()).build());
+        RegisterCollege.class, RegisterCollege.Request.builder().name(request.getNome()).build());
 
     return ResponseEntity.ok().build();
   }
 
   @Operation(summary = "Find colleges", description = "Find all colleges")
   @DocApiResponsesError
-  @GetMapping("find-colleges")
+  @GetMapping("faculdades")
   public ResponseEntity<List<CollegeDocument>> findAllColleges() {
 
     List<CollegeDocument> colleges =

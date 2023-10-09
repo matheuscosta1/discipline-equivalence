@@ -1,4 +1,4 @@
-/*package br.com.tcc.project.command.discipline.receiver;
+package br.com.tcc.project.command.discipline.receiver;
 
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import br.com.tcc.project.command.impl.AbstractReceiver;
@@ -18,11 +18,11 @@ public class ValidateDisciplineMenuIsUnderMinimumParametersToGiveEquivalenceRece
       ValidateDisciplineMenuIsUnderMinimumParametersToGiveEquivalence.Request parameter) {
 
     List<String> originDisciplineMenu =
-        Arrays.stream(parameter.getOriginDiscipline().getMenu().split(";"))
+        Arrays.stream(parameter.getOriginDiscipline().getEmenta().split(";"))
             .map(String::trim)
             .collect(Collectors.toList());
     List<String> destinyDisciplineMenu =
-        Arrays.stream(parameter.getDestinyDiscipline().getMenu().split(";"))
+        Arrays.stream(parameter.getDestinyDiscipline().getEmenta().split(";"))
             .map(String::trim)
             .collect(Collectors.toList());
     MenuEquivalence menuEquivalence;
@@ -51,4 +51,4 @@ public class ValidateDisciplineMenuIsUnderMinimumParametersToGiveEquivalenceRece
     }
     return menuEquivalence;
   }
-}*/
+}
