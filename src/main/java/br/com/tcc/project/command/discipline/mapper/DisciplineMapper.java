@@ -10,8 +10,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface DisciplineMapper {
 
-  @Mapping(target = "name", source = "source.name")
-  @Mapping(target = "college", source = "source.collegeDocument")
-  @Mapping(target = "course", source = "source.courseDocument")
+  @Mapping(target = "nome", source = "source.name")
+  @Mapping(target = "faculdade", source = "source.collegeDocument")
+  @Mapping(target = "curso", source = "source.courseDocument")
   DisciplineDocument map(RegisterDiscipline.Request source);
 }

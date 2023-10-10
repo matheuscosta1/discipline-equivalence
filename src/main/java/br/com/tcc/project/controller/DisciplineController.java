@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class DisciplineController {
 
   @Operation(summary = "Register new discipline", description = "Register new discipline")
   @DocApiResponsesError
-  @PostMapping("register-discipline")
+  @PostMapping("disciplinas")
   public ResponseEntity<Void> registerDiscipline(
       @Valid @RequestBody RegisterDisciplineRequest request) {
 
@@ -69,25 +70,40 @@ public class DisciplineController {
       summary = "Find discipline by college and course",
       description = "Find discipline by college and course")
   @DocApiResponsesError
-  @GetMapping("find-disciplines")
-  public ResponseEntity<List<DisciplineResponse>> findAllDisciplineByCollegeAndCourse(
-      @RequestBody FindDisciplineByCollegeAndCourseRequest request) {
+  @GetMapping("disciplinas")
+  public ResponseEntity<Page<DisciplineResponse>> findAllDisciplineByCollegeAndCourse(
+    @RequestParam(value="pagina", defaultValue="0", required = false) Integer pagina,
+    @RequestParam(value="paginas", defaultValue="25", required = false) Integer paginas,
+    @RequestParam(value="orderBy", defaultValue="nome", required = false) String orderBy,
+    @RequestParam(value="direction", defaultValue="ASC", required = false) String direction,
+    @RequestParam(value="nome", required = false) String nome,
+    @RequestParam(value="faculdadeId", required = false) String faculdadeId,
+    @RequestParam(value="cursoId", required = false) String cursoId
+  ) {
 
-    CollegeDocument collegeDocument =
-            commandGateway.invoke(
-                    FindCollegeById.class,
-                    FindCollegeById.Request.builder().collegeId(request.getCollegeId()).build());
+    if(faculdadeId != null && cursoId != null) {
 
-    CourseDocument courseDocument = commandGateway.invoke(
-            FindCourseById.class,
-            FindCourseById.Request.builder().courseId(request.getCourseId()).build());
+      CollegeDocument collegeDocument =
+              commandGateway.invoke(
+                      FindCollegeById.class,
+                      FindCollegeById.Request.builder().collegeId(Integer.valueOf(faculdadeId)).build());
 
-    List<DisciplineResponse> colleges =
+      CourseDocument courseDocument = commandGateway.invoke(
+              FindCourseById.class,
+              FindCourseById.Request.builder().courseId(Integer.valueOf(cursoId)).build());
+    }
+
+    Page<DisciplineResponse> colleges =
         commandGateway.invoke(
             FindAllDisciplineByCollegeAndCourse.class,
             FindAllDisciplineByCollegeAndCourse.Request.builder()
-                .collegeId(collegeDocument.getId())
-                .courseId(courseDocument.getId())
+                .pagina(pagina)
+                .paginas(paginas)
+                .orderBy(orderBy)
+                .direction(direction)
+                .faculdadeId(faculdadeId)
+                .cursoId(cursoId)
+                .nome(nome)
                 .build());
 
     return ResponseEntity.ok(colleges);

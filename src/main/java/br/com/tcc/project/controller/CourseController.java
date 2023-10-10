@@ -17,6 +17,7 @@ import javax.validation.Valid;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class CourseController {
 
   @Operation(summary = "Register new course", description = "Register new course")
   @DocApiResponsesError
-  @PostMapping("register-course")
+  @PostMapping("cursos")
   public ResponseEntity<Void> registerCourse(@Valid @RequestBody RegisterCourseRequest request) {
 
     CollegeDocument collegeDocument =
@@ -53,26 +54,33 @@ public class CourseController {
 
   @Operation(summary = "Find course by college id", description = "Find course by college id")
   @DocApiResponsesError
-  @GetMapping("find-courses")
-  public ResponseEntity<List<CourseResponse>> findAllCourse() {
+  @GetMapping("cursos")
+  public ResponseEntity<Page<CourseResponse>> findAllCourse(
+      @RequestParam(value="pagina", defaultValue="0", required = false) Integer pagina,
+      @RequestParam(value="paginas", defaultValue="25", required = false) Integer paginas,
+      @RequestParam(value="orderBy", defaultValue="nome", required = false) String orderBy,
+      @RequestParam(value="direction", defaultValue="ASC", required = false) String direction,
+      @RequestParam(value="nome", required = false) String nome,
+      @RequestParam(value="faculdadeId", required = false) String faculdadeId
+  ) {
 
-    List<CourseResponse> courses =
+    Page<CourseResponse> courses =
         commandGateway.invoke(
-            FindAllCourse.class, FindAllCourse.Request.builder().nothing("nothing").build());
+            FindAllCourse.class, FindAllCourse.Request.builder().pagina(pagina).paginas(paginas).orderBy(orderBy).direction(direction).nome(nome).faculdadeId(faculdadeId).build());
 
     return ResponseEntity.ok(courses);
   }
 
   @Operation(summary = "Find course by college id", description = "Find course by college id")
   @DocApiResponsesError
-  @GetMapping("find-courses-by-college")
+  @GetMapping("find-courses-by-college") //TODO: deletar esse controller porque foi feito a busca por faculdade como parametro no metodo de cima
   public ResponseEntity<List<CourseResponse>> findCoursesByCollegeName(
       @RequestParam String college) {
 
     List<CourseResponse> courses =
         commandGateway.invoke(
             FindAllCourseByCollege.class,
-            FindAllCourseByCollege.Request.builder().collegeName(college).build());
+            FindAllCourseByCollege.Request.builder().faculdadeId(1).build());
 
     return ResponseEntity.ok(courses);
   }

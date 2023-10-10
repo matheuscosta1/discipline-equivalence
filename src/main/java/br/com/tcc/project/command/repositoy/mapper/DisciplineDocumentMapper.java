@@ -15,12 +15,12 @@ public interface DisciplineDocumentMapper {
   List<DisciplineResponse> map(List<DisciplineDocument> source);
 
   @Mapping(target = "id", source = "source.id")
-  @Mapping(target = "nome", source = "source.name")
-  @Mapping(target = "codigoOrigem", source = "source.originCode")
-  @Mapping(target = "ementa", source = "source.menu")
-  @Mapping(target = "programa", source = "source.program")
-  @Mapping(target = "cargaHoraria", source = "source.workLoad")
-  @Mapping(target = "faculdadeId", source = "source.college.id")
-  @Mapping(target = "cursoId", source = "source.course.id")
+  @Mapping(target = "nome", source = "source.nome")
+  @Mapping(target = "codigoOrigem", source = "source.codigoOrigem")
+  @Mapping(target = "ementa", source = "source.ementa")
+  @Mapping(target = "programa", source = "source.programa")
+  @Mapping(target = "cargaHoraria", source = "source.cargaHoraria")
+  @Mapping(target = "faculdadeId", source = "source.faculdade.id")
+  @Mapping(target = "cursoId", source = "source.curso.id")
   DisciplineResponse map(DisciplineDocument source);
 }

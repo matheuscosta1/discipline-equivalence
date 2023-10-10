@@ -12,7 +12,7 @@ public interface CourseDocumentMapper {
   List<CourseResponse> map(List<CourseDocument> course);
 
   @Mapping(target = "id", source = "source.id")
-  @Mapping(target = "nome", source = "source.name")
-  @Mapping(target = "faculdadeId", source = "source.college.id")
+  @Mapping(target = "nome", source = "source.nome")
+  @Mapping(target = "faculdadeId", source = "source.faculdade.id")
   CourseResponse map(CourseDocument source);
 }

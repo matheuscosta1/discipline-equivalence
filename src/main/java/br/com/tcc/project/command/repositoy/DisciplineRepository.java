@@ -1,11 +1,12 @@
 package br.com.tcc.project.command.repositoy;
 
 import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
-
 public interface DisciplineRepository extends JpaRepository<DisciplineDocument, Integer> {
-  List<DisciplineDocument> findByCollegeIdAndCourseId(Integer collegeId, Integer courseId);
-  DisciplineDocument findByOriginCode(String originCode);
+  Page<DisciplineDocument> findByFaculdadeIdAndCursoId(Integer collegeId, Integer courseId, Pageable pageRequest);
+  DisciplineDocument findByCodigoOrigem(String codigoOrigem);
+  Page<DisciplineDocument> findByNomeContaining(String nome, Pageable pageRequest);
 }

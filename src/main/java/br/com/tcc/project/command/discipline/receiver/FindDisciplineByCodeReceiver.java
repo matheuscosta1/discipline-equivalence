@@ -5,7 +5,6 @@ import br.com.tcc.project.command.repositoy.mapper.DisciplineDocumentMapper;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.FindDisciplineByCode;
-import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
 import br.com.tcc.project.response.DisciplineResponse;
 import lombok.Setter;
 import org.mapstruct.factory.Mappers;
@@ -20,6 +19,6 @@ public class FindDisciplineByCodeReceiver
 
   @Override
   protected DisciplineResponse doExecute(FindDisciplineByCode.Request parameter) {
-    return mapper.map(disciplineRepository.findByOriginCode(parameter.getDisciplineCode()));
+    return mapper.map(disciplineRepository.findByCodigoOrigem(parameter.getDisciplineCode()));
   }
 }

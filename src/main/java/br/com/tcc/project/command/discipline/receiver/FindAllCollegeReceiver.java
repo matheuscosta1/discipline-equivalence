@@ -25,6 +25,6 @@ public class FindAllCollegeReceiver
       return collegeRepository.findAll(pageRequest);
 
     }
-    return collegeRepository.findByNome(parameter.getNome(), pageRequest);
+    return collegeRepository.findByNomeContaining(parameter.getNome(), pageRequest);
   }
 }

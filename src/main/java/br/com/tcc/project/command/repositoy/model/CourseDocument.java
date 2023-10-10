@@ -16,17 +16,17 @@ public class CourseDocument {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  private String name;
+  private String nome;
 
   @ManyToOne
-  @JoinColumn(name = "collegeId")
-  private CollegeDocument college;
+  @JoinColumn(name = "faculdadeId")
+  private CollegeDocument faculdade;
 
   public CourseDocument() {}
 
-  public CourseDocument(Integer id, String name, CollegeDocument college) {
+  public CourseDocument(Integer id, String nome, CollegeDocument faculdade) {
     this.id = id;
-    this.name = name;
-    this.college = college;
+    this.nome = nome;
+    this.faculdade = faculdade;
   }
 }

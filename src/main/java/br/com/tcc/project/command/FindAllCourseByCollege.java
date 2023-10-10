@@ -16,6 +16,10 @@ public class FindAllCourseByCollege
   @Getter
   @Builder
   public static class Request {
-    private String collegeName;
+    private Integer pagina;
+    private Integer paginas;
+    private String orderBy;
+    private String direction;
+    private Integer faculdadeId;
   }
 }

@@ -16,36 +16,36 @@ public class DisciplineDocument {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  private String name;
+  private String nome;
 
-  @Column(name = "origin_code", length = 50, nullable = false)
-  private String originCode;
+  @Column(length = 50, nullable = false)
+  private String codigoOrigem;
 
-  private String menu;
+  private String ementa;
 
-  private String program;
+  private String programa;
 
-  @Column(name = "work_load", length = 50, nullable = false)
-  private String workLoad;
-
-  @ManyToOne
-  @JoinColumn(name = "collegeId")
-  private CollegeDocument college;
+  @Column(length = 50, nullable = false)
+  private String cargaHoraria;
 
   @ManyToOne
-  @JoinColumn(name = "courseId")
-  private CourseDocument course;
+  @JoinColumn(name = "faculdadeId")
+  private CollegeDocument faculdade;
+
+  @ManyToOne
+  @JoinColumn(name = "cursoId")
+  private CourseDocument curso;
 
   public DisciplineDocument() {}
 
-  public DisciplineDocument(Integer id, String name, String originCode, String menu, String program, String workLoad, CollegeDocument college, CourseDocument course) {
+  public DisciplineDocument(Integer id, String nome, String codigoOrigem, String ementa, String programa, String cargaHoraria, CollegeDocument faculdade, CourseDocument curso) {
     this.id = id;
-    this.name = name;
-    this.originCode = originCode;
-    this.menu = menu;
-    this.program = program;
-    this.workLoad = workLoad;
-    this.college = college;
-    this.course = course;
+    this.nome = nome;
+    this.codigoOrigem = codigoOrigem;
+    this.ementa = ementa;
+    this.programa = programa;
+    this.cargaHoraria = cargaHoraria;
+    this.faculdade = faculdade;
+    this.curso = curso;
   }
 }
