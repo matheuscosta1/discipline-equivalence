@@ -8,7 +8,7 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface RegisterCourseMapper {
 
-  @Mapping(target = "nome", source = "source.name")
-  @Mapping(target = "faculdade", source = "source.collegeDocument")
+  @Mapping(target = "nome", source = "source.nome")
+  @Mapping(target = "faculdade", source = "source.documentoFaculdade")
   CourseDocument map(RegisterCourse.Request source);
 }

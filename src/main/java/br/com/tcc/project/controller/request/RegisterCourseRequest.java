@@ -16,10 +16,10 @@ public class RegisterCourseRequest {
 
   @Schema(example = "Ciência da Computação", description = "Nome do curso.")
   @NotBlank
-  private String name;
+  private String nome;
 
   @Schema(example = "id = '6390066b03e4d22f3c6ba423'", description = "Identificador da faculdade.")
   @NotNull
   @Positive
-  private Integer collegeId;
+  private Integer faculdadeId;
 }

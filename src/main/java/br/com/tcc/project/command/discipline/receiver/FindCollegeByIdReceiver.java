@@ -21,12 +21,12 @@ public class FindCollegeByIdReceiver
   protected CollegeDocument doExecute(FindCollegeById.Request parameter) {
 
     return collegeRepository
-        .findById(parameter.getCollegeId())
+        .findById(parameter.getFaculdadeId())
         .orElseThrow(
             () ->
                 new CollegeNotFoundException(
                     MessageFormat.format(
-                        DisciplineEquivalenceErrors.DEE0002.message(), parameter.getCollegeId()),
+                        DisciplineEquivalenceErrors.DEE0002.message(), parameter.getFaculdadeId()),
                     DisciplineEquivalenceErrors.DEE0002.name(),
                     DisciplineEquivalenceErrors.DEE0002.group()));
   }

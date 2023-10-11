@@ -11,11 +11,11 @@ import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring")
 public interface RegisterDisciplineControllerMapper {
-  @Mapping(target = "name", source = "source.name")
-  @Mapping(target = "workLoad", source = "source.workLoad")
-  @Mapping(target = "originCode", source = "source.originCode")
-  @Mapping(target = "program", source = "source.program")
-  @Mapping(target = "menu", source = "source.menu")
+  @Mapping(target = "name", source = "source.nome")
+  @Mapping(target = "workLoad", source = "source.cargaHoraria")
+  @Mapping(target = "originCode", source = "source.codigoOrigem")
+  @Mapping(target = "program", source = "source.programa")
+  @Mapping(target = "menu", source = "source.ementa")
   @Mapping(target = "collegeDocument", source = "collegeDocument")
   @Mapping(target = "courseDocument", source = "courseDocument")
   RegisterDiscipline.Request map(RegisterDisciplineRequest source, CollegeDocument collegeDocument, CourseDocument courseDocument);

@@ -1,6 +1,7 @@
 package br.com.tcc.project.controller;
 
 import br.com.tcc.project.command.FindAllCollege;
+import br.com.tcc.project.command.FindCollegeById;
 import br.com.tcc.project.command.RegisterCollege;
 import br.com.tcc.project.command.repositoy.model.CollegeDocument;
 import br.com.tcc.project.controller.mapper.RegisterDisciplineControllerMapper;
@@ -11,6 +12,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
 import javax.validation.Valid;
+
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,12 +34,12 @@ public class CollegeController {
   @Operation(summary = "Register new college", description = "Register new college")
   @DocApiResponsesError
   @PostMapping("faculdades")
-  public ResponseEntity<Void> registerCollege(@Valid @RequestBody RegisterCollegeRequest request) {
+  public ResponseEntity<CollegeDocument> registerCollege(@Valid @RequestBody RegisterCollegeRequest request) {
 
-    commandGateway.invoke(
-        RegisterCollege.class, RegisterCollege.Request.builder().name(request.getNome()).build());
+    CollegeDocument collegeDocument = commandGateway.invoke(
+            RegisterCollege.class, RegisterCollege.Request.builder().name(request.getNome()).build());
 
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok(collegeDocument);
   }
 
   @Operation(summary = "Find colleges", description = "Find all colleges")
@@ -55,4 +57,18 @@ public class CollegeController {
 
     return ResponseEntity.ok(resultado);
   }
+
+  @Operation(summary = "Find colleges", description = "Find all colleges")
+  @DocApiResponsesError
+  @GetMapping("faculdades/{id}")
+  public ResponseEntity<CollegeDocument> findCollegeById(
+          @PathVariable(value="id") Integer id
+  ) {
+    CollegeDocument collegeDocument = commandGateway.invoke(
+            FindCollegeById.class, FindCollegeById.Request.builder().faculdadeId(id).build());
+
+    return ResponseEntity.ok(collegeDocument);
+  }
+
+  //TODO: Implementar PUT e Delete Faculdades
 }

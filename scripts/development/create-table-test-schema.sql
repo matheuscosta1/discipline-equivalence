@@ -30,3 +30,20 @@ create table disciplina
     constraint FKssroqj2vyiaujfleklq1ifigj
                 foreign key (curso_id) references curso (id)
 );
+
+
+create table professor
+(
+    id int auto_increment
+        primary key,
+    nome varchar(255) null,
+    faculdade_id int not null,
+    curso_id int not null,
+    disciplina_id int not null,
+    constraint FKfr6rjc04htbtc3xab2b9xmq7r
+            foreign key (faculdade_id) references faculdade (id),
+    constraint FKssroqj2vyiaujfleclq1ifigj
+                foreign key (curso_id) references curso (id),
+    constraint FKssroqj2vyiaujfledlq1ifigj
+                    foreign key (disciplina_id) references disciplina (id)
+);

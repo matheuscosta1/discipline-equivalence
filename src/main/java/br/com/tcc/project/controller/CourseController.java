@@ -1,10 +1,9 @@
 package br.com.tcc.project.controller;
 
-import br.com.tcc.project.command.FindAllCourse;
-import br.com.tcc.project.command.FindAllCourseByCollege;
-import br.com.tcc.project.command.FindCollegeById;
-import br.com.tcc.project.command.RegisterCourse;
+import br.com.tcc.project.command.*;
+import br.com.tcc.project.command.repositoy.mapper.CourseDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.CollegeDocument;
+import br.com.tcc.project.command.repositoy.model.CourseDocument;
 import br.com.tcc.project.controller.mapper.RegisterDisciplineControllerMapper;
 import br.com.tcc.project.controller.request.RegisterCourseRequest;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
@@ -12,10 +11,11 @@ import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.CourseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import java.util.List;
+
 import javax.validation.Valid;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
@@ -28,28 +28,28 @@ import org.springframework.web.bind.annotation.*;
 @Validated
 public class CourseController {
 
-  @Autowired @Setter private RegisterDisciplineControllerMapper registerDisciplineMapper;
 
   @Autowired @Setter private CommandGateway commandGateway;
+  private final CourseDocumentMapper courseDocumentMapper = Mappers.getMapper(CourseDocumentMapper.class);
 
   @Operation(summary = "Register new course", description = "Register new course")
   @DocApiResponsesError
   @PostMapping("cursos")
-  public ResponseEntity<Void> registerCourse(@Valid @RequestBody RegisterCourseRequest request) {
+  public ResponseEntity<CourseResponse> registerCourse(@Valid @RequestBody RegisterCourseRequest request) {
 
     CollegeDocument collegeDocument =
         commandGateway.invoke(
             FindCollegeById.class,
-            FindCollegeById.Request.builder().collegeId(request.getCollegeId()).build());
+            FindCollegeById.Request.builder().faculdadeId(request.getFaculdadeId()).build());
 
-    commandGateway.invoke(
-        RegisterCourse.class,
-        RegisterCourse.Request.builder()
-            .name(request.getName())
-            .collegeDocument(collegeDocument)
-            .build());
+    CourseResponse courseResponse = commandGateway.invoke(
+            RegisterCourse.class,
+            RegisterCourse.Request.builder()
+                    .nome(request.getNome())
+                    .documentoFaculdade(collegeDocument)
+                    .build());
 
-    return ResponseEntity.ok().build();
+    return ResponseEntity.ok(courseResponse);
   }
 
   @Operation(summary = "Find course by college id", description = "Find course by college id")
@@ -73,15 +73,18 @@ public class CourseController {
 
   @Operation(summary = "Find course by college id", description = "Find course by college id")
   @DocApiResponsesError
-  @GetMapping("find-courses-by-college") //TODO: deletar esse controller porque foi feito a busca por faculdade como parametro no metodo de cima
-  public ResponseEntity<List<CourseResponse>> findCoursesByCollegeName(
-      @RequestParam String college) {
+  @GetMapping("cursos/{id}") //TODO: deletar esse controller porque foi feito a busca por faculdade como parametro no metodo de cima
+  public ResponseEntity<CourseResponse> findCourseById(
+    @PathVariable(value="id") Integer id
+  ) {
 
-    List<CourseResponse> courses =
-        commandGateway.invoke(
-            FindAllCourseByCollege.class,
-            FindAllCourseByCollege.Request.builder().faculdadeId(1).build());
+    CourseDocument courseDocument = commandGateway.invoke(
+            FindCourseById.class,
+            FindCourseById.Request.builder().cursoId(id).build());
 
-    return ResponseEntity.ok(courses);
+    return ResponseEntity.ok(courseDocumentMapper.map(courseDocument));
   }
+
+  //TODO: Implementar PUT e Delete Cursos
+
 }

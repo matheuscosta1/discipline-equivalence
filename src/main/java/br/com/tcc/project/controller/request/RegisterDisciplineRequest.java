@@ -14,31 +14,31 @@ import lombok.*;
 public class RegisterDisciplineRequest {
   @Schema(example = "60", description = "Carga horária da disciplina.")
   @NotNull
-  private Integer workLoad;
+  private Integer cargaHoraria;
 
   @Schema(example = "GBC057", description = "Código da disciplina na sua faculdade de origem.")
   @NotBlank
-  private String originCode;
+  private String codigoOrigem;
 
   @Schema(
       example = "Variáveis; Comandos condicionais; Estrutura de repetição; Funções; Ponteiros",
       description = "Ementa da disciplina.")
   @NotBlank
-  private String menu;
+  private String ementa;
 
   @Schema(example = "Programação Procedimental", description = "Nome da disciplina.")
   @NotBlank
-  private String name;
+  private String nome;
 
   @Schema(example = "Abobrinha..", description = "Programa da disciplina.")
   @NotBlank
-  private String program;
+  private String programa;
 
   @Schema(example = "Universidade Federal de Uberlândia", description = "Nome da faculdade.")
   @NotNull
-  private Integer collegeId;
+  private Integer faculdadeId;
 
   @Schema(example = "Ciência da Computação", description = "Nome do curso.")
   @NotNull
-  private Integer courseId;
+  private Integer cursoId;
 }

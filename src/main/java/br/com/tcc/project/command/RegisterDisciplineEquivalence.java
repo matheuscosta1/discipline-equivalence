@@ -1,7 +1,6 @@
 package br.com.tcc.project.command;
 
 import br.com.tcc.project.command.impl.AbstractCommandChain;
-import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
 import br.com.tcc.project.controller.response.EquivalenceDisciplineResponse;
 import br.com.tcc.project.domain.MenuEquivalence;
 import br.com.tcc.project.domain.Status;
@@ -34,14 +33,14 @@ public class RegisterDisciplineEquivalence
     DisciplineResponse originDiscipline =
         invoke(
             FindDisciplineByCode.class,
-            FindDisciplineByCode.Request.builder()
+                FindDisciplineByCode.Request.builder()
                 .disciplineCode(getParameter().getOriginCode())
                 .build());
 
     DisciplineResponse destinyDiscipline =
         invoke(
-            FindDisciplineByCode.class,
-            FindDisciplineByCode.Request.builder()
+                FindDisciplineByCode.class,
+                FindDisciplineByCode.Request.builder()
                 .disciplineCode(getParameter().getDestinyCode())
                 .build());
 

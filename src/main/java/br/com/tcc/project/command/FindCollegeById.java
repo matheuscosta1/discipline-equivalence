@@ -14,6 +14,6 @@ public class FindCollegeById extends AbstractCommand<FindCollegeById.Request, Co
   @Getter
   @Builder
   public static class Request {
-    private Integer collegeId;
+    private Integer faculdadeId;
   }
 }
