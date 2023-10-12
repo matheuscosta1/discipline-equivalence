@@ -47,3 +47,31 @@ create table professor
     constraint FKssroqj2vyiaujfledlq1ifigj
                     foreign key (disciplina_id) references disciplina (id)
 );
+
+create table analises
+(
+    id int auto_increment
+        primary key,
+    data_maxima varchar(255) null,
+    faculdade_origem_id int not null,
+    curso_origem_id int not null,
+    disciplina_origem_id int not null,
+    faculdade_destino_id int not null,
+    curso_destino_id int not null,
+    disciplina_destino_id int not null,
+    professor_id int not null,
+    constraint FKdr6rjc04htbtc3xab2b9xmq7r
+            foreign key (faculdade_origem_id) references faculdade (id),
+    constraint FKssroko2vyiaujfleclq1ifigj
+            foreign key (curso_origem_id) references curso (id),
+    constraint FKssroqj2vziaujfledlq1ifigj
+            foreign key (disciplina_origem_id) references disciplina (id),
+    constraint FKdr6rjc04htbtc3xab2b9xqj7r
+            foreign key (faculdade_destino_id) references faculdade (id),
+    constraint FKssroko2vyiaujfleclq1ifkgj
+            foreign key (curso_destino_id) references curso (id),
+    constraint FKssrnbo2vyiaujfleclq1ifkgj
+                foreign key (disciplina_destino_id) references disciplina (id),
+    constraint FKssroqj2vziaujfledlq1fiigj
+            foreign key (professor_id) references professor (id)
+);

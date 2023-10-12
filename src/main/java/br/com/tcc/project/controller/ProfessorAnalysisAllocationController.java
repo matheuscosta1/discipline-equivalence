@@ -1,0 +1,117 @@
+package br.com.tcc.project.controller;
+
+import br.com.tcc.project.command.*;
+import br.com.tcc.project.command.repositoy.mapper.ProfessorAnalysisDocumentMapper;
+import br.com.tcc.project.command.repositoy.model.*;
+import br.com.tcc.project.controller.mapper.RegisterProfessorAnalysisControllerMapper;
+import br.com.tcc.project.controller.request.RegisterProfessorAnalysisRequest;
+import br.com.tcc.project.exception.documentation.DocApiResponsesError;
+import br.com.tcc.project.gateway.CommandGateway;
+import br.com.tcc.project.response.ProfessorAnaliseResponse;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.Setter;
+import lombok.extern.slf4j.Slf4j;
+import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+
+@Tag(name = "Professor")
+@RestController
+@Slf4j
+@Validated
+public class ProfessorAnalysisAllocationController {
+
+
+  @Autowired @Setter private CommandGateway commandGateway;
+  private final RegisterProfessorAnalysisControllerMapper mapper = Mappers.getMapper(RegisterProfessorAnalysisControllerMapper.class);
+  private final ProfessorAnalysisDocumentMapper professorAnalysisMapper = Mappers.getMapper(ProfessorAnalysisDocumentMapper.class);
+
+  @Operation(summary = "Register new analise", description = "Register new analise")
+  @DocApiResponsesError
+  @PostMapping("analises")
+  public ResponseEntity<ProfessorAnaliseResponse> registerProfessor(
+      @Valid @RequestBody RegisterProfessorAnalysisRequest request) {
+
+    CollegeDocument collegeOriginDocument =
+            commandGateway.invoke(
+                    FindCollegeById.class,
+                    FindCollegeById.Request.builder().faculdadeId(request.getFaculdadeOrigemId()).build());
+
+    CourseDocument courseOriginDocument = commandGateway.invoke(
+            FindCourseById.class,
+            FindCourseById.Request.builder().cursoId(request.getCursoOrigemId()).build());
+
+    DisciplineDocument disciplineOriginDocument = commandGateway.invoke(
+            FindDisciplineById.class,
+            FindDisciplineById.Request.builder().id(request.getDisciplinaOrigemId()).build());
+
+    CollegeDocument collegeDestinyDocument =
+            commandGateway.invoke(
+                    FindCollegeById.class,
+                    FindCollegeById.Request.builder().faculdadeId(request.getFaculdadeDestinoId()).build());
+
+    CourseDocument courseDestinyDocument = commandGateway.invoke(
+            FindCourseById.class,
+            FindCourseById.Request.builder().cursoId(request.getCursoDestinoId()).build());
+
+    DisciplineDocument disciplineDestinyDocument = commandGateway.invoke(
+            FindDisciplineById.class,
+            FindDisciplineById.Request.builder().id(request.getDisciplinaDestinoId()).build());
+
+    ProfessorDocument professorDocumennt = commandGateway.invoke(
+            FindProfessorById.class,
+            FindProfessorById.Request.builder().id(request.getProfessorId()).build());
+
+    AnalisesDocument analisesDocument = commandGateway.invoke(RegisterProfessorAnalysis.class, mapper.map(request, collegeOriginDocument, courseOriginDocument, disciplineOriginDocument, collegeDestinyDocument, courseDestinyDocument, disciplineDestinyDocument, professorDocumennt));
+
+    return ResponseEntity.ok(professorAnalysisMapper.map(analisesDocument));
+  }
+
+  @Operation(summary = "Find analise by id", description = "Find analise by id")
+  @DocApiResponsesError
+  @GetMapping("analises/{id}")
+  public ResponseEntity<ProfessorAnaliseResponse> findProfessorById(
+      @PathVariable(value = "id") Integer id) {
+
+    AnalisesDocument professorDocument = commandGateway.invoke(
+            FindProfessorAnalysisById.class,
+            FindProfessorAnalysisById.Request.builder().id(id).build());
+
+    return ResponseEntity.ok(professorAnalysisMapper.map(professorDocument));
+  }
+
+  @Operation(
+      summary = "Find discipline by college and course",
+      description = "Find discipline by college and course")
+  @DocApiResponsesError
+  @GetMapping("analises")
+  public ResponseEntity<Page<ProfessorAnaliseResponse>> findAllProfessorByDiscplineCourseAndFaculdadeId(
+    @RequestParam(value="pagina", defaultValue="0", required = false) Integer pagina,
+    @RequestParam(value="paginas", defaultValue="25", required = false) Integer paginas,
+    @RequestParam(value="orderBy", defaultValue="dataMaxima", required = false) String orderBy,
+    @RequestParam(value="direction", defaultValue="ASC", required = false) String direction,
+    @RequestParam(value="nomeProfessor", required = false) String nomeProfessor
+  ) {
+
+    Page<ProfessorAnaliseResponse> responses = commandGateway.invoke(
+            FindAllProfessorAnalysis.class,
+            FindAllProfessorAnalysis.Request.builder()
+                    .pagina(pagina)
+                    .paginas(paginas)
+                    .orderBy(orderBy)
+                    .direction(direction)
+                    .nomeProfessor(nomeProfessor)
+                    .build());
+
+    return ResponseEntity.ok(responses);
+  }
+
+  //TODO: Implementar PUT e Delete Cursos
+
+}
