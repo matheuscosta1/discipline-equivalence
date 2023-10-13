@@ -123,7 +123,15 @@ public class DisciplineController {
 
     return ResponseEntity.ok(mapper.map(disciplineDocument));
   }
-
-  // TODO: Implementar PUT e Delete Cursos
+  @Operation(summary = "Deleta disciplina", description = "Deleta disciplina")
+  @DocApiResponsesError
+  @DeleteMapping("disciplinas/{id}")
+  public ResponseEntity<CollegeDocument> deleteCourseById(
+          @PathVariable(value = "id") Integer id) {
+    commandGateway.invoke(
+            DeleteById.class,
+            DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.DisciplineDocument.class).id(id).build());
+    return null;
+  }
 
 }

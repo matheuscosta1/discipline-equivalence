@@ -132,6 +132,14 @@ public class ProfessorController {
     return ResponseEntity.ok(professorDocumentMapper.map(professorDocument));
   }
 
-  // TODO: Implementar PUT e Delete Cursos
-
+  @Operation(summary = "Deleta professor", description = "Deleta professor")
+  @DocApiResponsesError
+  @DeleteMapping("professores/{id}")
+  public ResponseEntity<CollegeDocument> deleteAnaliseById(
+          @PathVariable(value = "id") Integer id) {
+    commandGateway.invoke(
+            DeleteById.class,
+            DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.ProfessorDocument.class).id(id).build());
+    return null;
+  }
 }

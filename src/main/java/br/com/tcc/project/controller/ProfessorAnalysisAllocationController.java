@@ -194,6 +194,15 @@ public class ProfessorAnalysisAllocationController {
     return ResponseEntity.ok(professorAnalysisMapper.map(analisesDocument));
   }
 
-  // TODO: Implementar PUT e Delete Cursos
+  @Operation(summary = "Deleta analise", description = "Deleta analise")
+  @DocApiResponsesError
+  @DeleteMapping("analises/{id}")
+  public ResponseEntity<CollegeDocument> deleteAnaliseById(
+          @PathVariable(value = "id") Integer id) {
+    commandGateway.invoke(
+            DeleteById.class,
+            DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.AnalisesDocument.class).id(id).build());
+    return null;
+  }
 
 }

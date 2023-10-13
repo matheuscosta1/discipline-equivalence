@@ -1,8 +1,10 @@
 package br.com.tcc.project.controller;
 
+import br.com.tcc.project.command.DeleteById;
 import br.com.tcc.project.command.FindAllCollege;
 import br.com.tcc.project.command.FindCollegeById;
 import br.com.tcc.project.command.RegisterCollege;
+import br.com.tcc.project.command.repositoy.CollegeRepository;
 import br.com.tcc.project.command.repositoy.model.CollegeDocument;
 import br.com.tcc.project.controller.mapper.RegisterDisciplineControllerMapper;
 import br.com.tcc.project.controller.request.RegisterCollegeRequest;
@@ -15,6 +17,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -89,6 +92,14 @@ public class CollegeController {
 
     return ResponseEntity.ok(collegeDocument);
   }
-
-  // TODO: Implementar PUT e Delete Faculdades
+  @Operation(summary = "Deleta faculdade", description = "Deleta faculdade")
+  @DocApiResponsesError
+  @DeleteMapping("faculdades/{id}")
+  public ResponseEntity<CollegeDocument> deleteCollegeById(
+          @PathVariable(value = "id") Integer id) {
+    commandGateway.invoke(
+                    DeleteById.class,
+                    DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.CollegeDocument.class).id(id).build());
+    return null;
+  }
 }

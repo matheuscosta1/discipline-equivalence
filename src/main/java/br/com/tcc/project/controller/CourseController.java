@@ -115,6 +115,15 @@ public class CourseController {
     return ResponseEntity.ok(courseResponse);
   }
 
-  // TODO: Implementar PUT e Delete Cursos
+  @Operation(summary = "Deleta curso", description = "Deleta curso")
+  @DocApiResponsesError
+  @DeleteMapping("cursos/{id}")
+  public ResponseEntity<CollegeDocument> deleteCourseById(
+          @PathVariable(value = "id") Integer id) {
+    commandGateway.invoke(
+            DeleteById.class,
+            DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.CourseDocument.class).id(id).build());
+    return null;
+  }
 
 }
