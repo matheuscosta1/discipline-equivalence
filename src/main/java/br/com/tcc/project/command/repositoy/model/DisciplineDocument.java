@@ -38,7 +38,15 @@ public class DisciplineDocument {
 
   public DisciplineDocument() {}
 
-  public DisciplineDocument(Integer id, String nome, String codigoOrigem, String ementa, String programa, String cargaHoraria, CollegeDocument faculdade, CourseDocument curso) {
+  public DisciplineDocument(
+      Integer id,
+      String nome,
+      String codigoOrigem,
+      String ementa,
+      String programa,
+      String cargaHoraria,
+      CollegeDocument faculdade,
+      CourseDocument curso) {
     this.id = id;
     this.nome = nome;
     this.codigoOrigem = codigoOrigem;

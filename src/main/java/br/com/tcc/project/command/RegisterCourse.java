@@ -2,7 +2,6 @@ package br.com.tcc.project.command;
 
 import br.com.tcc.project.command.impl.AbstractCommand;
 import br.com.tcc.project.command.repositoy.model.CollegeDocument;
-import br.com.tcc.project.command.repositoy.model.CourseDocument;
 import br.com.tcc.project.gateway.annotation.processor.GenerateCommandFactory;
 import br.com.tcc.project.response.CourseResponse;
 import lombok.Builder;
@@ -16,6 +15,7 @@ public class RegisterCourse extends AbstractCommand<RegisterCourse.Request, Cour
   @Getter
   @Builder
   public static class Request {
+    private Integer id;
     private String nome;
     private CollegeDocument documentoFaculdade;
   }

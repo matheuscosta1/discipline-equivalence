@@ -5,10 +5,9 @@ import br.com.tcc.project.controller.response.EquivalenceDisciplineResponse;
 import br.com.tcc.project.domain.MenuEquivalence;
 import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.gateway.annotation.processor.GenerateCommandFactory;
+import br.com.tcc.project.response.DisciplineResponse;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-
-import br.com.tcc.project.response.DisciplineResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -33,14 +32,14 @@ public class RegisterDisciplineEquivalence
     DisciplineResponse originDiscipline =
         invoke(
             FindDisciplineByCode.class,
-                FindDisciplineByCode.Request.builder()
+            FindDisciplineByCode.Request.builder()
                 .disciplineCode(getParameter().getOriginCode())
                 .build());
 
     DisciplineResponse destinyDiscipline =
         invoke(
-                FindDisciplineByCode.class,
-                FindDisciplineByCode.Request.builder()
+            FindDisciplineByCode.class,
+            FindDisciplineByCode.Request.builder()
                 .disciplineCode(getParameter().getDestinyCode())
                 .build());
 

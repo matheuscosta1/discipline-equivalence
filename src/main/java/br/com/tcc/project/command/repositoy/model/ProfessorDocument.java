@@ -1,10 +1,9 @@
 package br.com.tcc.project.command.repositoy.model;
 
+import javax.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
 
 @Setter
 @Getter
@@ -33,7 +32,12 @@ public class ProfessorDocument {
 
   public ProfessorDocument() {}
 
-  public ProfessorDocument(Integer id, String nome, CollegeDocument faculdade, CourseDocument curso, DisciplineDocument disciplina) {
+  public ProfessorDocument(
+      Integer id,
+      String nome,
+      CollegeDocument faculdade,
+      CourseDocument curso,
+      DisciplineDocument disciplina) {
     this.id = id;
     this.nome = nome;
     this.faculdade = faculdade;

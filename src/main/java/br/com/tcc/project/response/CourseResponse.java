@@ -20,7 +20,5 @@ public class CourseResponse {
     this.faculdadeId = faculdadeId;
   }
 
-  public CourseResponse(CourseDocument courseDocument) {
-
-  }
+  public CourseResponse(CourseDocument courseDocument) {}
 }

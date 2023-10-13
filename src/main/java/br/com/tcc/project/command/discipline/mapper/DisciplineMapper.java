@@ -1,9 +1,6 @@
 package br.com.tcc.project.command.discipline.mapper;
 
-import br.com.tcc.project.command.RegisterCourse;
 import br.com.tcc.project.command.RegisterDiscipline;
-import br.com.tcc.project.command.repositoy.model.CollegeDocument;
-import br.com.tcc.project.command.repositoy.model.CourseDocument;
 import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

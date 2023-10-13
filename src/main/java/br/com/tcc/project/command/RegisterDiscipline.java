@@ -10,12 +10,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @GenerateCommandFactory
-public class RegisterDiscipline extends AbstractCommand<RegisterDiscipline.Request, DisciplineDocument> {
+public class RegisterDiscipline
+    extends AbstractCommand<RegisterDiscipline.Request, DisciplineDocument> {
 
   @Setter
   @Getter
   @Builder
   public static class Request {
+    private Integer id;
     private Integer workLoad;
     private String originCode;
     private String menu;

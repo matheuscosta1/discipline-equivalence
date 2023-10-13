@@ -1,13 +1,10 @@
 package br.com.tcc.project.command.repositoy.mapper;
 
-import br.com.tcc.project.command.repositoy.model.CourseDocument;
 import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
-import br.com.tcc.project.response.CourseResponse;
 import br.com.tcc.project.response.DisciplineResponse;
+import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
-
-import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface DisciplineDocumentMapper {

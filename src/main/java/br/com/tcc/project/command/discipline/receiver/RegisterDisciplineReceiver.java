@@ -10,7 +10,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @CommandReceiver(RegisterDiscipline.class)
-public class RegisterDisciplineReceiver extends AbstractReceiver<RegisterDiscipline.Request, DisciplineDocument> {
+public class RegisterDisciplineReceiver
+    extends AbstractReceiver<RegisterDiscipline.Request, DisciplineDocument> {
 
   @Autowired @Setter private DisciplineMapper registerDisciplineMapper;
 

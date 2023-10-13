@@ -1,7 +1,6 @@
 package br.com.tcc.project.response;
 
 import lombok.*;
-import org.hibernate.validator.internal.engine.messageinterpolation.InterpolationTerm;
 
 @Setter
 @Getter

@@ -10,5 +10,4 @@ public interface CollegeRepository extends JpaRepository<CollegeDocument, Intege
   CollegeDocument findByNomeContaining(String name);
 
   Page<CollegeDocument> findByNomeContaining(String nome, Pageable pageRequest);
-
 }

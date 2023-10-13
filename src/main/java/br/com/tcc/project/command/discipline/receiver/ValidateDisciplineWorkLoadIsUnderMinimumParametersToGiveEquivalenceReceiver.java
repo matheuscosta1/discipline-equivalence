@@ -1,8 +1,8 @@
 package br.com.tcc.project.command.discipline.receiver;
 
-import br.com.tcc.project.gateway.annotation.CommandReceiver;
-import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.ValidateDisciplineWorkLoadIsUnderMinimumParametersToGiveEquivalence;
+import br.com.tcc.project.command.impl.AbstractReceiver;
+import br.com.tcc.project.gateway.annotation.CommandReceiver;
 
 @CommandReceiver(ValidateDisciplineWorkLoadIsUnderMinimumParametersToGiveEquivalence.class)
 public class ValidateDisciplineWorkLoadIsUnderMinimumParametersToGiveEquivalenceReceiver

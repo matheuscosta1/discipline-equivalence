@@ -10,6 +10,7 @@ import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.ProfessorAnaliseResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import javax.validation.Valid;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
@@ -19,18 +20,17 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
 @Tag(name = "Professor")
 @RestController
 @Slf4j
 @Validated
 public class ProfessorAnalysisAllocationController {
 
-
   @Autowired @Setter private CommandGateway commandGateway;
-  private final RegisterProfessorAnalysisControllerMapper mapper = Mappers.getMapper(RegisterProfessorAnalysisControllerMapper.class);
-  private final ProfessorAnalysisDocumentMapper professorAnalysisMapper = Mappers.getMapper(ProfessorAnalysisDocumentMapper.class);
+  private final RegisterProfessorAnalysisControllerMapper mapper =
+      Mappers.getMapper(RegisterProfessorAnalysisControllerMapper.class);
+  private final ProfessorAnalysisDocumentMapper professorAnalysisMapper =
+      Mappers.getMapper(ProfessorAnalysisDocumentMapper.class);
 
   @Operation(summary = "Register new analise", description = "Register new analise")
   @DocApiResponsesError
@@ -39,36 +39,53 @@ public class ProfessorAnalysisAllocationController {
       @Valid @RequestBody RegisterProfessorAnalysisRequest request) {
 
     CollegeDocument collegeOriginDocument =
-            commandGateway.invoke(
-                    FindCollegeById.class,
-                    FindCollegeById.Request.builder().faculdadeId(request.getFaculdadeOrigemId()).build());
+        commandGateway.invoke(
+            FindCollegeById.class,
+            FindCollegeById.Request.builder().faculdadeId(request.getFaculdadeOrigemId()).build());
 
-    CourseDocument courseOriginDocument = commandGateway.invoke(
+    CourseDocument courseOriginDocument =
+        commandGateway.invoke(
             FindCourseById.class,
             FindCourseById.Request.builder().cursoId(request.getCursoOrigemId()).build());
 
-    DisciplineDocument disciplineOriginDocument = commandGateway.invoke(
+    DisciplineDocument disciplineOriginDocument =
+        commandGateway.invoke(
             FindDisciplineById.class,
             FindDisciplineById.Request.builder().id(request.getDisciplinaOrigemId()).build());
 
     CollegeDocument collegeDestinyDocument =
-            commandGateway.invoke(
-                    FindCollegeById.class,
-                    FindCollegeById.Request.builder().faculdadeId(request.getFaculdadeDestinoId()).build());
+        commandGateway.invoke(
+            FindCollegeById.class,
+            FindCollegeById.Request.builder().faculdadeId(request.getFaculdadeDestinoId()).build());
 
-    CourseDocument courseDestinyDocument = commandGateway.invoke(
+    CourseDocument courseDestinyDocument =
+        commandGateway.invoke(
             FindCourseById.class,
             FindCourseById.Request.builder().cursoId(request.getCursoDestinoId()).build());
 
-    DisciplineDocument disciplineDestinyDocument = commandGateway.invoke(
+    DisciplineDocument disciplineDestinyDocument =
+        commandGateway.invoke(
             FindDisciplineById.class,
             FindDisciplineById.Request.builder().id(request.getDisciplinaDestinoId()).build());
 
-    ProfessorDocument professorDocumennt = commandGateway.invoke(
+    ProfessorDocument professorDocumennt =
+        commandGateway.invoke(
             FindProfessorById.class,
             FindProfessorById.Request.builder().id(request.getProfessorId()).build());
 
-    AnalisesDocument analisesDocument = commandGateway.invoke(RegisterProfessorAnalysis.class, mapper.map(request, collegeOriginDocument, courseOriginDocument, disciplineOriginDocument, collegeDestinyDocument, courseDestinyDocument, disciplineDestinyDocument, professorDocumennt));
+    AnalisesDocument analisesDocument =
+        commandGateway.invoke(
+            RegisterProfessorAnalysis.class,
+            mapper.map(
+                request,
+                collegeOriginDocument,
+                courseOriginDocument,
+                disciplineOriginDocument,
+                collegeDestinyDocument,
+                courseDestinyDocument,
+                disciplineDestinyDocument,
+                professorDocumennt,
+                null));
 
     return ResponseEntity.ok(professorAnalysisMapper.map(analisesDocument));
   }
@@ -79,7 +96,8 @@ public class ProfessorAnalysisAllocationController {
   public ResponseEntity<ProfessorAnaliseResponse> findProfessorById(
       @PathVariable(value = "id") Integer id) {
 
-    AnalisesDocument professorDocument = commandGateway.invoke(
+    AnalisesDocument professorDocument =
+        commandGateway.invoke(
             FindProfessorAnalysisById.class,
             FindProfessorAnalysisById.Request.builder().id(id).build());
 
@@ -91,27 +109,91 @@ public class ProfessorAnalysisAllocationController {
       description = "Find discipline by college and course")
   @DocApiResponsesError
   @GetMapping("analises")
-  public ResponseEntity<Page<ProfessorAnaliseResponse>> findAllProfessorByDiscplineCourseAndFaculdadeId(
-    @RequestParam(value="pagina", defaultValue="0", required = false) Integer pagina,
-    @RequestParam(value="paginas", defaultValue="25", required = false) Integer paginas,
-    @RequestParam(value="orderBy", defaultValue="dataMaxima", required = false) String orderBy,
-    @RequestParam(value="direction", defaultValue="ASC", required = false) String direction,
-    @RequestParam(value="nomeProfessor", required = false) String nomeProfessor
-  ) {
+  public ResponseEntity<Page<ProfessorAnaliseResponse>>
+      findAllProfessorByDiscplineCourseAndFaculdadeId(
+          @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
+          @RequestParam(value = "paginas", defaultValue = "25", required = false) Integer paginas,
+          @RequestParam(value = "orderBy", defaultValue = "dataMaxima", required = false)
+              String orderBy,
+          @RequestParam(value = "direction", defaultValue = "ASC", required = false)
+              String direction,
+          @RequestParam(value = "nomeProfessor", required = false) String nomeProfessor) {
 
-    Page<ProfessorAnaliseResponse> responses = commandGateway.invoke(
+    Page<ProfessorAnaliseResponse> responses =
+        commandGateway.invoke(
             FindAllProfessorAnalysis.class,
             FindAllProfessorAnalysis.Request.builder()
-                    .pagina(pagina)
-                    .paginas(paginas)
-                    .orderBy(orderBy)
-                    .direction(direction)
-                    .nomeProfessor(nomeProfessor)
-                    .build());
+                .pagina(pagina)
+                .paginas(paginas)
+                .orderBy(orderBy)
+                .direction(direction)
+                .nomeProfessor(nomeProfessor)
+                .build());
 
     return ResponseEntity.ok(responses);
   }
 
-  //TODO: Implementar PUT e Delete Cursos
+  @Operation(
+      summary = "Atualiza registro analise equivalencia",
+      description = "Atualiza registro analise equivalencia")
+  @DocApiResponsesError
+  @PutMapping("analises/{id}")
+  public ResponseEntity<ProfessorAnaliseResponse> registerProfessor(
+      @PathVariable(value = "id") Integer id,
+      @Valid @RequestBody RegisterProfessorAnalysisRequest request) {
+
+    CollegeDocument collegeOriginDocument =
+        commandGateway.invoke(
+            FindCollegeById.class,
+            FindCollegeById.Request.builder().faculdadeId(request.getFaculdadeOrigemId()).build());
+
+    CourseDocument courseOriginDocument =
+        commandGateway.invoke(
+            FindCourseById.class,
+            FindCourseById.Request.builder().cursoId(request.getCursoOrigemId()).build());
+
+    DisciplineDocument disciplineOriginDocument =
+        commandGateway.invoke(
+            FindDisciplineById.class,
+            FindDisciplineById.Request.builder().id(request.getDisciplinaOrigemId()).build());
+
+    CollegeDocument collegeDestinyDocument =
+        commandGateway.invoke(
+            FindCollegeById.class,
+            FindCollegeById.Request.builder().faculdadeId(request.getFaculdadeDestinoId()).build());
+
+    CourseDocument courseDestinyDocument =
+        commandGateway.invoke(
+            FindCourseById.class,
+            FindCourseById.Request.builder().cursoId(request.getCursoDestinoId()).build());
+
+    DisciplineDocument disciplineDestinyDocument =
+        commandGateway.invoke(
+            FindDisciplineById.class,
+            FindDisciplineById.Request.builder().id(request.getDisciplinaDestinoId()).build());
+
+    ProfessorDocument professorDocumennt =
+        commandGateway.invoke(
+            FindProfessorById.class,
+            FindProfessorById.Request.builder().id(request.getProfessorId()).build());
+
+    AnalisesDocument analisesDocument =
+        commandGateway.invoke(
+            RegisterProfessorAnalysis.class,
+            mapper.map(
+                request,
+                collegeOriginDocument,
+                courseOriginDocument,
+                disciplineOriginDocument,
+                collegeDestinyDocument,
+                courseDestinyDocument,
+                disciplineDestinyDocument,
+                professorDocumennt,
+                id));
+
+    return ResponseEntity.ok(professorAnalysisMapper.map(analisesDocument));
+  }
+
+  // TODO: Implementar PUT e Delete Cursos
 
 }

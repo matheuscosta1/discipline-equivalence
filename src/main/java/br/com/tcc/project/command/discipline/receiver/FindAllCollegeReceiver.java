@@ -20,10 +20,14 @@ public class FindAllCollegeReceiver
   @Override
   protected Page<CollegeDocument> doExecute(FindAllCollege.Request parameter) {
 
-    PageRequest pageRequest = PageRequest.of(parameter.getPagina(), parameter.getPaginas(), Sort.Direction.valueOf(parameter.getDirection()), parameter.getOrderBy());
-    if(parameter.getNome().isBlank()) {
+    PageRequest pageRequest =
+        PageRequest.of(
+            parameter.getPagina(),
+            parameter.getPaginas(),
+            Sort.Direction.valueOf(parameter.getDirection()),
+            parameter.getOrderBy());
+    if (parameter.getNome().isBlank()) {
       return collegeRepository.findAll(pageRequest);
-
     }
     return collegeRepository.findByNomeContaining(parameter.getNome(), pageRequest);
   }

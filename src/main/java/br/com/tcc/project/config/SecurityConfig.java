@@ -1,5 +1,6 @@
 package br.com.tcc.project.config;
 
+import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,76 +19,78 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
-
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled=true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private Environment env;
+  @Autowired private Environment env;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+  @Autowired private UserDetailsService userDetailsService;
 
-    //@Autowired
-    //private JWTUtils jwtUtils;
+  // @Autowired
+  // private JWTUtils jwtUtils;
 
-    private static final String[] PUBLIC_MATCHERS = {
-        "/h2-console/**",
-        "/auth/forgot/**"
-    };
+  private static final String[] PUBLIC_MATCHERS = {"/h2-console/**", "/auth/forgot/**"};
 
-    private static final String[] PUBLIC_MATCHERS_GET = {
-        "/discipline-equivalence/**"
-    };
+  private static final String[] PUBLIC_MATCHERS_GET = {"/discipline-equivalence/**"};
 
-    private static final String[] PUBLIC_MATCHERS_POST = {
-        "/discipline-equivalence/**"
-    };
+  private static final String[] PUBLIC_MATCHERS_POST = {"/discipline-equivalence/**"};
 
-    @Override
-    public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/v2/api-docs", "/configuration/ui", "/swagger-resources/**", "/configuration/**",
-                "/swagger-ui.html", "/webjars/**");
+  @Override
+  public void configure(WebSecurity web) throws Exception {
+    web.ignoring()
+        .antMatchers(
+            "/v2/api-docs",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/**",
+            "/swagger-ui.html",
+            "/webjars/**");
+  }
+
+  @Override
+  protected void configure(HttpSecurity http) throws Exception {
+
+    if (Arrays.asList(env.getActiveProfiles()).contains("local")) {
+      http.headers().frameOptions().disable();
     }
 
-    @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    http.cors().and().csrf().disable();
+    http.authorizeRequests()
+        .antMatchers(PUBLIC_MATCHERS)
+        .permitAll()
+        .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET)
+        .permitAll()
+        .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST)
+        .permitAll();
+    // .anyRequest().authenticated();
 
-        if(Arrays.asList(env.getActiveProfiles()).contains("local")){
-            http.headers().frameOptions().disable();
-        }
+    // http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtils));
+    // http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtils,
+    // userDetailsService));
+    http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+  }
 
-        http.cors().and().csrf().disable();
-        http.authorizeRequests()
-                .antMatchers(PUBLIC_MATCHERS).permitAll()
-                .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
-                .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll();
-                //.anyRequest().authenticated();
+  @Override
+  public void configure(AuthenticationManagerBuilder authenticationManagerBuilder)
+      throws Exception {
+    authenticationManagerBuilder
+        .userDetailsService(userDetailsService)
+        .passwordEncoder(bCryptPasswordEncoder());
+  }
 
-        //http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtils));
-        //http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtils, userDetailsService));
-        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-    }
+  @Bean
+  CorsConfigurationSource corsConfigurationSource() {
+    CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
+    corsConfiguration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
+    final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+    source.registerCorsConfiguration("/**", corsConfiguration);
+    return source;
+  }
 
-    @Override
-    public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
-        authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(bCryptPasswordEncoder());
-    }
-
-    @Bean
-    CorsConfigurationSource corsConfigurationSource(){
-        CorsConfiguration corsConfiguration = new CorsConfiguration().applyPermitDefaultValues();
-        corsConfiguration.setAllowedMethods(Arrays.asList("POST", "GET", "PUT", "DELETE", "OPTIONS"));
-        final UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", corsConfiguration);
-        return source;
-    }
-
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
+  @Bean
+  public BCryptPasswordEncoder bCryptPasswordEncoder() {
+    return new BCryptPasswordEncoder();
+  }
 }

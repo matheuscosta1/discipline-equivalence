@@ -15,5 +15,6 @@ public class RegisterCollege extends AbstractCommand<RegisterCollege.Request, Co
   @Builder
   public static class Request {
     private String name;
+    private Integer id;
   }
 }

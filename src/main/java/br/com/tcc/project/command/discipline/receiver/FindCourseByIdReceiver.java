@@ -8,12 +8,10 @@ import br.com.tcc.project.command.repositoy.CourseRepository;
 import br.com.tcc.project.command.repositoy.mapper.CourseDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.CourseDocument;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
-import br.com.tcc.project.response.CourseResponse;
+import java.text.MessageFormat;
 import lombok.Setter;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.text.MessageFormat;
 
 @CommandReceiver(FindCourseById.class)
 public class FindCourseByIdReceiver
@@ -25,14 +23,14 @@ public class FindCourseByIdReceiver
   @Override
   protected CourseDocument doExecute(FindCourseById.Request parameter) {
 
-      return courseRepository
-            .findById(parameter.getCursoId())
-            .orElseThrow(
-                    () ->
-                            new CollegeNotFoundException(
-                                    MessageFormat.format(
-                                            DisciplineEquivalenceErrors.DEE0003.message(), parameter.getCursoId()),
-                                    DisciplineEquivalenceErrors.DEE0003.name(),
-                                    DisciplineEquivalenceErrors.DEE0003.group()));
+    return courseRepository
+        .findById(parameter.getCursoId())
+        .orElseThrow(
+            () ->
+                new CollegeNotFoundException(
+                    MessageFormat.format(
+                        DisciplineEquivalenceErrors.DEE0003.message(), parameter.getCursoId()),
+                    DisciplineEquivalenceErrors.DEE0003.name(),
+                    DisciplineEquivalenceErrors.DEE0003.group()));
   }
 }

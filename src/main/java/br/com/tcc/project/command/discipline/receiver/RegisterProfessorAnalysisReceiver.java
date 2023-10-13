@@ -10,7 +10,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @CommandReceiver(RegisterProfessorAnalysis.class)
-public class RegisterProfessorAnalysisReceiver extends AbstractReceiver<RegisterProfessorAnalysis.Request, AnalisesDocument> {
+public class RegisterProfessorAnalysisReceiver
+    extends AbstractReceiver<RegisterProfessorAnalysis.Request, AnalisesDocument> {
 
   @Autowired @Setter private ProfessorAnalysisMapper professorMapper;
 

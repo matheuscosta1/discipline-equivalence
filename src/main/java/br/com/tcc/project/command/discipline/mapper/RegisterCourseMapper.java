@@ -9,6 +9,7 @@ import org.mapstruct.Mapping;
 public interface RegisterCourseMapper {
 
   @Mapping(target = "nome", source = "source.nome")
+  @Mapping(target = "id", source = "source.id")
   @Mapping(target = "faculdade", source = "source.documentoFaculdade")
   CourseDocument map(RegisterCourse.Request source);
 }

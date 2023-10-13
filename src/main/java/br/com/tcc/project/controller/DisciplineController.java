@@ -12,7 +12,6 @@ import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.DisciplineResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import javax.validation.Valid;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -41,15 +40,19 @@ public class DisciplineController {
       @Valid @RequestBody RegisterDisciplineRequest request) {
 
     CollegeDocument collegeDocument =
-            commandGateway.invoke(
-                    FindCollegeById.class,
-                    FindCollegeById.Request.builder().faculdadeId(request.getFaculdadeId()).build());
+        commandGateway.invoke(
+            FindCollegeById.class,
+            FindCollegeById.Request.builder().faculdadeId(request.getFaculdadeId()).build());
 
-    CourseDocument courseDocument = commandGateway.invoke(
+    CourseDocument courseDocument =
+        commandGateway.invoke(
             FindCourseById.class,
             FindCourseById.Request.builder().cursoId(request.getCursoId()).build());
 
-    DisciplineDocument disciplineDocument = commandGateway.invoke(RegisterDiscipline.class, registerDisciplineMapper.map(request, collegeDocument, courseDocument));
+    DisciplineDocument disciplineDocument =
+        commandGateway.invoke(
+            RegisterDiscipline.class,
+            registerDisciplineMapper.map(request, collegeDocument, courseDocument, null));
 
     return ResponseEntity.ok(mapper.map(disciplineDocument));
   }
@@ -60,9 +63,9 @@ public class DisciplineController {
   public ResponseEntity<DisciplineResponse> findDisciplineById(
       @PathVariable(value = "id") Integer id) {
 
-    DisciplineDocument disciplineDocument = commandGateway.invoke(
-            FindDisciplineById.class,
-            FindDisciplineById.Request.builder().id(id).build());
+    DisciplineDocument disciplineDocument =
+        commandGateway.invoke(
+            FindDisciplineById.class, FindDisciplineById.Request.builder().id(id).build());
 
     return ResponseEntity.ok(mapper.map(disciplineDocument));
   }
@@ -73,14 +76,13 @@ public class DisciplineController {
   @DocApiResponsesError
   @GetMapping("disciplinas")
   public ResponseEntity<Page<DisciplineResponse>> findAllDisciplineByCollegeAndCourse(
-    @RequestParam(value="pagina", defaultValue="0", required = false) Integer pagina,
-    @RequestParam(value="paginas", defaultValue="25", required = false) Integer paginas,
-    @RequestParam(value="orderBy", defaultValue="nome", required = false) String orderBy,
-    @RequestParam(value="direction", defaultValue="ASC", required = false) String direction,
-    @RequestParam(value="nome", required = false) String nome,
-    @RequestParam(value="faculdadeId", required = false) String faculdadeId,
-    @RequestParam(value="cursoId", required = false) String cursoId
-  ) {
+      @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
+      @RequestParam(value = "paginas", defaultValue = "25", required = false) Integer paginas,
+      @RequestParam(value = "orderBy", defaultValue = "nome", required = false) String orderBy,
+      @RequestParam(value = "direction", defaultValue = "ASC", required = false) String direction,
+      @RequestParam(value = "nome", required = false) String nome,
+      @RequestParam(value = "faculdadeId", required = false) String faculdadeId,
+      @RequestParam(value = "cursoId", required = false) String cursoId) {
     Page<DisciplineResponse> colleges =
         commandGateway.invoke(
             FindAllDisciplineByCollegeAndCourse.class,
@@ -97,6 +99,31 @@ public class DisciplineController {
     return ResponseEntity.ok(colleges);
   }
 
-  //TODO: Implementar PUT e Delete Cursos
+  @Operation(summary = "Register new discipline", description = "Register new discipline")
+  @DocApiResponsesError
+  @PutMapping("disciplinas/{id}")
+  public ResponseEntity<DisciplineResponse> updateDiscipline(
+      @PathVariable(value = "id") Integer id,
+      @Valid @RequestBody RegisterDisciplineRequest request) {
+
+    CollegeDocument collegeDocument =
+        commandGateway.invoke(
+            FindCollegeById.class,
+            FindCollegeById.Request.builder().faculdadeId(request.getFaculdadeId()).build());
+
+    CourseDocument courseDocument =
+        commandGateway.invoke(
+            FindCourseById.class,
+            FindCourseById.Request.builder().cursoId(request.getCursoId()).build());
+
+    DisciplineDocument disciplineDocument =
+        commandGateway.invoke(
+            RegisterDiscipline.class,
+            registerDisciplineMapper.map(request, collegeDocument, courseDocument, id));
+
+    return ResponseEntity.ok(mapper.map(disciplineDocument));
+  }
+
+  // TODO: Implementar PUT e Delete Cursos
 
 }

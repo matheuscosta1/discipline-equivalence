@@ -8,12 +8,14 @@ import lombok.Getter;
 import lombok.Setter;
 
 @GenerateCommandFactory
-public class RegisterProfessorAnalysis extends AbstractCommand<RegisterProfessorAnalysis.Request, AnalisesDocument> {
+public class RegisterProfessorAnalysis
+    extends AbstractCommand<RegisterProfessorAnalysis.Request, AnalisesDocument> {
 
   @Setter
   @Getter
   @Builder
   public static class Request {
+    private Integer id;
     private CollegeDocument collegeOriginDocument;
     private CourseDocument courseOriginDocument;
     private DisciplineDocument disciplineOriginDocument;

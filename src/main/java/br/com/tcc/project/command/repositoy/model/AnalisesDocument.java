@@ -1,10 +1,9 @@
 package br.com.tcc.project.command.repositoy.model;
 
+import javax.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-
-import javax.persistence.*;
 
 @Setter
 @Getter
@@ -47,10 +46,18 @@ public class AnalisesDocument {
 
   private String dataMaxima;
 
-
   public AnalisesDocument() {}
 
-  public AnalisesDocument(Integer id, CollegeDocument faculdadeOrigem, CourseDocument cursoOrigem, DisciplineDocument disciplinaOrigem, CollegeDocument faculdadeDestino, CourseDocument cursoDestino, DisciplineDocument disciplinaDestino, ProfessorDocument professor, String dataMaxima) {
+  public AnalisesDocument(
+      Integer id,
+      CollegeDocument faculdadeOrigem,
+      CourseDocument cursoOrigem,
+      DisciplineDocument disciplinaOrigem,
+      CollegeDocument faculdadeDestino,
+      CourseDocument cursoDestino,
+      DisciplineDocument disciplinaDestino,
+      ProfessorDocument professor,
+      String dataMaxima) {
     this.id = id;
     this.faculdadeOrigem = faculdadeOrigem;
     this.cursoOrigem = cursoOrigem;

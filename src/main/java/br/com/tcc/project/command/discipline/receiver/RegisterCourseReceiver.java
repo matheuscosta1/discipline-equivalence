@@ -13,7 +13,8 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @CommandReceiver(RegisterCourse.class)
-public class RegisterCourseReceiver extends AbstractReceiver<RegisterCourse.Request, CourseResponse> {
+public class RegisterCourseReceiver
+    extends AbstractReceiver<RegisterCourse.Request, CourseResponse> {
 
   private final RegisterCourseMapper registerCourseMapper =
       Mappers.getMapper(RegisterCourseMapper.class);

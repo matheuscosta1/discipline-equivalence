@@ -7,10 +7,9 @@ import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.repositoy.ProfessorAnalysisRepository;
 import br.com.tcc.project.command.repositoy.model.AnalisesDocument;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
+import java.text.MessageFormat;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.text.MessageFormat;
 
 @CommandReceiver(FindProfessorAnalysisById.class)
 public class FindProfessorAnalysisByIdReceiver
@@ -20,13 +19,16 @@ public class FindProfessorAnalysisByIdReceiver
 
   @Override
   protected AnalisesDocument doExecute(FindProfessorAnalysisById.Request parameter) {
-    AnalisesDocument analisesDocument = professorAnalysisRepository.findById(parameter.getId()).orElseThrow(
-            () ->
+    AnalisesDocument analisesDocument =
+        professorAnalysisRepository
+            .findById(parameter.getId())
+            .orElseThrow(
+                () ->
                     new CollegeNotFoundException(
-                            MessageFormat.format(
-                                    DisciplineEquivalenceErrors.DEE0004.message(), parameter.getId()),
-                            DisciplineEquivalenceErrors.DEE0004.name(),
-                            DisciplineEquivalenceErrors.DEE0004.group()));
+                        MessageFormat.format(
+                            DisciplineEquivalenceErrors.DEE0004.message(), parameter.getId()),
+                        DisciplineEquivalenceErrors.DEE0004.name(),
+                        DisciplineEquivalenceErrors.DEE0004.group()));
     return analisesDocument;
   }
 }

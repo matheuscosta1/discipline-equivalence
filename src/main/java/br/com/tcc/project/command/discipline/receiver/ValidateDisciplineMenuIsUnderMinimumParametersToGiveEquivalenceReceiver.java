@@ -1,9 +1,9 @@
 package br.com.tcc.project.command.discipline.receiver;
 
-import br.com.tcc.project.gateway.annotation.CommandReceiver;
-import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.ValidateDisciplineMenuIsUnderMinimumParametersToGiveEquivalence;
+import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.domain.MenuEquivalence;
+import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;

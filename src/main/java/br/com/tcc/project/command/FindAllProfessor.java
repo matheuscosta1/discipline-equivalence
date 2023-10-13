@@ -2,7 +2,6 @@ package br.com.tcc.project.command;
 
 import br.com.tcc.project.command.impl.AbstractCommand;
 import br.com.tcc.project.gateway.annotation.processor.GenerateCommandFactory;
-import br.com.tcc.project.response.DisciplineResponse;
 import br.com.tcc.project.response.ProfessorResponse;
 import lombok.Builder;
 import lombok.Getter;

@@ -10,7 +10,8 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @CommandReceiver(RegisterCollege.class)
-public class RegisterCollegeReceiver extends AbstractReceiver<RegisterCollege.Request, CollegeDocument> {
+public class RegisterCollegeReceiver
+    extends AbstractReceiver<RegisterCollege.Request, CollegeDocument> {
 
   @Autowired @Setter private RegisterCollegeMapper registerCollegeMapper;
 
@@ -18,7 +19,6 @@ public class RegisterCollegeReceiver extends AbstractReceiver<RegisterCollege.Re
 
   @Override
   protected CollegeDocument doExecute(RegisterCollege.Request parameter) {
-    CollegeDocument save = collegeRepository.save(registerCollegeMapper.map(parameter));
-    return save;
+    return collegeRepository.save(registerCollegeMapper.map(parameter));
   }
 }

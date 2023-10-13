@@ -1,10 +1,9 @@
 package br.com.tcc.project.controller.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.*;
-
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import lombok.*;
 
 @Getter
 @Setter
@@ -18,7 +17,9 @@ public class RegisterProfessorRequest {
   @NotBlank
   private String nome;
 
-  @Schema(example = "Universidade Federal de Uberlândia", description = "Identificador da faculdade")
+  @Schema(
+      example = "Universidade Federal de Uberlândia",
+      description = "Identificador da faculdade")
   @NotNull
   private Integer faculdadeId;
 

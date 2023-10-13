@@ -10,9 +10,7 @@ import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-
 import javax.validation.Valid;
-
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +32,13 @@ public class CollegeController {
   @Operation(summary = "Register new college", description = "Register new college")
   @DocApiResponsesError
   @PostMapping("faculdades")
-  public ResponseEntity<CollegeDocument> registerCollege(@Valid @RequestBody RegisterCollegeRequest request) {
+  public ResponseEntity<CollegeDocument> registerCollege(
+      @Valid @RequestBody RegisterCollegeRequest request) {
 
-    CollegeDocument collegeDocument = commandGateway.invoke(
-            RegisterCollege.class, RegisterCollege.Request.builder().name(request.getNome()).build());
+    CollegeDocument collegeDocument =
+        commandGateway.invoke(
+            RegisterCollege.class,
+            RegisterCollege.Request.builder().name(request.getNome()).build());
 
     return ResponseEntity.ok(collegeDocument);
   }
@@ -46,14 +47,21 @@ public class CollegeController {
   @DocApiResponsesError
   @GetMapping("faculdades")
   public ResponseEntity<Page<CollegeDocument>> findAllColleges(
-      @RequestParam(value="pagina", defaultValue="0", required = false) Integer pagina,
-      @RequestParam(value="paginas", defaultValue="25", required = false) Integer paginas,
-      @RequestParam(value="orderBy", defaultValue="nome", required = false) String orderBy,
-      @RequestParam(value="direction", defaultValue="ASC", required = false) String direction,
-      @RequestParam(value="nome", required = false) String nome
-      ) {
-    Page<CollegeDocument> resultado = commandGateway.invoke(
-            FindAllCollege.class, FindAllCollege.Request.builder().pagina(pagina).paginas(paginas).orderBy(orderBy).direction(direction).nome(nome).build());
+      @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
+      @RequestParam(value = "paginas", defaultValue = "25", required = false) Integer paginas,
+      @RequestParam(value = "orderBy", defaultValue = "nome", required = false) String orderBy,
+      @RequestParam(value = "direction", defaultValue = "ASC", required = false) String direction,
+      @RequestParam(value = "nome", required = false) String nome) {
+    Page<CollegeDocument> resultado =
+        commandGateway.invoke(
+            FindAllCollege.class,
+            FindAllCollege.Request.builder()
+                .pagina(pagina)
+                .paginas(paginas)
+                .orderBy(orderBy)
+                .direction(direction)
+                .nome(nome)
+                .build());
 
     return ResponseEntity.ok(resultado);
   }
@@ -61,14 +69,26 @@ public class CollegeController {
   @Operation(summary = "Find colleges", description = "Find all colleges")
   @DocApiResponsesError
   @GetMapping("faculdades/{id}")
-  public ResponseEntity<CollegeDocument> findCollegeById(
-          @PathVariable(value="id") Integer id
-  ) {
-    CollegeDocument collegeDocument = commandGateway.invoke(
+  public ResponseEntity<CollegeDocument> findCollegeById(@PathVariable(value = "id") Integer id) {
+    CollegeDocument collegeDocument =
+        commandGateway.invoke(
             FindCollegeById.class, FindCollegeById.Request.builder().faculdadeId(id).build());
 
     return ResponseEntity.ok(collegeDocument);
   }
 
-  //TODO: Implementar PUT e Delete Faculdades
+  @Operation(summary = "Atualiza faculdade", description = "Atualiza faculdade")
+  @DocApiResponsesError
+  @PutMapping("faculdades/{id}")
+  public ResponseEntity<CollegeDocument> updateCollege(
+      @PathVariable(value = "id") Integer id, @Valid @RequestBody RegisterCollegeRequest request) {
+    CollegeDocument collegeDocument =
+        commandGateway.invoke(
+            RegisterCollege.class,
+            RegisterCollege.Request.builder().name(request.getNome()).id(id).build());
+
+    return ResponseEntity.ok(collegeDocument);
+  }
+
+  // TODO: Implementar PUT e Delete Faculdades
 }

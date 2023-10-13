@@ -6,7 +6,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface DisciplineRepository extends JpaRepository<DisciplineDocument, Integer> {
-  Page<DisciplineDocument> findByFaculdadeIdAndCursoId(Integer collegeId, Integer courseId, Pageable pageRequest);
+  Page<DisciplineDocument> findByFaculdadeIdAndCursoId(
+      Integer collegeId, Integer courseId, Pageable pageRequest);
+
   DisciplineDocument findByCodigoOrigem(String codigoOrigem);
+
   Page<DisciplineDocument> findByNomeContaining(String nome, Pageable pageRequest);
 }

@@ -9,6 +9,10 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ProfessorAnalysisRepository extends JpaRepository<AnalisesDocument, Integer> {
 
-    @Query(value = "SELECT a.* FROM analises a INNER JOIN professor p ON a.professor_id = p.id WHERE p.nome = :professorNome", nativeQuery = true)
-    Page<AnalisesDocument> findAnalisesWithProfessorName(@Param("professorNome") String professorNome, Pageable pageable);
+  @Query(
+      value =
+          "SELECT a.* FROM analises a INNER JOIN professor p ON a.professor_id = p.id WHERE p.nome = :professorNome",
+      nativeQuery = true)
+  Page<AnalisesDocument> findAnalisesWithProfessorName(
+      @Param("professorNome") String professorNome, Pageable pageable);
 }

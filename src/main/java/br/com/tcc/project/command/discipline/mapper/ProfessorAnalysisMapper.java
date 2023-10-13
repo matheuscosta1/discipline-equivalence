@@ -17,6 +17,4 @@ public interface ProfessorAnalysisMapper {
   @Mapping(target = "professor", source = "source.professorDocument")
   @Mapping(target = "dataMaxima", source = "source.maximumDate")
   AnalisesDocument map(RegisterProfessorAnalysis.Request source);
-
 }
-

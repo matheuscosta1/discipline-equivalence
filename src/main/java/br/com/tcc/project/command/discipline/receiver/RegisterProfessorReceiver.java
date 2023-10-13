@@ -1,20 +1,17 @@
 package br.com.tcc.project.command.discipline.receiver;
 
-import br.com.tcc.project.command.RegisterDiscipline;
 import br.com.tcc.project.command.RegisterProfessor;
-import br.com.tcc.project.command.discipline.mapper.DisciplineMapper;
 import br.com.tcc.project.command.discipline.mapper.ProfessorMapper;
 import br.com.tcc.project.command.impl.AbstractReceiver;
-import br.com.tcc.project.command.repositoy.DisciplineRepository;
 import br.com.tcc.project.command.repositoy.ProfessorRepository;
-import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
 import br.com.tcc.project.command.repositoy.model.ProfessorDocument;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @CommandReceiver(RegisterProfessor.class)
-public class RegisterProfessorReceiver extends AbstractReceiver<RegisterProfessor.Request, ProfessorDocument> {
+public class RegisterProfessorReceiver
+    extends AbstractReceiver<RegisterProfessor.Request, ProfessorDocument> {
 
   @Autowired @Setter private ProfessorMapper professorMapper;
 
