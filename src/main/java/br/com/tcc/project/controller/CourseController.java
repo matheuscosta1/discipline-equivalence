@@ -80,9 +80,7 @@ public class CourseController {
 
   @Operation(summary = "Find course by college id", description = "Find course by college id")
   @DocApiResponsesError
-  @GetMapping(
-      "cursos/{id}") // TODO: deletar esse controller porque foi feito a busca por faculdade como
-  // parametro no metodo de cima
+  @GetMapping("cursos/{id}")
   public ResponseEntity<CourseResponse> findCourseById(@PathVariable(value = "id") Integer id) {
 
     CourseDocument courseDocument =

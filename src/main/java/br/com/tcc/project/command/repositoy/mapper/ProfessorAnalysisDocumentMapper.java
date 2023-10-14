@@ -2,6 +2,10 @@ package br.com.tcc.project.command.repositoy.mapper;
 
 import br.com.tcc.project.command.repositoy.model.AnalisesDocument;
 import br.com.tcc.project.response.ProfessorAnaliseResponse;
+
+import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.util.Date;
 import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,6 +30,15 @@ public interface ProfessorAnalysisDocumentMapper {
   @Mapping(target = "nomeFaculdadeDestino", source = "source.faculdadeDestino.nome")
   @Mapping(target = "nomeCursoDestino", source = "source.cursoDestino.nome")
   @Mapping(target = "nomeDisciplinaDestino", source = "source.disciplinaDestino.nome")
-  @Mapping(target = "dataMaxima", source = "source.dataMaxima")
+  @Mapping(target = "dataMaxima", expression = "java(convertData(source.dataMaxima))")
   ProfessorAnaliseResponse map(AnalisesDocument source);
+
+  default String convertData(Date maximumDate) {
+    try {
+      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+      return sdf.format(maximumDate);
+    } catch (Exception e) {
+      return "Date format error";
+    }
+  }
 }

@@ -23,6 +23,6 @@ public class RegisterProfessorAnalysis
     private CourseDocument courseDestinyDocument;
     private DisciplineDocument disciplineDestinyDocument;
     private ProfessorDocument professorDocument;
-    private String maximumDate;
+    public String maximumDate;
   }
 }

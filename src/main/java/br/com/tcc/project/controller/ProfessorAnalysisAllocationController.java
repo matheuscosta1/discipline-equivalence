@@ -5,6 +5,7 @@ import br.com.tcc.project.command.repositoy.mapper.ProfessorAnalysisDocumentMapp
 import br.com.tcc.project.command.repositoy.model.*;
 import br.com.tcc.project.controller.mapper.RegisterProfessorAnalysisControllerMapper;
 import br.com.tcc.project.controller.request.RegisterProfessorAnalysisRequest;
+import br.com.tcc.project.domain.NotificationStatus;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.ProfessorAnaliseResponse;
@@ -190,6 +191,8 @@ public class ProfessorAnalysisAllocationController {
                 disciplineDestinyDocument,
                 professorDocumennt,
                 id));
+
+    commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, null));
 
     return ResponseEntity.ok(professorAnalysisMapper.map(analisesDocument));
   }

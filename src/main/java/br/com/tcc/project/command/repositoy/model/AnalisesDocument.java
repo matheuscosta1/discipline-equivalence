@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @Setter
 @Getter
 @Builder
@@ -44,20 +46,11 @@ public class AnalisesDocument {
   @JoinColumn(name = "professorId")
   private ProfessorDocument professor;
 
-  private String dataMaxima;
+  public Date dataMaxima;
 
   public AnalisesDocument() {}
 
-  public AnalisesDocument(
-      Integer id,
-      CollegeDocument faculdadeOrigem,
-      CourseDocument cursoOrigem,
-      DisciplineDocument disciplinaOrigem,
-      CollegeDocument faculdadeDestino,
-      CourseDocument cursoDestino,
-      DisciplineDocument disciplinaDestino,
-      ProfessorDocument professor,
-      String dataMaxima) {
+  public AnalisesDocument(Integer id, CollegeDocument faculdadeOrigem, CourseDocument cursoOrigem, DisciplineDocument disciplinaOrigem, CollegeDocument faculdadeDestino, CourseDocument cursoDestino, DisciplineDocument disciplinaDestino, ProfessorDocument professor, Date dataMaxima) {
     this.id = id;
     this.faculdadeOrigem = faculdadeOrigem;
     this.cursoOrigem = cursoOrigem;
