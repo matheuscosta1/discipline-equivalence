@@ -6,6 +6,7 @@ import br.com.tcc.project.command.repositoy.model.*;
 import br.com.tcc.project.controller.mapper.RegisterProfessorAnalysisControllerMapper;
 import br.com.tcc.project.controller.request.RegisterProfessorAnalysisRequest;
 import br.com.tcc.project.domain.NotificationStatus;
+import br.com.tcc.project.email.EmailService;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.ProfessorAnaliseResponse;
@@ -32,6 +33,9 @@ public class ProfessorAnalysisAllocationController {
       Mappers.getMapper(RegisterProfessorAnalysisControllerMapper.class);
   private final ProfessorAnalysisDocumentMapper professorAnalysisMapper =
       Mappers.getMapper(ProfessorAnalysisDocumentMapper.class);
+
+  @Autowired
+  private EmailService emailService;
 
   @Operation(summary = "Register new analise", description = "Register new analise")
   @DocApiResponsesError
@@ -192,7 +196,11 @@ public class ProfessorAnalysisAllocationController {
                 professorDocumennt,
                 id));
 
-    commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, null));
+    String emailTemporario = "matheus.costa@tutanota.com";
+
+    NotificationDocument notificationDocument = commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, null, emailTemporario));
+
+    emailService.sendProfessorNotificationForAnaliseExpiration(notificationDocument);
 
     return ResponseEntity.ok(professorAnalysisMapper.map(analisesDocument));
   }

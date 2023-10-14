@@ -19,6 +19,7 @@ public class RegisterProfessorNotification
   @Builder
   public static class Request {
     Integer id;
+    String email;
     private AnalisesDocument analisesDocument;
     private Date maximumDate;
     public NotificationStatus status;

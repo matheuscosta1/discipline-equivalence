@@ -40,6 +40,7 @@ create table professor
     faculdade_id int not null,
     curso_id int not null,
     disciplina_id int not null,
+    email varchar (50) not null,
     constraint FKfr6rjc04htbtc3xab2b9xmq7r
             foreign key (faculdade_id) references faculdade (id),
     constraint FKssroqj2vyiaujfleclq1ifigj
@@ -84,6 +85,7 @@ create table notificacao
     data_maxima date not null,
     analise_id int not null,
     status varchar(10) not null,
+    email varchar (50) not null,
     constraint FKssroqj2vziaujabcdlq1fiigj
             foreign key (analise_id) references analises (id)
 );

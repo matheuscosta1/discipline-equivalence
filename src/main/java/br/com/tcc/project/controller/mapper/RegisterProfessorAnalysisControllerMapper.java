@@ -31,11 +31,13 @@ public interface RegisterProfessorAnalysisControllerMapper {
 
   @Mapping(target = "maximumDate", expression = "java(calculateDateForNotificationSevenDaysBeforeExpiration(maximumDate))")
   @Mapping(target = "analisesDocument", source = "analisesDocument")
+  @Mapping(target = "email", source = "email")
   RegisterProfessorNotification.Request map(
           AnalisesDocument analisesDocument,
           Date maximumDate,
           NotificationStatus status,
-          Integer id);
+          Integer id,
+          String email);
 
   default Date calculateDateForNotificationSevenDaysBeforeExpiration(Date maximumDate) {
     Calendar calendar = Calendar.getInstance();

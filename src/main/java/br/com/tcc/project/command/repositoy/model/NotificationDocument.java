@@ -25,14 +25,17 @@ public class NotificationDocument {
 
   private String status;
 
+  private String email;
+
   public Date dataMaxima;
 
   public NotificationDocument() {}
 
-  public NotificationDocument(Integer id, AnalisesDocument analisesDocument, String status, Date dataMaxima) {
+  public NotificationDocument(Integer id, AnalisesDocument analisesDocument, String status, String email, Date dataMaxima) {
     this.id = id;
     this.analisesDocument = analisesDocument;
     this.status = status;
+    this.email = email;
     this.dataMaxima = dataMaxima;
   }
 }

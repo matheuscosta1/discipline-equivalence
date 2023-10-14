@@ -26,3 +26,7 @@ logging:
   logback:
     rollingpolicy:
       max-file-size: 500MB
+
+default:
+  sender: matheus.costa@tutanota.com
+  recipient: matheus.costa@tutanota.com
