@@ -30,3 +30,8 @@ logging:
 default:
   sender: matheus.costa@tutanota.com
   recipient: matheus.costa@tutanota.com
+
+
+discipline-equivalence:
+  email-notification:
+    cron-schedule: 0 0/1 * 1/1 * ?

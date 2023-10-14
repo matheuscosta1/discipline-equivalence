@@ -92,6 +92,12 @@ public class ProfessorAnalysisAllocationController {
                 professorDocumennt,
                 null));
 
+    String emailTemporario = "matheus.costa@tutanota.com";
+
+    NotificationDocument notificationDocument = commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, null, emailTemporario));
+
+    //emailService.sendProfessorNotificationForAnaliseExpiration(notificationDocument);
+
     return ResponseEntity.ok(professorAnalysisMapper.map(analisesDocument));
   }
 

@@ -11,6 +11,7 @@ import org.thymeleaf.context.Context;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public abstract class AbstractEmailService implements EmailService{
@@ -36,7 +37,7 @@ public abstract class AbstractEmailService implements EmailService{
         simpleMailMessage.setFrom("Análise de equivalência em atraso" + "<" + sender + ">");
         simpleMailMessage.setSubject("Olá, " + notificationDocument.getAnalisesDocument().getProfessor().getNome());
         simpleMailMessage.setSentDate(new Date(System.currentTimeMillis()));
-        simpleMailMessage.setText("O senhor possui uma análise de equivalência de disciplinas pendente, faça login no portal de Equivalência de Disciplinas e confira. A data máxima para análise é: " +  notificationDocument.getDataMaxima());
+        simpleMailMessage.setText("O senhor possui uma análise de equivalência de disciplinas pendente, faça login no portal de Equivalência de Disciplinas e confira. A data máxima para análise é: " +  convertData(notificationDocument.getAnalisesDocument().getDataMaxima()));
         return simpleMailMessage;
     }
 
@@ -54,5 +55,14 @@ public abstract class AbstractEmailService implements EmailService{
         Context context = new Context();
         context.setVariable("request", request);
         return templateEngine.process("email/requestConfirmation", context);
+    }
+
+    private String convertData(Date maximumDate) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            return sdf.format(maximumDate);
+        } catch (Exception e) {
+            return "Date format error";
+        }
     }
 }

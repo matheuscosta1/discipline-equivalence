@@ -7,11 +7,14 @@ import br.com.tcc.project.controller.request.RegisterProfessorAnalysisRequest;
 import br.com.tcc.project.domain.NotificationStatus;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.Date;
 
 @Mapper(componentModel = "spring")
+@Component
 public interface RegisterProfessorAnalysisControllerMapper {
   int DAYS_FOR_NOTIFICATION = 7;
 

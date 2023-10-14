@@ -16,5 +16,5 @@ INSERT INTO equivalencia_disciplina.disciplina (id, nome, codigo_origem, ementa,
 
 #professor
 
-INSERT INTO equivalencia_disciplina.professor (id, nome, faculdade_id, curso_id, disciplina_id) VALUES (1, "André", 1, 1, 1);
+INSERT INTO equivalencia_disciplina.professor (id, nome, faculdade_id, curso_id, disciplina_id, email) VALUES (1, "André", 1, 1, 1, "andre@teste.com");
 
