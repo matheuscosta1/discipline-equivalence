@@ -19,6 +19,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,7 @@ public class ProfessorAnalysisAllocationController {
   @Operation(summary = "Register new analise", description = "Register new analise")
   @DocApiResponsesError
   @PostMapping("analises")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<ProfessorAnaliseResponse> registerProfessor(
       @Valid @RequestBody RegisterProfessorAnalysisRequest request) {
 
@@ -104,6 +106,7 @@ public class ProfessorAnalysisAllocationController {
   @Operation(summary = "Find analise by id", description = "Find analise by id")
   @DocApiResponsesError
   @GetMapping("analises/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<ProfessorAnaliseResponse> findProfessorById(
       @PathVariable(value = "id") Integer id) {
 
@@ -120,6 +123,7 @@ public class ProfessorAnalysisAllocationController {
       description = "Find discipline by college and course")
   @DocApiResponsesError
   @GetMapping("analises")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<Page<ProfessorAnaliseResponse>>
       findAllProfessorByDiscplineCourseAndFaculdadeId(
           @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
@@ -149,6 +153,7 @@ public class ProfessorAnalysisAllocationController {
       description = "Atualiza registro analise equivalencia")
   @DocApiResponsesError
   @PutMapping("analises/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<ProfessorAnaliseResponse> registerProfessor(
       @PathVariable(value = "id") Integer id,
       @Valid @RequestBody RegisterProfessorAnalysisRequest request) {
@@ -214,6 +219,7 @@ public class ProfessorAnalysisAllocationController {
   @Operation(summary = "Deleta analise", description = "Deleta analise")
   @DocApiResponsesError
   @DeleteMapping("analises/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CollegeDocument> deleteAnaliseById(
           @PathVariable(value = "id") Integer id) {
     commandGateway.invoke(

@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -35,6 +36,7 @@ public class CollegeController {
   @Operation(summary = "Register new college", description = "Register new college")
   @DocApiResponsesError
   @PostMapping("faculdades")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CollegeDocument> registerCollege(
       @Valid @RequestBody RegisterCollegeRequest request) {
 
@@ -49,6 +51,7 @@ public class CollegeController {
   @Operation(summary = "Find colleges", description = "Find all colleges")
   @DocApiResponsesError
   @GetMapping("faculdades")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROFESSOR')")
   public ResponseEntity<Page<CollegeDocument>> findAllColleges(
       @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
       @RequestParam(value = "paginas", defaultValue = "25", required = false) Integer paginas,
@@ -72,6 +75,7 @@ public class CollegeController {
   @Operation(summary = "Find colleges", description = "Find all colleges")
   @DocApiResponsesError
   @GetMapping("faculdades/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CollegeDocument> findCollegeById(@PathVariable(value = "id") Integer id) {
     CollegeDocument collegeDocument =
         commandGateway.invoke(
@@ -83,6 +87,7 @@ public class CollegeController {
   @Operation(summary = "Atualiza faculdade", description = "Atualiza faculdade")
   @DocApiResponsesError
   @PutMapping("faculdades/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CollegeDocument> updateCollege(
       @PathVariable(value = "id") Integer id, @Valid @RequestBody RegisterCollegeRequest request) {
     CollegeDocument collegeDocument =
@@ -95,6 +100,7 @@ public class CollegeController {
   @Operation(summary = "Deleta faculdade", description = "Deleta faculdade")
   @DocApiResponsesError
   @DeleteMapping("faculdades/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CollegeDocument> deleteCollegeById(
           @PathVariable(value = "id") Integer id) {
     commandGateway.invoke(

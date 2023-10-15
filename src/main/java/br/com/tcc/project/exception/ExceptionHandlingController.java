@@ -132,13 +132,16 @@ public class ExceptionHandlingController {
   public ErrorResponse gatewayException(final GatewayException e) {
     return ErrorResponse.builder().message(e.getMessage()).code(e.getCode()).build();
   }
-
-  @ExceptionHandler({Exception.class})
-  @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  public ErrorResponse handleGenericError(Exception exception) {
-    LOGGER.error("Ocorreu um problema", exception);
-    return ErrorResponse.builder().message("Ocorreu um problema interno").build();
+  @ExceptionHandler({AccessDeniedException.class})
+  @ResponseStatus(HttpStatus.UNAUTHORIZED)
+  public ErrorResponse accessDeniedException(AccessDeniedException exception) {
+    LOGGER.error(exception.getMessage(), exception);
+    final ErrorResponse response = new ErrorResponse();
+    response.setMessage("Acesso negado");
+    return response;
   }
+
+
 
   @ExceptionHandler({ConstraintViolationException.class})
   @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -154,17 +157,11 @@ public class ExceptionHandlingController {
     return errorResponse;
   }
 
-  @ExceptionHandler({AccessDeniedException.class})
-  @ResponseStatus(HttpStatus.FORBIDDEN)
-  public ErrorResponse accessDeniedException(AccessDeniedException exception) {
-    LOGGER.error(exception.getMessage(), exception);
-    return ErrorResponse.builder().message("Acesso negado").build();
-  }
-
   @ExceptionHandler({ClassNotFoundException.class})
   @ResponseStatus(HttpStatus.NOT_FOUND)
   public ErrorResponse handleNotFoundException(final ClassNotFoundException exception) {
     LOGGER.error(exception.getMessage(), exception);
     return ErrorResponse.builder().message(exception.getMessage()).build();
   }
+
 }

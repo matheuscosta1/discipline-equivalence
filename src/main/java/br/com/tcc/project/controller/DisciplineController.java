@@ -19,6 +19,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,6 +37,7 @@ public class DisciplineController {
   @Operation(summary = "Register new discipline", description = "Register new discipline")
   @DocApiResponsesError
   @PostMapping("disciplinas")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<DisciplineResponse> registerDiscipline(
       @Valid @RequestBody RegisterDisciplineRequest request) {
 
@@ -60,6 +62,7 @@ public class DisciplineController {
   @Operation(summary = "Find discipline by id", description = "Find discipline by id")
   @DocApiResponsesError
   @GetMapping("disciplinas/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<DisciplineResponse> findDisciplineById(
       @PathVariable(value = "id") Integer id) {
 
@@ -75,6 +78,7 @@ public class DisciplineController {
       description = "Find discipline by college and course")
   @DocApiResponsesError
   @GetMapping("disciplinas")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<Page<DisciplineResponse>> findAllDisciplineByCollegeAndCourse(
       @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
       @RequestParam(value = "paginas", defaultValue = "25", required = false) Integer paginas,
@@ -102,6 +106,7 @@ public class DisciplineController {
   @Operation(summary = "Register new discipline", description = "Register new discipline")
   @DocApiResponsesError
   @PutMapping("disciplinas/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<DisciplineResponse> updateDiscipline(
       @PathVariable(value = "id") Integer id,
       @Valid @RequestBody RegisterDisciplineRequest request) {

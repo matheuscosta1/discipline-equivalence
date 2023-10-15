@@ -18,3 +18,10 @@ INSERT INTO equivalencia_disciplina.disciplina (id, nome, codigo_origem, ementa,
 
 INSERT INTO equivalencia_disciplina.professor (id, nome, faculdade_id, curso_id, disciplina_id, email) VALUES (1, "André", 1, 1, 1, "andre@teste.com");
 
+#usuario
+INSERT INTO equivalencia_disciplina.usuario (id, email, name, type, password) VALUES (1, 'admin@gmail.com', 'Admin Silva', 1, '$2y$12$ojDDqa48iPiTnzyzaOiqDeDH08/NljrjsiRiODk0wUqZKZ84l8MgC');
+INSERT INTO equivalencia_disciplina.usuario (id, email, name, type, password) VALUES (1, 'professor@gmail.com', 'Professor Silva', 2, '$2y$12$ojDDqa48iPiTnzyzaOiqDeDH08/NljrjsiRiODk0wUqZKZ84l8MgC');
+
+## Profile
+INSERT INTO equivalencia_disciplina.perfil (usuario_id, profile) VALUES (1, 1);
+INSERT INTO equivalencia_disciplina.perfil (usuario_id, profile) VALUES (2, 2);

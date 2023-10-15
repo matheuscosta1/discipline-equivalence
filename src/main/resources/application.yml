@@ -35,3 +35,7 @@ default:
 discipline-equivalence:
   email-notification:
     cron-schedule: 0 0/1 * 1/1 * ?
+
+jwt:
+  secret: SecretToSignToken
+  expiration: 86400000

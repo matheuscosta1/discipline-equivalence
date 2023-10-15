@@ -20,6 +20,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,6 +39,7 @@ public class ProfessorController {
   @Operation(summary = "Register new professor", description = "Register new professor")
   @DocApiResponsesError
   @PostMapping("professores")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<ProfessorResponse> registerProfessor(
       @Valid @RequestBody RegisterProfessorRequest request) {
 
@@ -66,6 +68,7 @@ public class ProfessorController {
   @Operation(summary = "Find discipline by id", description = "Find discipline by id")
   @DocApiResponsesError
   @GetMapping("professores/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<ProfessorResponse> findProfessorById(
       @PathVariable(value = "id") Integer id) {
 
@@ -81,6 +84,7 @@ public class ProfessorController {
       description = "Find discipline by college and course")
   @DocApiResponsesError
   @GetMapping("professores")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<Page<ProfessorResponse>> findAllProfessorByDiscplineCourseAndFaculdadeId(
       @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
       @RequestParam(value = "paginas", defaultValue = "25", required = false) Integer paginas,
@@ -107,6 +111,7 @@ public class ProfessorController {
   @Operation(summary = "Atualiza professor", description = "Atualiza professor")
   @DocApiResponsesError
   @PutMapping("professores/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<ProfessorResponse> updateProfessor(@PathVariable(value = "id") Integer id,
           @Valid @RequestBody RegisterProfessorRequest request) {
 
@@ -135,6 +140,7 @@ public class ProfessorController {
   @Operation(summary = "Deleta professor", description = "Deleta professor")
   @DocApiResponsesError
   @DeleteMapping("professores/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CollegeDocument> deleteAnaliseById(
           @PathVariable(value = "id") Integer id) {
     commandGateway.invoke(

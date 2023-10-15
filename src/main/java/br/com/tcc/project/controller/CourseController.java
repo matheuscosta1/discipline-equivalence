@@ -17,6 +17,7 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,7 @@ public class CourseController {
   @Operation(summary = "Register new course", description = "Register new course")
   @DocApiResponsesError
   @PostMapping("cursos")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CourseResponse> registerCourse(
       @Valid @RequestBody RegisterCourseRequest request) {
 
@@ -55,6 +57,7 @@ public class CourseController {
   @Operation(summary = "Find course by college id", description = "Find course by college id")
   @DocApiResponsesError
   @GetMapping("cursos")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<Page<CourseResponse>> findAllCourse(
       @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
       @RequestParam(value = "paginas", defaultValue = "25", required = false) Integer paginas,
@@ -81,6 +84,7 @@ public class CourseController {
   @Operation(summary = "Find course by college id", description = "Find course by college id")
   @DocApiResponsesError
   @GetMapping("cursos/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CourseResponse> findCourseById(@PathVariable(value = "id") Integer id) {
 
     CourseDocument courseDocument =
@@ -93,6 +97,7 @@ public class CourseController {
   @Operation(summary = "Register new course", description = "Register new course")
   @DocApiResponsesError
   @PutMapping("cursos/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CourseResponse> updateCourse(
       @PathVariable(value = "id") Integer id, @Valid @RequestBody RegisterCourseRequest request) {
 
@@ -116,6 +121,7 @@ public class CourseController {
   @Operation(summary = "Deleta curso", description = "Deleta curso")
   @DocApiResponsesError
   @DeleteMapping("cursos/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CollegeDocument> deleteCourseById(
           @PathVariable(value = "id") Integer id) {
     commandGateway.invoke(

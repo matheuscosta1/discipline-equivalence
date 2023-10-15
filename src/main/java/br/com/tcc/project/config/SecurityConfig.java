@@ -1,6 +1,10 @@
 package br.com.tcc.project.config;
 
 import java.util.Arrays;
+
+import br.com.tcc.project.security.JWTAuthenticationFilter;
+import br.com.tcc.project.security.JWTAuthorizationFilter;
+import br.com.tcc.project.security.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,15 +25,14 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Autowired private Environment env;
 
   @Autowired private UserDetailsService userDetailsService;
 
-  // @Autowired
-  // private JWTUtils jwtUtils;
+  @Autowired
+  private JWTUtils jwtUtils;
 
   private static final String[] PUBLIC_MATCHERS = {"/h2-console/**", "/auth/forgot/**"};
 
@@ -57,18 +60,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     http.cors().and().csrf().disable();
+
     http.authorizeRequests()
         .antMatchers(PUBLIC_MATCHERS)
         .permitAll()
         .antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET)
         .permitAll()
         .antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST)
-        .permitAll();
-    // .anyRequest().authenticated();
+        .permitAll()
+        .anyRequest().authenticated();
 
-    // http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtils));
-    // http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtils,
-    // userDetailsService));
+    http.addFilter(new JWTAuthenticationFilter(authenticationManager(), jwtUtils));
+    http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtils,
+    userDetailsService));
     http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
   }
 

@@ -89,3 +89,25 @@ create table notificacao
     constraint FKssroqj2vziaujabcdlq1fiigj
             foreign key (analise_id) references analises (id)
 );
+
+create table usuario
+(
+    id int auto_increment
+        primary key,
+    email varchar(255) null,
+    name varchar(255) null,
+    password varchar(255) null,
+    type int null,
+    constraint UK_dwk6cx0afu8bs9o4t536v1j5v
+        unique (email)
+);
+
+create table perfil
+(
+    usuario_id int not null,
+    profile int null,
+    constraint FK88rruc7qawl75mscnnwrah9sc
+        foreign key (usuario_id) references usuario (id)
+);
+
+
