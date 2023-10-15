@@ -1,16 +1,10 @@
 package br.com.tcc.project.command.repositoy.model;
 
-import br.com.tcc.project.domain.Profile;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -27,12 +21,12 @@ public class ProfileDocument {
   @JoinColumn(name = "usuarioId")
   private UserDocument usuario;
 
-  private Integer profile;
+  private Integer perfil;
 
-  public ProfileDocument(Integer id, UserDocument usuario, Integer profile) {
+  public ProfileDocument(Integer id, UserDocument usuario, Integer perfil) {
     this.id = id;
     this.usuario = usuario;
-    this.profile = profile;
+    this.perfil = perfil;
   }
 
   public ProfileDocument() {

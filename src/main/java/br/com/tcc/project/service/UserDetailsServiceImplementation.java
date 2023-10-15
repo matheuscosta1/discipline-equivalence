@@ -34,7 +34,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 
     public Set<Profile> convertPerfis(List<ProfileDocument> profileDocumentList) {
         Set<Profile> profileSet = new HashSet<>();
-        profileDocumentList.forEach(profileDocument -> profileSet.add(Profile.toEnum(profileDocument.getProfile())));
+        profileDocumentList.forEach(profileDocument -> profileSet.add(Profile.toEnum(profileDocument.getPerfil())));
         return profileSet;
     }
 }

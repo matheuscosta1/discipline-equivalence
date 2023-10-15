@@ -95,17 +95,19 @@ create table usuario
     id int auto_increment
         primary key,
     email varchar(255) null,
-    name varchar(255) null,
+    nome varchar(255) null,
     password varchar(255) null,
-    type int null,
+    perfil int null,
     constraint UK_dwk6cx0afu8bs9o4t536v1j5v
         unique (email)
 );
 
 create table perfil
 (
+	id int auto_increment
+        primary key,
     usuario_id int not null,
-    profile int null,
+    perfil int null,
     constraint FK88rruc7qawl75mscnnwrah9sc
         foreign key (usuario_id) references usuario (id)
 );

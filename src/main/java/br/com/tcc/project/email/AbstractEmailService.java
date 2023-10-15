@@ -1,6 +1,7 @@
 package br.com.tcc.project.email;
 
 import br.com.tcc.project.command.repositoy.model.NotificationDocument;
+import br.com.tcc.project.command.repositoy.model.UserDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -30,7 +31,11 @@ public abstract class AbstractEmailService implements EmailService{
         SimpleMailMessage simpleMailMessage = prepareSimpleMailMessageFromRequest(request);
         sendEmail(simpleMailMessage);
     }
-
+    @Override
+    public void sendNewPasswordEmail(UserDocument userDocument, String newPassword){
+        SimpleMailMessage simpleMailMessage = prepareNewPasswordEmail(userDocument, newPassword);
+        sendEmail(simpleMailMessage);
+    }
     protected SimpleMailMessage prepareSimpleMailMessageFromRequest(NotificationDocument notificationDocument){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(notificationDocument.getEmail());
@@ -40,7 +45,15 @@ public abstract class AbstractEmailService implements EmailService{
         simpleMailMessage.setText("O senhor possui uma análise de equivalência de disciplinas pendente, faça login no portal de Equivalência de Disciplinas e confira. A data máxima para análise é: " +  convertData(notificationDocument.getAnalisesDocument().getDataMaxima()));
         return simpleMailMessage;
     }
-
+    protected SimpleMailMessage prepareNewPasswordEmail(UserDocument userDocument, String newPassword){
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(userDocument.getEmail());
+        simpleMailMessage.setFrom(sender);
+        simpleMailMessage.setSubject("New Password");
+        simpleMailMessage.setSentDate(new Date(System.currentTimeMillis()));
+        simpleMailMessage.setText("New password: "+ newPassword);
+        return simpleMailMessage;
+    }
     protected SimpleMailMessage prepareNewPasswordEmail(NotificationDocument notificationDocument, String newPassword){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
         simpleMailMessage.setTo(notificationDocument.getEmail());

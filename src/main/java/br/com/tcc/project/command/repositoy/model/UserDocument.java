@@ -1,6 +1,5 @@
 package br.com.tcc.project.command.repositoy.model;
 
-import br.com.tcc.project.domain.Profile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Getter;
@@ -9,7 +8,6 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Setter
 @Getter
@@ -24,12 +22,12 @@ public class UserDocument implements Serializable {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Integer id;
 
-  private String name;
+  private String nome;
 
   @Column(unique=true)
   private String email;
 
-  private Integer type;
+  private Integer perfil;
 
   @JsonIgnore
   private String password;
@@ -40,11 +38,11 @@ public class UserDocument implements Serializable {
   public UserDocument() {
   }
 
-  public UserDocument(Integer id, String name, String email, Integer type, String password, List<ProfileDocument> perfis) {
+  public UserDocument(Integer id, String nome, String email, Integer perfil, String password, List<ProfileDocument> perfis) {
     this.id = id;
-    this.name = name;
+    this.nome = nome;
     this.email = email;
-    this.type = type;
+    this.perfil = perfil;
     this.password = password;
     this.perfis = perfis;
   }
