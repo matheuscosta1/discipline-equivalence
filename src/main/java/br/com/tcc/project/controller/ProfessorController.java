@@ -2,12 +2,11 @@ package br.com.tcc.project.controller;
 
 import br.com.tcc.project.command.*;
 import br.com.tcc.project.command.repositoy.mapper.ProfessorDocumentMapper;
-import br.com.tcc.project.command.repositoy.model.CollegeDocument;
-import br.com.tcc.project.command.repositoy.model.CourseDocument;
-import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
-import br.com.tcc.project.command.repositoy.model.ProfessorDocument;
+import br.com.tcc.project.command.repositoy.model.*;
 import br.com.tcc.project.controller.mapper.RegisterProfessorControllerMapper;
 import br.com.tcc.project.controller.request.RegisterProfessorRequest;
+import br.com.tcc.project.domain.Profile;
+import br.com.tcc.project.email.EmailService;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.ProfessorResponse;
@@ -21,8 +20,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
+import java.util.Random;
 
 @Tag(name = "Professor")
 @RestController
@@ -36,6 +39,11 @@ public class ProfessorController {
   private final ProfessorDocumentMapper professorDocumentMapper =
       Mappers.getMapper(ProfessorDocumentMapper.class);
 
+  @Autowired
+  private BCryptPasswordEncoder bCryptPasswordEncoder;
+
+
+  private Random random = new Random();
   @Operation(summary = "Register new professor", description = "Register new professor")
   @DocApiResponsesError
   @PostMapping("professores")
@@ -57,10 +65,25 @@ public class ProfessorController {
         commandGateway.invoke(
             FindDisciplineById.class,
             FindDisciplineById.Request.builder().id(request.getDisciplinaId()).build());
+
+    UserDocument userDocument = commandGateway.invoke(
+            RegisterUser.class,
+            RegisterUser
+                    .Request
+                    .builder()
+                    .nome(request.getNome())
+                    .email(request.getEmail())
+                    .password(bCryptPasswordEncoder.encode(newPassword()))
+                    .perfil(Profile.PROFESSOR.getCode())
+                    .build());
+
+    commandGateway.invoke(RegisterProfile.class, RegisterProfile.Request.builder().usuario(userDocument).perfil(Profile.PROFESSOR.getCode()).id(null).build());
+
+
     ProfessorDocument professorDocument =
         commandGateway.invoke(
             RegisterProfessor.class,
-            mapper.map(request, collegeDocument, courseDocument, disciplineDocument, null));
+            mapper.map(request, collegeDocument, courseDocument, disciplineDocument, userDocument, null));
 
     return ResponseEntity.ok(professorDocumentMapper.map(professorDocument));
   }
@@ -129,10 +152,24 @@ public class ProfessorController {
             commandGateway.invoke(
                     FindDisciplineById.class,
                     FindDisciplineById.Request.builder().id(request.getDisciplinaId()).build());
+
+    UserDocument userDocument = commandGateway.invoke(
+            RegisterUser.class,
+            RegisterUser.Request
+                    .builder()
+                    .nome(request.getNome())
+                    .email(request.getEmail())
+                    .password(bCryptPasswordEncoder.encode(newPassword()))
+                    .perfil(Profile.PROFESSOR.getCode())
+                    .build()
+    );
+
+    commandGateway.invoke(RegisterProfile.class, RegisterProfile.Request.builder().usuario(userDocument).perfil(Profile.PROFESSOR.getCode()).id(null).build());
+
     ProfessorDocument professorDocument =
             commandGateway.invoke(
                     RegisterProfessor.class,
-                    mapper.map(request, collegeDocument, courseDocument, disciplineDocument, id));
+                    mapper.map(request, collegeDocument, courseDocument, disciplineDocument, userDocument, id));
 
     return ResponseEntity.ok(professorDocumentMapper.map(professorDocument));
   }
@@ -147,5 +184,26 @@ public class ProfessorController {
             DeleteById.class,
             DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.ProfessorDocument.class).id(id).build());
     return null;
+  }
+
+  private String newPassword() {
+    char[] vector = new char[10];
+    for(int i=0; i<10; i++){
+      vector[i] = randomChar();
+    }
+    return new String(vector);
+  }
+
+  private char randomChar() {
+    int option = random.nextInt(3);
+    if(option == 0) {
+      return (char) (random.nextInt(10) + 48);
+    }
+    else if(option == 1){
+      return (char) (random.nextInt(26) + 65);
+    }
+    else {
+      return (char) (random.nextInt(26) + 97);
+    }
   }
 }

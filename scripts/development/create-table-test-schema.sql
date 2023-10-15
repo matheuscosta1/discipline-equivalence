@@ -31,6 +31,17 @@ create table disciplina
                 foreign key (curso_id) references curso (id)
 );
 
+create table usuario
+(
+    id int auto_increment
+        primary key,
+    email varchar(255) null,
+    nome varchar(255) null,
+    password varchar(255) null,
+    perfil int null,
+    constraint UK_dwk6cx0afu8bs9o4t536v1j5v
+        unique (email)
+);
 
 create table professor
 (
@@ -40,13 +51,15 @@ create table professor
     faculdade_id int not null,
     curso_id int not null,
     disciplina_id int not null,
-    email varchar (50) not null,
+    usuario_id int not null,
     constraint FKfr6rjc04htbtc3xab2b9xmq7r
             foreign key (faculdade_id) references faculdade (id),
     constraint FKssroqj2vyiaujfleclq1ifigj
                 foreign key (curso_id) references curso (id),
     constraint FKssroqj2vyiaujfledlq1ifigj
-                    foreign key (disciplina_id) references disciplina (id)
+                    foreign key (disciplina_id) references disciplina (id),
+    constraint FKssroqj2vyiaujfledlqklfigj
+                        foreign key (usuario_id) references usuario (id)
 );
 
 create table analises
@@ -90,17 +103,6 @@ create table notificacao
             foreign key (analise_id) references analises (id)
 );
 
-create table usuario
-(
-    id int auto_increment
-        primary key,
-    email varchar(255) null,
-    nome varchar(255) null,
-    password varchar(255) null,
-    perfil int null,
-    constraint UK_dwk6cx0afu8bs9o4t536v1j5v
-        unique (email)
-);
 
 create table perfil
 (

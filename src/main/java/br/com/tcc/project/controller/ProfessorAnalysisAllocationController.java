@@ -148,6 +148,39 @@ public class ProfessorAnalysisAllocationController {
     return ResponseEntity.ok(responses);
   }
 
+//  @Operation(
+//          summary = "Find discipline by college and course",
+//          description = "Find discipline by college and course")
+//  @DocApiResponsesError
+//  @GetMapping("analises-professor")
+//  @PreAuthorize("hasAnyRole('ROLE_PROFESSOR')")
+//  public ResponseEntity<Page<ProfessorAnaliseResponse>>
+//  findAllAnalisesByProfessorEmail(
+//          @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
+//          @RequestParam(value = "paginas", defaultValue = "25", required = false) Integer paginas,
+//          @RequestParam(value = "orderBy", defaultValue = "dataMaxima", required = false)
+//          String orderBy,
+//          @RequestParam(value = "direction", defaultValue = "ASC", required = false)
+//          String direction,
+//          @RequestParam(value = "emailProfessor", required = false) String emailProfessor
+//  ) {
+//
+//    FindProfessorById
+//
+//    Page<ProfessorAnaliseResponse> responses =
+//            commandGateway.invoke(
+//                    FindAllProfessorAnalysis.class,
+//                    FindAllProfessorAnalysis.Request.builder()
+//                            .pagina(pagina)
+//                            .paginas(paginas)
+//                            .orderBy(orderBy)
+//                            .direction(direction)
+//                            .nomeProfessor(nomeProfessor)
+//                            .build());
+//
+//    return ResponseEntity.ok(responses);
+//  }
+
   @Operation(
       summary = "Atualiza registro analise equivalencia",
       description = "Atualiza registro analise equivalencia")

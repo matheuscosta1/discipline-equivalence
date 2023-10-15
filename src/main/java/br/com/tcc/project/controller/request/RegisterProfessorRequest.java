@@ -17,6 +17,10 @@ public class RegisterProfessorRequest {
   @NotBlank
   private String nome;
 
+  @Schema(example = "Alberto Luis", description = "Nome do professor.")
+  @NotBlank
+  private String email;
+
   @Schema(
       example = "Universidade Federal de Uberlândia",
       description = "Identificador da faculdade")

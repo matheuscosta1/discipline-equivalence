@@ -26,6 +26,5 @@ public class RegisterUser extends AbstractCommand<RegisterUser.Request, UserDocu
     private String email;
     private Integer perfil;
     private String password;
-    private List<Profile> perfis;
   }
 }

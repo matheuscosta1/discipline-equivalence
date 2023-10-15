@@ -21,5 +21,6 @@ public class FindAllProfessorAnalysis
     private String orderBy;
     private String direction;
     private String nomeProfessor;
+    private String emailProfessor;
   }
 }

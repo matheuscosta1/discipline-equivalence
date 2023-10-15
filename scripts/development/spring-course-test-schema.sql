@@ -14,10 +14,6 @@ INSERT INTO equivalencia_disciplina.curso (id, nome, faculdade_id) VALUES (6, 'C
 INSERT INTO equivalencia_disciplina.disciplina (id, nome, codigo_origem, ementa, programa, carga_horaria, faculdade_id, curso_id) VALUES (1, "Calculo I", "FAMAT1", "Limites;Derivadas", "Limites", "60", 1, 1);
 INSERT INTO equivalencia_disciplina.disciplina (id, nome, codigo_origem, ementa, programa, carga_horaria, faculdade_id, curso_id) VALUES (2, "Programacao Procedimental", "PP0001", "Lacos;Condicionais", "Lacos", "60", 2, 3);
 
-#professor
-
-INSERT INTO equivalencia_disciplina.professor (id, nome, faculdade_id, curso_id, disciplina_id, email) VALUES (1, "André", 1, 1, 1, "andre@teste.com");
-
 INSERT INTO equivalencia_disciplina.usuario (email,nome,password,perfil) VALUES
 	 ('admin@gmail.com','Admin Silva','$2a$10$h.dVQ.0AJLRjZTqthgtnDeFBxgQd.XXgFe6a5cVKVFHWFiVdP6hHa',1),
 	 ('professor@gmail.com','Professor Silva','$2a$10$h.dVQ.0AJLRjZTqthgtnDeFBxgQd.XXgFe6a5cVKVFHWFiVdP6hHa',2);
@@ -25,3 +21,7 @@ INSERT INTO equivalencia_disciplina.usuario (email,nome,password,perfil) VALUES
 INSERT INTO equivalencia_disciplina.perfil (usuario_id,perfil) VALUES
 	 (1,1),
 	 (2,2);
+
+#professor
+INSERT INTO equivalencia_disciplina.professor (id, nome, faculdade_id, curso_id, disciplina_id, usuario_id) VALUES (1, "Professor Silva", 1, 1, 1, 2);
+

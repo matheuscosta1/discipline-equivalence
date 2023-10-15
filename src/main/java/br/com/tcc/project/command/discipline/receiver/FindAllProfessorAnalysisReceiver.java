@@ -45,6 +45,22 @@ public class FindAllProfessorAnalysisReceiver
           courseResponses, pageRequest, analisesWithProfessorName.getTotalElements());
     }
 
+    if (parameter.getEmailProfessor() != null && !parameter.getEmailProfessor().isBlank()) {
+      PageRequest pageRequest =
+              PageRequest.of(
+                      parameter.getPagina(),
+                      parameter.getPaginas(),
+                      Sort.Direction.valueOf(parameter.getDirection()),
+                      "p.nome");
+
+      Page<AnalisesDocument> analisesWithProfessorName =
+              professorAnalysisRepository.findAnalisesWithProfessorName(
+                      parameter.getNomeProfessor(), pageRequest);
+      courseResponses = mapper.map(analisesWithProfessorName.getContent());
+      return new PageImpl<>(
+              courseResponses, pageRequest, analisesWithProfessorName.getTotalElements());
+    }
+
     PageRequest pageRequest =
         PageRequest.of(
             parameter.getPagina(),
