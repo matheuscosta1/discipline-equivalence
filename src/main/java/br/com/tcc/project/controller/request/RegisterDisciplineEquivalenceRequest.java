@@ -1,7 +1,9 @@
 package br.com.tcc.project.controller.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import javax.validation.constraints.NotBlank;
+
+import javax.validation.constraints.NotNull;
+
 import lombok.*;
 
 @Getter
@@ -12,10 +14,10 @@ import lombok.*;
 @Schema
 public class RegisterDisciplineEquivalenceRequest {
   @Schema(example = "GBC057", description = "Código da disciplina na sua faculdade de origem.")
-  @NotBlank
-  private String originCode;
+  @NotNull
+  private Integer idDisciplinaOrigem;
 
   @Schema(example = "GBC059", description = "Código da disciplina na sua faculdade de destino.")
-  @NotBlank
-  private String destinyCode;
+  @NotNull
+  private Integer idDisciplinaDestino;
 }

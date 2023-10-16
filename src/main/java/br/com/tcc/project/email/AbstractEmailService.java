@@ -1,17 +1,14 @@
 package br.com.tcc.project.email;
 
 import br.com.tcc.project.command.repositoy.model.NotificationDocument;
-import br.com.tcc.project.command.repositoy.model.UserDocument;
+import br.com.tcc.project.command.repositoy.model.UsuarioDocument;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
-import javax.mail.MessagingException;
-import javax.mail.internet.MimeMessage;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -32,8 +29,8 @@ public abstract class AbstractEmailService implements EmailService{
         sendEmail(simpleMailMessage);
     }
     @Override
-    public void sendNewPasswordEmail(UserDocument userDocument, String newPassword){
-        SimpleMailMessage simpleMailMessage = prepareNewPasswordEmail(userDocument, newPassword);
+    public void sendNewPasswordEmail(UsuarioDocument usuarioDocument, String newPassword){
+        SimpleMailMessage simpleMailMessage = prepareNewPasswordEmail(usuarioDocument, newPassword);
         sendEmail(simpleMailMessage);
     }
     protected SimpleMailMessage prepareSimpleMailMessageFromRequest(NotificationDocument notificationDocument){
@@ -45,9 +42,9 @@ public abstract class AbstractEmailService implements EmailService{
         simpleMailMessage.setText("O senhor possui uma análise de equivalência de disciplinas pendente, faça login no portal de Equivalência de Disciplinas e confira. A data máxima para análise é: " +  convertData(notificationDocument.getAnalisesDocument().getDataMaxima()));
         return simpleMailMessage;
     }
-    protected SimpleMailMessage prepareNewPasswordEmail(UserDocument userDocument, String newPassword){
+    protected SimpleMailMessage prepareNewPasswordEmail(UsuarioDocument usuarioDocument, String newPassword){
         SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setTo(userDocument.getEmail());
+        simpleMailMessage.setTo(usuarioDocument.getEmail());
         simpleMailMessage.setFrom(sender);
         simpleMailMessage.setSubject("New Password");
         simpleMailMessage.setSentDate(new Date(System.currentTimeMillis()));

@@ -14,7 +14,7 @@ import java.util.*;
 @Builder
 @Entity
 @Table(name = "usuario")
-public class UserDocument implements Serializable {
+public class UsuarioDocument implements Serializable {
 
   private static final long serialVersionUID = 1L;
 
@@ -35,10 +35,10 @@ public class UserDocument implements Serializable {
   @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<ProfileDocument> perfis;
 
-  public UserDocument() {
+  public UsuarioDocument() {
   }
 
-  public UserDocument(Integer id, String nome, String email, Integer perfil, String password, List<ProfileDocument> perfis) {
+  public UsuarioDocument(Integer id, String nome, String email, Integer perfil, String password, List<ProfileDocument> perfis) {
     this.id = id;
     this.nome = nome;
     this.email = email;

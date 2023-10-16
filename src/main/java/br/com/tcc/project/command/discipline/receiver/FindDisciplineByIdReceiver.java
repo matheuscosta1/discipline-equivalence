@@ -5,10 +5,12 @@ import br.com.tcc.project.command.enums.DisciplineEquivalenceErrors;
 import br.com.tcc.project.command.exception.CollegeNotFoundException;
 import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.repositoy.DisciplineRepository;
+import br.com.tcc.project.command.repositoy.mapper.DisciplineDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import java.text.MessageFormat;
 import lombok.Setter;
+import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @CommandReceiver(FindDisciplineById.class)

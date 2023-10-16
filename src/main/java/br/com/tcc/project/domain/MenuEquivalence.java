@@ -12,6 +12,6 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 public class MenuEquivalence {
-  private List<String> equivalenceMenu = new ArrayList<>();
-  private List<String> nonEquivalenceMenu = new ArrayList<>();
+  private List<String> ementaEquivalente = new ArrayList<>();
+  private List<String> ementaNaoEquivalente = new ArrayList<>();
 }

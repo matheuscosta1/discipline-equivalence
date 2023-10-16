@@ -118,6 +118,21 @@ public class ProfessorAnalysisAllocationController {
     return ResponseEntity.ok(professorAnalysisMapper.map(professorDocument));
   }
 
+  @Operation(summary = "Find analise by id", description = "Find analise by id")
+  @DocApiResponsesError
+  @GetMapping("analises-professor/{id}")
+  @PreAuthorize("hasAnyRole('ROLE_PROFESSOR')")
+  public ResponseEntity<ProfessorAnaliseResponse> findAnaliseById(
+          @PathVariable(value = "id") Integer id) {
+
+    AnalisesDocument professorDocument =
+            commandGateway.invoke(
+                    FindProfessorAnalysisById.class,
+                    FindProfessorAnalysisById.Request.builder().id(id).build());
+
+    return ResponseEntity.ok(professorAnalysisMapper.map(professorDocument));
+  }
+
   @Operation(
       summary = "Find discipline by college and course",
       description = "Find discipline by college and course")
@@ -148,38 +163,38 @@ public class ProfessorAnalysisAllocationController {
     return ResponseEntity.ok(responses);
   }
 
-//  @Operation(
-//          summary = "Find discipline by college and course",
-//          description = "Find discipline by college and course")
-//  @DocApiResponsesError
-//  @GetMapping("analises-professor")
-//  @PreAuthorize("hasAnyRole('ROLE_PROFESSOR')")
-//  public ResponseEntity<Page<ProfessorAnaliseResponse>>
-//  findAllAnalisesByProfessorEmail(
-//          @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
-//          @RequestParam(value = "paginas", defaultValue = "25", required = false) Integer paginas,
-//          @RequestParam(value = "orderBy", defaultValue = "dataMaxima", required = false)
-//          String orderBy,
-//          @RequestParam(value = "direction", defaultValue = "ASC", required = false)
-//          String direction,
-//          @RequestParam(value = "emailProfessor", required = false) String emailProfessor
-//  ) {
-//
-//    FindProfessorById
-//
-//    Page<ProfessorAnaliseResponse> responses =
-//            commandGateway.invoke(
-//                    FindAllProfessorAnalysis.class,
-//                    FindAllProfessorAnalysis.Request.builder()
-//                            .pagina(pagina)
-//                            .paginas(paginas)
-//                            .orderBy(orderBy)
-//                            .direction(direction)
-//                            .nomeProfessor(nomeProfessor)
-//                            .build());
-//
-//    return ResponseEntity.ok(responses);
-//  }
+  @Operation(
+          summary = "Find discipline by college and course",
+          description = "Find discipline by college and course")
+  @DocApiResponsesError
+  @GetMapping("analises-professor")
+  @PreAuthorize("hasAnyRole('ROLE_PROFESSOR')")
+  public ResponseEntity<Page<ProfessorAnaliseResponse>> findAllAnalisesByProfessorEmail(
+          @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
+          @RequestParam(value = "paginas", defaultValue = "25", required = false) Integer paginas,
+          @RequestParam(value = "orderBy", defaultValue = "data_maxima", required = false)
+          String orderBy,
+          @RequestParam(value = "direction", defaultValue = "ASC", required = false)
+          String direction,
+          @RequestParam(value = "emailProfessor", required = false) String emailProfessor
+  ) {
+    UsuarioDocument userDocument = commandGateway.invoke(FindUserByEmail.class, FindUserByEmail.Request.builder().email(emailProfessor).build());
+
+    ProfessorDocument professorDocument = commandGateway.invoke(FindProfessorByUserId.class, FindProfessorByUserId.Request.builder().id(userDocument.getId()).build());
+
+    Page<ProfessorAnaliseResponse> responses =
+            commandGateway.invoke(
+                    FindAllProfessorAnalysisByProfessorId.class,
+                    FindAllProfessorAnalysisByProfessorId.Request.builder()
+                            .pagina(pagina)
+                            .paginas(paginas)
+                            .orderBy(orderBy)
+                            .direction(direction)
+                            .professorId(professorDocument.getId())
+                            .build());
+
+    return ResponseEntity.ok(responses);
+  }
 
   @Operation(
       summary = "Atualiza registro analise equivalencia",

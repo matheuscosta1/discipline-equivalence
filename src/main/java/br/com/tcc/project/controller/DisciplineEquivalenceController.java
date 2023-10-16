@@ -12,6 +12,7 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,7 +28,8 @@ public class DisciplineEquivalenceController {
 
   @Operation(summary = "Register new discipline", description = "Register new discipline")
   @DocApiResponsesError
-  @PostMapping("register-discipline-equivalence")
+  @PostMapping("relatorio-equivalencia")
+  @PreAuthorize("hasAnyRole('ROLE_PROFESSOR')")
   public ResponseEntity<EquivalenceDisciplineResponse> registerDisciplineEquivalence(
       @Valid @RequestBody RegisterDisciplineEquivalenceRequest request) {
 
@@ -35,8 +37,8 @@ public class DisciplineEquivalenceController {
         commandGateway.invoke(
             RegisterDisciplineEquivalence.class,
             RegisterDisciplineEquivalence.Request.builder()
-                .originCode(request.getOriginCode())
-                .destinyCode(request.getDestinyCode())
+                .idDisciplinaOrigem(request.getIdDisciplinaOrigem())
+                .idDisciplinaDestino(request.getIdDisciplinaDestino())
                 .build());
 
     return ResponseEntity.ok(equivalenceDisciplineResponse);

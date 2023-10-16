@@ -1,14 +1,10 @@
 package br.com.tcc.project.command.discipline.receiver;
 
 import br.com.tcc.project.command.RegisterProfile;
-import br.com.tcc.project.command.RegisterUser;
 import br.com.tcc.project.command.discipline.mapper.ProfileMapper;
-import br.com.tcc.project.command.discipline.mapper.UserMapper;
 import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.repositoy.ProfileRepository;
-import br.com.tcc.project.command.repositoy.UserRepository;
 import br.com.tcc.project.command.repositoy.model.ProfileDocument;
-import br.com.tcc.project.command.repositoy.model.UserDocument;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;

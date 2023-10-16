@@ -12,6 +12,6 @@ public interface ProfessorMapper {
   @Mapping(target = "faculdade", source = "source.collegeDocument")
   @Mapping(target = "curso", source = "source.courseDocument")
   @Mapping(target = "disciplina", source = "source.disciplineDocument")
-  @Mapping(target = "usuario", source = "source.userDocument")
+  @Mapping(target = "usuario", source = "source.usuarioDocument")
   ProfessorDocument map(RegisterProfessor.Request source);
 }

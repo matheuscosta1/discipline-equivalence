@@ -6,7 +6,6 @@ import br.com.tcc.project.command.repositoy.model.*;
 import br.com.tcc.project.controller.mapper.RegisterProfessorControllerMapper;
 import br.com.tcc.project.controller.request.RegisterProfessorRequest;
 import br.com.tcc.project.domain.Profile;
-import br.com.tcc.project.email.EmailService;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.ProfessorResponse;
@@ -24,7 +23,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collections;
 import java.util.Random;
 
 @Tag(name = "Professor")
@@ -66,7 +64,7 @@ public class ProfessorController {
             FindDisciplineById.class,
             FindDisciplineById.Request.builder().id(request.getDisciplinaId()).build());
 
-    UserDocument userDocument = commandGateway.invoke(
+    UsuarioDocument usuarioDocument = commandGateway.invoke(
             RegisterUser.class,
             RegisterUser
                     .Request
@@ -77,13 +75,13 @@ public class ProfessorController {
                     .perfil(Profile.PROFESSOR.getCode())
                     .build());
 
-    commandGateway.invoke(RegisterProfile.class, RegisterProfile.Request.builder().usuario(userDocument).perfil(Profile.PROFESSOR.getCode()).id(null).build());
+    commandGateway.invoke(RegisterProfile.class, RegisterProfile.Request.builder().usuario(usuarioDocument).perfil(Profile.PROFESSOR.getCode()).id(null).build());
 
 
     ProfessorDocument professorDocument =
         commandGateway.invoke(
             RegisterProfessor.class,
-            mapper.map(request, collegeDocument, courseDocument, disciplineDocument, userDocument, null));
+            mapper.map(request, collegeDocument, courseDocument, disciplineDocument, usuarioDocument, null));
 
     return ResponseEntity.ok(professorDocumentMapper.map(professorDocument));
   }
@@ -153,7 +151,7 @@ public class ProfessorController {
                     FindDisciplineById.class,
                     FindDisciplineById.Request.builder().id(request.getDisciplinaId()).build());
 
-    UserDocument userDocument = commandGateway.invoke(
+    UsuarioDocument usuarioDocument = commandGateway.invoke(
             RegisterUser.class,
             RegisterUser.Request
                     .builder()
@@ -164,12 +162,12 @@ public class ProfessorController {
                     .build()
     );
 
-    commandGateway.invoke(RegisterProfile.class, RegisterProfile.Request.builder().usuario(userDocument).perfil(Profile.PROFESSOR.getCode()).id(null).build());
+    commandGateway.invoke(RegisterProfile.class, RegisterProfile.Request.builder().usuario(usuarioDocument).perfil(Profile.PROFESSOR.getCode()).id(null).build());
 
     ProfessorDocument professorDocument =
             commandGateway.invoke(
                     RegisterProfessor.class,
-                    mapper.map(request, collegeDocument, courseDocument, disciplineDocument, userDocument, id));
+                    mapper.map(request, collegeDocument, courseDocument, disciplineDocument, usuarioDocument, id));
 
     return ResponseEntity.ok(professorDocumentMapper.map(professorDocument));
   }

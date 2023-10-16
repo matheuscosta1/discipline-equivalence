@@ -10,4 +10,7 @@ public interface ProfessorRepository extends JpaRepository<ProfessorDocument, In
   Page<ProfessorDocument> findByDisciplinaId(Integer disciplinaId, Pageable pageRequest);
 
   Page<ProfessorDocument> findByNomeContaining(String nome, Pageable pageRequest);
+
+  ProfessorDocument findByUsuarioId(Integer usuarioId);
+
 }

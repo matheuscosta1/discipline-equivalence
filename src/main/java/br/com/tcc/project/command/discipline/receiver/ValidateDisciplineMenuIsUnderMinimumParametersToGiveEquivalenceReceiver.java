@@ -44,9 +44,9 @@ public class ValidateDisciplineMenuIsUnderMinimumParametersToGiveEquivalenceRece
     for (String disciplineMenu : greaterMenu) {
       boolean isEquivalentMenuItem = secondMenu.stream().anyMatch(s -> s.equals(disciplineMenu));
       if (isEquivalentMenuItem) {
-        menuEquivalence.getEquivalenceMenu().add(disciplineMenu);
+        menuEquivalence.getEmentaEquivalente().add(disciplineMenu);
       } else {
-        menuEquivalence.getNonEquivalenceMenu().add(disciplineMenu);
+        menuEquivalence.getEmentaNaoEquivalente().add(disciplineMenu);
       }
     }
     return menuEquivalence;

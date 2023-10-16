@@ -2,7 +2,7 @@ package br.com.tcc.project.service;
 
 import br.com.tcc.project.command.repositoy.UserRepository;
 import br.com.tcc.project.command.repositoy.model.ProfileDocument;
-import br.com.tcc.project.command.repositoy.model.UserDocument;
+import br.com.tcc.project.command.repositoy.model.UsuarioDocument;
 import br.com.tcc.project.domain.Profile;
 import br.com.tcc.project.security.UserSpringSecurity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +23,7 @@ public class UserDetailsServiceImplementation implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        UserDocument user = userRepository.findByEmail(email);
+        UsuarioDocument user = userRepository.findByEmail(email);
         if(user == null ) {
             throw new UsernameNotFoundException(email);
         }

@@ -2,6 +2,7 @@ package br.com.tcc.project.controller.response;
 
 import br.com.tcc.project.domain.MenuEquivalence;
 import br.com.tcc.project.domain.Status;
+import br.com.tcc.project.response.AnaliseEquivalenciaDisciplineResponse;
 import br.com.tcc.project.response.DisciplineResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import java.math.BigDecimal;
@@ -28,7 +29,7 @@ public class EquivalenceDisciplineResponse {
               + "        \"program\": \"XPTO\"\n"
               + "    }",
       description = "Informações da disciplina de origem.")
-  private DisciplineResponse originCollegeDiscipline;
+  private AnaliseEquivalenciaDisciplineResponse disciplinaOrigem;
 
   @Schema(
       example =
@@ -43,10 +44,10 @@ public class EquivalenceDisciplineResponse {
               + "        \"program\": \"XPTO\"\n"
               + "    }",
       description = "Informações da disciplina de destino.")
-  private DisciplineResponse destinyCollegeDiscipline;
+  private AnaliseEquivalenciaDisciplineResponse disciplinaDestino;
 
   @Schema(example = "true", description = "É carga horária válida.")
-  private Boolean isValidWorkLoad;
+  private Boolean cargaHorariaValida;
 
   @Schema(
       example =
@@ -60,10 +61,12 @@ public class EquivalenceDisciplineResponse {
               + "        ]\n"
               + "    }",
       description = "Representação das disciplinas que são ou não equivalentes.")
-  private MenuEquivalence menuEquivalence;
+  private MenuEquivalence equivalenciaEmenta;
 
   @Schema(example = " 66.67", description = "Percentual de disciplinas equivalentes.")
-  private BigDecimal menuEquivalencePercentage;
+  private BigDecimal percentualEquivalencia;
 
-  private Status finalConsideration;
+  private Status consideracaoFinal;
+  private String ementaEquivalente;
+  private String ementaNaoEquivalente;
 }

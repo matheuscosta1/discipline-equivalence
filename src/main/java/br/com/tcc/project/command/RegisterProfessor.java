@@ -20,6 +20,6 @@ public class RegisterProfessor
     private CollegeDocument collegeDocument;
     private CourseDocument courseDocument;
     private DisciplineDocument disciplineDocument;
-    private UserDocument userDocument;
+    private UsuarioDocument usuarioDocument;
   }
 }

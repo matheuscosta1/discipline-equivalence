@@ -1,24 +1,20 @@
 package br.com.tcc.project.controller;
 
 import br.com.tcc.project.command.FindUserByEmail;
-import br.com.tcc.project.command.RegisterUser;
 import br.com.tcc.project.command.UpdateUserPassword;
 import br.com.tcc.project.command.enums.DisciplineEquivalenceErrors;
 import br.com.tcc.project.command.exception.UserNotFoundException;
-import br.com.tcc.project.command.repositoy.model.UserDocument;
+import br.com.tcc.project.command.repositoy.model.UsuarioDocument;
 import br.com.tcc.project.controller.request.ForgotPasswordRequest;
 import br.com.tcc.project.email.EmailService;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
-import br.com.tcc.project.response.ProfessorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.text.MessageFormat;
 import java.util.Random;
 
 @Tag(name = "Autenticação")
@@ -53,7 +48,7 @@ public class AuthenticationController {
   public ResponseEntity<Void> registerProfessor(
       @Valid @RequestBody ForgotPasswordRequest request) {
 
-    UserDocument user = commandGateway.invoke(
+    UsuarioDocument user = commandGateway.invoke(
             FindUserByEmail.class,
             FindUserByEmail.Request.builder().email(request.getEmail()).build());
 
@@ -70,7 +65,7 @@ public class AuthenticationController {
             UpdateUserPassword
                     .Request
                     .builder()
-                    .userDocument(user)
+                    .usuarioDocument(user)
             .build()
     );
 

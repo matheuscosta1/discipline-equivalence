@@ -1,7 +1,7 @@
 package br.com.tcc.project.email;
 
 import br.com.tcc.project.command.repositoy.model.NotificationDocument;
-import br.com.tcc.project.command.repositoy.model.UserDocument;
+import br.com.tcc.project.command.repositoy.model.UsuarioDocument;
 import org.springframework.mail.SimpleMailMessage;
 
 import javax.mail.internet.MimeMessage;
@@ -15,6 +15,6 @@ public interface EmailService {
 
     void sendProfessorNotificationForAnaliseExpiration(NotificationDocument request);
 
-    void sendNewPasswordEmail(UserDocument customer, String newPassword);
+    void sendNewPasswordEmail(UsuarioDocument customer, String newPassword);
 
 }

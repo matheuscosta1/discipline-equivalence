@@ -19,11 +19,11 @@ public class ProfileDocument {
 
   @ManyToOne
   @JoinColumn(name = "usuarioId")
-  private UserDocument usuario;
+  private UsuarioDocument usuario;
 
   private Integer perfil;
 
-  public ProfileDocument(Integer id, UserDocument usuario, Integer perfil) {
+  public ProfileDocument(Integer id, UsuarioDocument usuario, Integer perfil) {
     this.id = id;
     this.usuario = usuario;
     this.perfil = perfil;
