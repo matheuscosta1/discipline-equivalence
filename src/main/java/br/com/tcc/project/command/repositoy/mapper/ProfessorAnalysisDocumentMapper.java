@@ -1,14 +1,15 @@
 package br.com.tcc.project.command.repositoy.mapper;
 
 import br.com.tcc.project.command.repositoy.model.AnalisesDocument;
+import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.response.ProfessorAnaliseResponse;
-
-import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.util.Date;
-import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Mappings;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
 
 @Mapper(componentModel = "spring")
 public interface ProfessorAnalysisDocumentMapper {
@@ -31,6 +32,7 @@ public interface ProfessorAnalysisDocumentMapper {
   @Mapping(target = "nomeCursoDestino", source = "source.cursoDestino.nome")
   @Mapping(target = "nomeDisciplinaDestino", source = "source.disciplinaDestino.nome")
   @Mapping(target = "dataMaxima", expression = "java(convertData(source.dataMaxima))")
+  @Mapping(target = "status", expression = "java(convertStatus(source.status))")
   ProfessorAnaliseResponse map(AnalisesDocument source);
 
   default String convertData(Date maximumDate) {
@@ -40,5 +42,13 @@ public interface ProfessorAnalysisDocumentMapper {
     } catch (Exception e) {
       return "Date format error";
     }
+  }
+
+  default String convertStatus(String status) {
+    if(Status.PENDING.name().equals(status) || Status.ANALYZED.name().equals(status)) {
+      return "PENDING".equals(status) ? "PENDENTE" : "ANALISADO";
+
+    }
+    return status;
   }
 }

@@ -11,6 +11,7 @@ import lombok.*;
 @Builder
 @Schema
 public class RegisterProfessorAnalysisRequest {
+  private Integer id;
 
   @Schema(example = "1", description = "Identificador da faculdade de origem")
   @NotNull
@@ -42,5 +43,5 @@ public class RegisterProfessorAnalysisRequest {
 
   @Schema(example = "15-05-2000", description = "Identificador da disciplina de destino")
   @NotNull
-  private String dataMaxima;
+  public String dataMaxima;
 }

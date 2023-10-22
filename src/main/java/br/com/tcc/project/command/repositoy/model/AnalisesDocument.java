@@ -48,9 +48,11 @@ public class AnalisesDocument {
 
   public Date dataMaxima;
 
+  public String status;
+
   public AnalisesDocument() {}
 
-  public AnalisesDocument(Integer id, CollegeDocument faculdadeOrigem, CourseDocument cursoOrigem, DisciplineDocument disciplinaOrigem, CollegeDocument faculdadeDestino, CourseDocument cursoDestino, DisciplineDocument disciplinaDestino, ProfessorDocument professor, Date dataMaxima) {
+  public AnalisesDocument(Integer id, CollegeDocument faculdadeOrigem, CourseDocument cursoOrigem, DisciplineDocument disciplinaOrigem, CollegeDocument faculdadeDestino, CourseDocument cursoDestino, DisciplineDocument disciplinaDestino, ProfessorDocument professor, Date dataMaxima, String status) {
     this.id = id;
     this.faculdadeOrigem = faculdadeOrigem;
     this.cursoOrigem = cursoOrigem;
@@ -60,5 +62,6 @@ public class AnalisesDocument {
     this.disciplinaDestino = disciplinaDestino;
     this.professor = professor;
     this.dataMaxima = dataMaxima;
+    this.status = status;
   }
 }

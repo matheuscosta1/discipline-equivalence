@@ -10,6 +10,9 @@ import org.mapstruct.Mapping;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -29,12 +32,37 @@ public interface RegisterProfessorAnalysisControllerMapper {
       CourseDocument courseDestinyDocument,
       DisciplineDocument disciplineDestinyDocument,
       ProfessorDocument professorDocument,
-      Integer id);
+      Integer id,
+      String status);
 
+  @Mapping(target = "maximumDate", expression = "java(convertData(dataMaxima))")
+  @Mapping(target = "id", source = "id")
+  RegisterProfessorAnalysis.Request map(
+          Date dataMaxima,
+          CollegeDocument collegeOriginDocument,
+          CourseDocument courseOriginDocument,
+          DisciplineDocument disciplineOriginDocument,
+          CollegeDocument collegeDestinyDocument,
+          CourseDocument courseDestinyDocument,
+          DisciplineDocument disciplineDestinyDocument,
+          ProfessorDocument professorDocument,
+          Integer id,
+          String status) throws ParseException;
+
+  default String convertData(Date maximumDate) throws ParseException {
+    try {
+      SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+      return sdf.format(maximumDate);
+    } catch (Exception e) {
+      return "Date format error";
+    }
+  }
 
   @Mapping(target = "maximumDate", expression = "java(calculateDateForNotificationSevenDaysBeforeExpiration(maximumDate))")
   @Mapping(target = "analisesDocument", source = "analisesDocument")
   @Mapping(target = "email", source = "email")
+  @Mapping(target = "status", source = "status")
+  @Mapping(target = "id", source = "id")
   RegisterProfessorNotification.Request map(
           AnalisesDocument analisesDocument,
           Date maximumDate,

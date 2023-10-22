@@ -18,5 +18,6 @@ public interface ProfessorAnalysisRepository extends JpaRepository<AnalisesDocum
 
 
   Page<AnalisesDocument> findByProfessorId(Integer professorId, Pageable pageable);
+  AnalisesDocument findByFaculdadeOrigemIdAndFaculdadeDestinoIdAndDisciplinaOrigemIdAndDisciplinaDestinoIdAndStatus(Integer faculdadeOrigemId, Integer faculdadeDestinoId, Integer disciplinaOrigemId, Integer disciplinaDestinoId, String status);
 
 }

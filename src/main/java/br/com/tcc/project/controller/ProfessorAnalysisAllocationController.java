@@ -6,6 +6,7 @@ import br.com.tcc.project.command.repositoy.model.*;
 import br.com.tcc.project.controller.mapper.RegisterProfessorAnalysisControllerMapper;
 import br.com.tcc.project.controller.request.RegisterProfessorAnalysisRequest;
 import br.com.tcc.project.domain.NotificationStatus;
+import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.email.EmailService;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
@@ -92,13 +93,11 @@ public class ProfessorAnalysisAllocationController {
                 courseDestinyDocument,
                 disciplineDestinyDocument,
                 professorDocumennt,
-                null));
+                null,
+                Status.PENDING.name()));
 
-    String emailTemporario = "matheus.costa@tutanota.com";
 
-    NotificationDocument notificationDocument = commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, null, emailTemporario));
-
-    //emailService.sendProfessorNotificationForAnaliseExpiration(notificationDocument);
+    commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, null, professorDocumennt.getUsuario().getEmail()));
 
     return ResponseEntity.ok(professorAnalysisMapper.map(analisesDocument));
   }
@@ -205,6 +204,7 @@ public class ProfessorAnalysisAllocationController {
   public ResponseEntity<ProfessorAnaliseResponse> registerProfessor(
       @PathVariable(value = "id") Integer id,
       @Valid @RequestBody RegisterProfessorAnalysisRequest request) {
+    AnalisesDocument actualAnalisesDocument = commandGateway.invoke(FindProfessorAnalysisById.class, FindProfessorAnalysisById.Request.builder().id(request.getId()).build());
 
     CollegeDocument collegeOriginDocument =
         commandGateway.invoke(
@@ -253,13 +253,11 @@ public class ProfessorAnalysisAllocationController {
                 courseDestinyDocument,
                 disciplineDestinyDocument,
                 professorDocumennt,
-                id));
+                id,
+                actualAnalisesDocument.getStatus())
+        );
 
-    String emailTemporario = "matheus.costa@tutanota.com";
-
-    NotificationDocument notificationDocument = commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, null, emailTemporario));
-
-    emailService.sendProfessorNotificationForAnaliseExpiration(notificationDocument);
+    commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, null, professorDocumennt.getUsuario().getEmail()));
 
     return ResponseEntity.ok(professorAnalysisMapper.map(analisesDocument));
   }

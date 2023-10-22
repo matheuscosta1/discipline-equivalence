@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.Date;
+
 @GenerateCommandFactory
 public class RegisterProfessorAnalysis
     extends AbstractCommand<RegisterProfessorAnalysis.Request, AnalisesDocument> {
@@ -24,5 +26,6 @@ public class RegisterProfessorAnalysis
     private DisciplineDocument disciplineDestinyDocument;
     private ProfessorDocument professorDocument;
     public String maximumDate;
+    public String status;
   }
 }

@@ -12,7 +12,7 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 @Schema
-public class RegisterDisciplineEquivalenceRequest {
+public class RegisterDisciplineEquivalenceReportRequest {
   @Schema(example = "GBC057", description = "Código da disciplina na sua faculdade de origem.")
   @NotNull
   private Integer idDisciplinaOrigem;

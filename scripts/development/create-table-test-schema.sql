@@ -74,6 +74,7 @@ create table analises
     curso_destino_id int not null,
     disciplina_destino_id int not null,
     professor_id int not null,
+    status varchar(10) not null,
     constraint FKdr6rjc04htbtc3xab2b9xmq7r
             foreign key (faculdade_origem_id) references faculdade (id),
     constraint FKssroko2vyiaujfleclq1ifigj
@@ -114,4 +115,14 @@ create table perfil
         foreign key (usuario_id) references usuario (id)
 );
 
-
+create table equivalencia
+(
+    id int auto_increment
+        primary key,
+    justificativa varchar(1000) not null,
+    equivalente BOOLEAN not null,
+    analise_equivalencia_id int not null,
+    data_criacao date not null,
+    constraint FKfr6rlo04htbtc3xab2b9xmq7r
+            foreign key (analise_equivalencia_id) references analises (id)
+);
