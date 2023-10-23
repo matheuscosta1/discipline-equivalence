@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.util.Random;
 
@@ -46,7 +47,7 @@ public class AuthenticationController {
   @DocApiResponsesError
   @PostMapping("forgot")
   public ResponseEntity<Void> registerProfessor(
-      @Valid @RequestBody ForgotPasswordRequest request) {
+      @Valid @RequestBody ForgotPasswordRequest request) throws MessagingException {
 
     UsuarioDocument user = commandGateway.invoke(
             FindUserByEmail.class,
@@ -69,7 +70,7 @@ public class AuthenticationController {
             .build()
     );
 
-    emailService.sendNewPasswordEmail(user, newPassword);
+    emailService.sendNewPasswordEmailHtml(user, newPassword);
 
     return ResponseEntity.noContent().build();
   }

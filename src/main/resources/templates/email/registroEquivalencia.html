@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Detalhes de Equivalência</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Inclua seu arquivo CSS personalizado aqui -->
+</head>
+
+<body>
+<div class="container">
+    <h1>Relatório da análise de equivalência</h1>
+    <table class="table">
+        <tr>
+            <th>Professor analisador:</th>
+            <td th:text="${equivalenceDocument.analisesDocument.professor.nome}"></td>
+        </tr>
+        <tr>
+            <th>Faculdade de Origem:</th>
+            <td th:text="${equivalenceDocument.analisesDocument.faculdadeOrigem.nome}"></td>
+        </tr>
+        <tr>
+            <th>Curso de Origem:</th>
+            <td th:text="${equivalenceDocument.analisesDocument.cursoOrigem.nome}"></td>
+        </tr>
+        <tr>
+            <th>Disciplina de Origem:</th>
+            <td th:text="${equivalenceDocument.analisesDocument.disciplinaOrigem.nome}"></td>
+        </tr>
+        <tr>
+            <th>Código da disciplina de Origem:</th>
+            <td th:text="${equivalenceDocument.analisesDocument.disciplinaOrigem.codigoOrigem}"></td>
+        </tr>
+        <tr>
+            <th>Faculdade de Destino:</th>
+            <td th:text="${equivalenceDocument.analisesDocument.faculdadeDestino.nome}"></td>
+        </tr>
+        <tr>
+            <th>Curso de Destino:</th>
+            <td th:text="${equivalenceDocument.analisesDocument.cursoDestino.nome}"></td>
+        </tr>
+        <tr>
+            <th>Disciplina de Destino:</th>
+            <td th:text="${equivalenceDocument.analisesDocument.disciplinaDestino.nome}"></td>
+        </tr>
+        <tr>
+            <th>Código da disciplina de Destino:</th>
+            <td th:text="${equivalenceDocument.analisesDocument.disciplinaDestino.codigoOrigem}"></td>
+        </tr>
+        <tr>
+            <th>Justificativa:</th>
+            <td th:text="${equivalenceDocument.justificativa}"></td>
+        </tr>
+        <tr>
+            <th>Parecer final:</th>
+            <span th:if="${equivalenceDocument.equivalente}" class="equivalent">Equivalente</span>
+            <span th:unless="${equivalenceDocument.equivalente}" class="not-equivalent">Não Equivalente</span>
+        </tr>
+        <tr>
+            <th>Data do registro de equivalência:</th>
+            <td th:text="${#dates.format(equivalenceDocument.dataCriacao, 'dd/MM/yyyy')}"></td>
+        </tr>
+    </table>
+</div>
+</body>
+
+</html>

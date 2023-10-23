@@ -36,9 +36,6 @@ public class ProfessorAnalysisAllocationController {
   private final ProfessorAnalysisDocumentMapper professorAnalysisMapper =
       Mappers.getMapper(ProfessorAnalysisDocumentMapper.class);
 
-  @Autowired
-  private EmailService emailService;
-
   @Operation(summary = "Register new analise", description = "Register new analise")
   @DocApiResponsesError
   @PostMapping("analises")

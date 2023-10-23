@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
 import java.time.Instant;
 import java.util.Calendar;
 import java.util.Date;
@@ -33,12 +34,12 @@ public class EmailNotificationSchedule {
   private CommandGateway commandGateway;
 
   @Scheduled(cron = "${discipline-equivalence.email-notification.cron-schedule}")
-  protected void schedule() {
+  protected void schedule() throws MessagingException {
     List<NotificationDocument> notificationDocuments = commandGateway.invoke(FindAllPendingNotificationsByDate.class, FindAllPendingNotificationsByDate.Request.builder().maximumDate(Date.from(Instant.now())).build());
 
     for (NotificationDocument notificationDocument : notificationDocuments) {
+      emailService.sendProfessorNotificationForAnaliseExpirationHtml(notificationDocument);
       commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(notificationDocument.getAnalisesDocument(), normalizeDate(notificationDocument.getDataMaxima()), NotificationStatus.SENT, notificationDocument.getId(), notificationDocument.getEmail()));
-      emailService.sendProfessorNotificationForAnaliseExpiration(notificationDocument);
     }
   }
 

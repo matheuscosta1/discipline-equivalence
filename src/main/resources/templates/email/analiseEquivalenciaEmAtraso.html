@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Notificação de Análise de Equivalência em Atraso</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+            margin: 0;
+            padding: 10px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+        }
+        .message {
+            padding: 20px;
+        }
+        .link {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h1>Notificação de Análise de Equivalência em Atraso</h1>
+    <p>Prezado(a) Professor(a) <span th:text="${notificationDocument.analisesDocument.professor.nome}"></span>,</p>
+    <p>Espero que esteja bem. Gostaríamos de informar que você possui uma análise de equivalência de disciplinas pendente no nosso sistema.</p>
+    <p>A data limite para conclusão é <span th:text="${#dates.format(notificationDocument.analisesDocument.dataMaxima, 'dd/MM/yyyy')}">dd/MM/yyyy</span>. Por favor, faça login no Portal de Equivalência de Disciplinas para realizar a análise.</p>
+    <p>Se precisar de assistência ou tiver alguma dúvida, não hesite em nos contatar. Agradecemos pela sua atenção!</p>
+</div>
+</body>
+
+</html>

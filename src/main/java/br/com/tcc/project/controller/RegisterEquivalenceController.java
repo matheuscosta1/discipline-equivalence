@@ -1,6 +1,8 @@
 package br.com.tcc.project.controller;
 
 import br.com.tcc.project.command.*;
+import br.com.tcc.project.command.enums.DisciplineEquivalenceErrors;
+import br.com.tcc.project.command.exception.EquivalenceAlreadyRegisteredException;
 import br.com.tcc.project.command.repositoy.mapper.EquivalenceDocumentMapper;
 import br.com.tcc.project.command.repositoy.mapper.ProfessorDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.*;
@@ -12,6 +14,7 @@ import br.com.tcc.project.controller.request.RegisterProfessorAnalysisRequest;
 import br.com.tcc.project.controller.request.RegisterProfessorRequest;
 import br.com.tcc.project.domain.Profile;
 import br.com.tcc.project.domain.Status;
+import br.com.tcc.project.email.EmailService;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.EquivalenceResponse;
@@ -24,13 +27,16 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.concurrent.DefaultManagedAwareThreadFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.webjars.NotFoundException;
 
+import javax.mail.MessagingException;
 import javax.validation.Valid;
+import java.text.MessageFormat;
 import java.text.ParseException;
 import java.util.Random;
 
@@ -48,12 +54,15 @@ public class RegisterEquivalenceController {
   private final RegisterProfessorAnalysisControllerMapper professorAnalysisControllerMapper =
           Mappers.getMapper(RegisterProfessorAnalysisControllerMapper.class);
 
+  @Autowired
+  private EmailService emailService;
+
   @Operation(summary = "Register new equivalence", description = "Register new equivalence")
   @DocApiResponsesError
   @PostMapping("registro-equivalencia")
   @PreAuthorize("hasAnyRole('ROLE_PROFESSOR')")
   public ResponseEntity<EquivalenceResponse> registerEquivalence(
-      @Valid @RequestBody RegisterEquivalenceRequest request) throws ParseException {
+      @Valid @RequestBody RegisterEquivalenceRequest request) throws ParseException, MessagingException {
 
 
     AnalisesDocument analisesDocument = commandGateway.invoke(
@@ -66,6 +75,14 @@ public class RegisterEquivalenceController {
                     .disciplineDestinyId(request.getDisciplinaDestinoId())
                     .status(Status.PENDING.name())
                     .build());
+
+    if(analisesDocument == null) {
+      log.error(DisciplineEquivalenceErrors.DEE0007.message());
+      throw new EquivalenceAlreadyRegisteredException(
+              DisciplineEquivalenceErrors.DEE0007.message(),
+              DisciplineEquivalenceErrors.DEE0007.name(),
+              DisciplineEquivalenceErrors.DEE0007.group());
+    }
 
     EquivalenceDocument equivalenceDocument = commandGateway.invoke(
             RegisterEquivalence.class,
@@ -83,8 +100,12 @@ public class RegisterEquivalenceController {
                     analisesDocument.getCursoDestino(),
                     analisesDocument.getDisciplinaDestino(),
                     analisesDocument.getProfessor(),
+                    analisesDocument.getUsuarioAdmin(),
                     analisesDocument.getId(),
                     Status.ANALYZED.name()));
+
+
+    emailService.sendOrderConfirmationHtmlEmail(equivalenceDocument);
 
     return ResponseEntity.ok(professorDocumentMapper.map(equivalenceDocument));
   }

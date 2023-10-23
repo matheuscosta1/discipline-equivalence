@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Nova Senha para acessar o Portal de Equivalências</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f0f0f0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            color: #333;
+        }
+        p {
+            font-size: 16px;
+            line-height: 1.6;
+        }
+        .password {
+            background-color: #f2f2f2;
+            padding: 10px;
+        }
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007BFF;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <h3>Nova Senha</h3>
+    <p>Prezado(a) usuário,</p>
+    <p>Sua nova senha foi gerada com sucesso:</p>
+    <div class="password">
+        <p><strong>Nova senha:</strong> <span th:text="${newPassword}"></span></p>
+    </div>
+    <p>Recomendamos que você altere esta senha após fazer o login.</p>
+</div>
+</body>
+</html>

@@ -40,8 +40,8 @@ public class ProfessorController {
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-
   private Random random = new Random();
+
   @Operation(summary = "Register new professor", description = "Register new professor")
   @DocApiResponsesError
   @PostMapping("professores")
