@@ -32,6 +32,7 @@ public interface RegisterProfessorAnalysisControllerMapper {
       CourseDocument courseDestinyDocument,
       DisciplineDocument disciplineDestinyDocument,
       ProfessorDocument professorDocument,
+      UsuarioDocument adminUserDocument,
       Integer id,
       String status);
 

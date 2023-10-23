@@ -81,6 +81,10 @@ public class ProfessorAnalysisAllocationController {
             FindProfessorById.class,
             FindProfessorById.Request.builder().id(request.getProfessorId()).build());
 
+    UsuarioDocument adminUser = commandGateway.invoke(
+            FindUserByEmail.class,
+            FindUserByEmail.Request.builder().email(request.getEmailAdministrador()).build());
+
     AnalisesDocument analisesDocument =
         commandGateway.invoke(
             RegisterProfessorAnalysis.class,
@@ -93,6 +97,7 @@ public class ProfessorAnalysisAllocationController {
                 courseDestinyDocument,
                 disciplineDestinyDocument,
                 professorDocumennt,
+                adminUser,
                 null,
                 Status.PENDING.name()));
 
@@ -241,6 +246,10 @@ public class ProfessorAnalysisAllocationController {
             FindProfessorById.class,
             FindProfessorById.Request.builder().id(request.getProfessorId()).build());
 
+    UsuarioDocument adminUser = commandGateway.invoke(
+            FindUserByEmail.class,
+            FindUserByEmail.Request.builder().email(request.getEmailAdministrador()).build());
+
     AnalisesDocument analisesDocument =
         commandGateway.invoke(
             RegisterProfessorAnalysis.class,
@@ -253,6 +262,7 @@ public class ProfessorAnalysisAllocationController {
                 courseDestinyDocument,
                 disciplineDestinyDocument,
                 professorDocumennt,
+                adminUser,
                 id,
                 actualAnalisesDocument.getStatus())
         );

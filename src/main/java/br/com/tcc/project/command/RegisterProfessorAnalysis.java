@@ -25,6 +25,7 @@ public class RegisterProfessorAnalysis
     private CourseDocument courseDestinyDocument;
     private DisciplineDocument disciplineDestinyDocument;
     private ProfessorDocument professorDocument;
+    private UsuarioDocument adminUserDocument;
     public String maximumDate;
     public String status;
   }

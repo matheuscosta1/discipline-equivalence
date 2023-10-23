@@ -44,4 +44,7 @@ public class RegisterProfessorAnalysisRequest {
   @Schema(example = "15-05-2000", description = "Identificador da disciplina de destino")
   @NotNull
   public String dataMaxima;
+
+  @NotNull
+  private String emailAdministrador;
 }

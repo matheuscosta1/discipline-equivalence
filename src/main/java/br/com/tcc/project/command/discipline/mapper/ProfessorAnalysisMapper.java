@@ -20,6 +20,7 @@ public interface ProfessorAnalysisMapper {
   @Mapping(target = "faculdadeDestino", source = "source.collegeDestinyDocument")
   @Mapping(target = "cursoDestino", source = "source.courseDestinyDocument")
   @Mapping(target = "disciplinaDestino", source = "source.disciplineDestinyDocument")
+  @Mapping(target = "usuarioAdmin", source = "source.adminUserDocument")
   @Mapping(target = "professor", source = "source.professorDocument")
   @Mapping(target = "dataMaxima", expression = "java(convertData(source.maximumDate))")
   AnalisesDocument map(RegisterProfessorAnalysis.Request source);

@@ -74,6 +74,7 @@ create table analises
     curso_destino_id int not null,
     disciplina_destino_id int not null,
     professor_id int not null,
+    admin_user_id int not null,
     status varchar(10) not null,
     constraint FKdr6rjc04htbtc3xab2b9xmq7r
             foreign key (faculdade_origem_id) references faculdade (id),
@@ -88,7 +89,9 @@ create table analises
     constraint FKssrnbo2vyiaujfleclq1ifkgj
                 foreign key (disciplina_destino_id) references disciplina (id),
     constraint FKssroqj2vziaujfledlq1fiigj
-            foreign key (professor_id) references professor (id)
+            foreign key (professor_id) references professor (id),
+    constraint FKkkroqj2vziaujfledlq1fiigj
+                foreign key (admin_user_id) references usuario (id)
 );
 
 

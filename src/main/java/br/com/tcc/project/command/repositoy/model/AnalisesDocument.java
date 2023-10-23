@@ -46,13 +46,17 @@ public class AnalisesDocument {
   @JoinColumn(name = "professorId")
   private ProfessorDocument professor;
 
+  @ManyToOne
+  @JoinColumn(name = "adminUserId")
+  private UsuarioDocument usuarioAdmin;
+
   public Date dataMaxima;
 
   public String status;
 
   public AnalisesDocument() {}
 
-  public AnalisesDocument(Integer id, CollegeDocument faculdadeOrigem, CourseDocument cursoOrigem, DisciplineDocument disciplinaOrigem, CollegeDocument faculdadeDestino, CourseDocument cursoDestino, DisciplineDocument disciplinaDestino, ProfessorDocument professor, Date dataMaxima, String status) {
+  public AnalisesDocument(Integer id, CollegeDocument faculdadeOrigem, CourseDocument cursoOrigem, DisciplineDocument disciplinaOrigem, CollegeDocument faculdadeDestino, CourseDocument cursoDestino, DisciplineDocument disciplinaDestino, ProfessorDocument professor, UsuarioDocument usuarioAdmin, Date dataMaxima, String status) {
     this.id = id;
     this.faculdadeOrigem = faculdadeOrigem;
     this.cursoOrigem = cursoOrigem;
@@ -61,6 +65,7 @@ public class AnalisesDocument {
     this.cursoDestino = cursoDestino;
     this.disciplinaDestino = disciplinaDestino;
     this.professor = professor;
+    this.usuarioAdmin = usuarioAdmin;
     this.dataMaxima = dataMaxima;
     this.status = status;
   }
