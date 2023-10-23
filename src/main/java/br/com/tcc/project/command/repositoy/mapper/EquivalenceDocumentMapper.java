@@ -14,7 +14,7 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface EquivalenceDocumentMapper {
 
-  List<EquivalenceResponse> map(List<ProfessorDocument> source);
+  List<EquivalenceResponse> map(List<EquivalenceDocument> source);
 
   @Mapping(target = "id", source = "source.id")
   @Mapping(target = "nomeDisciplinaOrigem", source = "source.analisesDocument.disciplinaOrigem.nome")

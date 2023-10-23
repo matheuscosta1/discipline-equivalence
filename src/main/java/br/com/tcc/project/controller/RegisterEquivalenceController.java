@@ -88,4 +88,30 @@ public class RegisterEquivalenceController {
 
     return ResponseEntity.ok(professorDocumentMapper.map(equivalenceDocument));
   }
+
+  @Operation(
+          summary = "Find discipline by college and course",
+          description = "Find discipline by college and course")
+  @DocApiResponsesError
+  @GetMapping("equivalencias")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
+  public ResponseEntity<Page<EquivalenceResponse>> findAllEquivalence(
+          @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
+          @RequestParam(value = "paginas", defaultValue = "25", required = false) Integer paginas,
+          @RequestParam(value = "orderBy", defaultValue = "equivalente", required = false) String orderBy,
+          @RequestParam(value = "direction", defaultValue = "ASC", required = false) String direction,
+          @RequestParam(value = "codigo", required = false) String codigo) {
+
+    Page<EquivalenceResponse> response = commandGateway.invoke(
+            FindAllEquivalence.class,
+            FindAllEquivalence.Request.builder()
+                    .pagina(pagina)
+                    .paginas(paginas)
+                    .orderBy(orderBy)
+                    .direction(direction)
+                    .codigo(codigo)
+                    .build());
+
+    return ResponseEntity.ok(response);
+  }
 }
