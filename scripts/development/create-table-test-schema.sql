@@ -20,9 +20,9 @@ create table disciplina
         primary key,
     nome varchar(255) not null,
     codigo_origem varchar(255) not null,
-    ementa varchar(255) not null,
-    programa varchar(255) not null,
-    carga_horaria varchar(255) not null,
+    ementa varchar(2000) not null,
+    programa varchar(2000) not null,
+    carga_horaria varchar(10) not null,
     faculdade_id int not null,
     curso_id int not null,
     constraint FKfr6rjc04htbtc3xas2b9xmq7r
@@ -122,7 +122,7 @@ create table equivalencia
 (
     id int auto_increment
         primary key,
-    justificativa varchar(1000) not null,
+    justificativa varchar(2000) not null,
     equivalente BOOLEAN not null,
     analise_equivalencia_id int not null,
     data_criacao date not null,
