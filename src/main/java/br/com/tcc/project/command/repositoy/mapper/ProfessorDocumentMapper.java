@@ -19,5 +19,6 @@ public interface ProfessorDocumentMapper {
   @Mapping(target = "nomeFaculdade", source = "source.faculdade.nome")
   @Mapping(target = "nomeCurso", source = "source.curso.nome")
   @Mapping(target = "nomeDisciplina", source = "source.disciplina.nome")
+  @Mapping(target = "email", source = "source.usuario.email")
   ProfessorResponse map(ProfessorDocument source);
 }

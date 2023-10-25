@@ -18,4 +18,5 @@ public class ProfessorResponse {
   private String nomeFaculdade;
   private String nomeCurso;
   private String nomeDisciplina;
+  private String email;
 }

@@ -19,6 +19,12 @@ public class RegisterUserReceiver
 
   @Override
   protected UsuarioDocument doExecute(RegisterUser.Request parameter) {
+    UsuarioDocument user = userRepository.findByEmail(parameter.getEmail());
+    if(user != null){
+      parameter.setId(user.getId());
+      userRepository.save(userMapper.map(parameter));
+      return user;
+    }
     return userRepository.save(userMapper.map(parameter));
   }
 }
