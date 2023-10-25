@@ -103,6 +103,8 @@ public class RegisterEquivalenceController {
                     analisesDocument.getProfessor(),
                     analisesDocument.getUsuarioAdmin(),
                     analisesDocument.getId(),
+                    analisesDocument.getEmailAluno(),
+                    analisesDocument.getNomeAluno(),
                     Status.ANALYZED.name()));
 
 

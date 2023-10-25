@@ -41,6 +41,8 @@ public interface RegisterProfessorAnalysisControllerMapper {
       String status);
 
   @Mapping(target = "maximumDate", expression = "java(convertData(dataMaxima))")
+  @Mapping(target = "studentEmail", source = "studentEmail")
+  @Mapping(target = "studentName", source = "studentName")
   @Mapping(target = "id", source = "id")
   RegisterProfessorAnalysis.Request map(
           Date dataMaxima,
@@ -53,6 +55,8 @@ public interface RegisterProfessorAnalysisControllerMapper {
           ProfessorDocument professorDocument,
           UsuarioDocument adminUserDocument,
           Integer id,
+          String studentEmail,
+          String studentName,
           String status) throws ParseException;
 
   default String convertData(Date maximumDate) throws ParseException {
