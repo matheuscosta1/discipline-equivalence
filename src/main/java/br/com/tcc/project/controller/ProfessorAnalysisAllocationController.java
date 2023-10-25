@@ -1,6 +1,8 @@
 package br.com.tcc.project.controller;
 
 import br.com.tcc.project.command.*;
+import br.com.tcc.project.command.enums.DisciplineEquivalenceErrors;
+import br.com.tcc.project.command.exception.AnalysisAlreadyRegisteredException;
 import br.com.tcc.project.command.repositoy.mapper.ProfessorAnalysisDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.*;
 import br.com.tcc.project.controller.mapper.RegisterProfessorAnalysisControllerMapper;
@@ -24,6 +26,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Tag(name = "Professor")
 @RestController
 @Slf4j
@@ -42,6 +46,22 @@ public class ProfessorAnalysisAllocationController {
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<ProfessorAnaliseResponse> registerProfessor(
       @Valid @RequestBody RegisterProfessorAnalysisRequest request) {
+    AnalisesDocument analisesDocuments = commandGateway.invoke(FindByAnalysisByOriginAndDestinyId.class,
+            FindByAnalysisByOriginAndDestinyId
+                    .Request
+                    .builder()
+                    .disciplineDestinyId(request.getDisciplinaDestinoId())
+                    .disciplineOriginId(request.getDisciplinaOrigemId())
+                    .collegeOriginId(request.getFaculdadeOrigemId())
+                    .collegeDestinyId(request.getFaculdadeDestinoId())
+                    .build());
+
+    if(analisesDocuments != null) {
+      log.error(DisciplineEquivalenceErrors.DEE0008.message());
+      throw new AnalysisAlreadyRegisteredException(DisciplineEquivalenceErrors.DEE0008.message(),
+              DisciplineEquivalenceErrors.DEE0008.name(),
+              DisciplineEquivalenceErrors.DEE0008.group());
+    }
 
     CollegeDocument collegeOriginDocument =
         commandGateway.invoke(
@@ -208,6 +228,24 @@ public class ProfessorAnalysisAllocationController {
   public ResponseEntity<ProfessorAnaliseResponse> registerProfessor(
       @PathVariable(value = "id") Integer id,
       @Valid @RequestBody RegisterProfessorAnalysisRequest request) {
+
+    AnalisesDocument analisesDocuments = commandGateway.invoke(FindByAnalysisByOriginAndDestinyId.class,
+            FindByAnalysisByOriginAndDestinyId
+                    .Request
+                    .builder()
+                    .disciplineDestinyId(request.getDisciplinaDestinoId())
+                    .disciplineOriginId(request.getDisciplinaOrigemId())
+                    .collegeOriginId(request.getFaculdadeOrigemId())
+                    .collegeDestinyId(request.getFaculdadeDestinoId())
+                    .build());
+
+    if(analisesDocuments != null) {
+      log.error(DisciplineEquivalenceErrors.DEE0008.message());
+      throw new AnalysisAlreadyRegisteredException(DisciplineEquivalenceErrors.DEE0008.message(),
+              DisciplineEquivalenceErrors.DEE0008.name(),
+              DisciplineEquivalenceErrors.DEE0008.group());
+    }
+
     AnalisesDocument actualAnalisesDocument = commandGateway.invoke(FindProfessorAnalysisById.class, FindProfessorAnalysisById.Request.builder().id(request.getId()).build());
 
     CollegeDocument collegeOriginDocument =

@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface ProfessorAnalysisRepository extends JpaRepository<AnalisesDocument, Integer> {
 
   @Query(
@@ -18,6 +20,6 @@ public interface ProfessorAnalysisRepository extends JpaRepository<AnalisesDocum
 
 
   Page<AnalisesDocument> findByProfessorId(Integer professorId, Pageable pageable);
-  AnalisesDocument findByFaculdadeOrigemIdAndFaculdadeDestinoIdAndDisciplinaOrigemIdAndDisciplinaDestinoIdAndStatus(Integer faculdadeOrigemId, Integer faculdadeDestinoId, Integer disciplinaOrigemId, Integer disciplinaDestinoId, String status);
+  AnalisesDocument findByFaculdadeOrigemIdAndFaculdadeDestinoIdAndDisciplinaOrigemIdAndDisciplinaDestinoId(Integer faculdadeOrigemId, Integer faculdadeDestinoId, Integer disciplinaOrigemId, Integer disciplinaDestinoId);
 
 }

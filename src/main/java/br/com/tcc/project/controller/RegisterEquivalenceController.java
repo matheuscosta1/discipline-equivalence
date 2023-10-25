@@ -2,6 +2,7 @@ package br.com.tcc.project.controller;
 
 import br.com.tcc.project.command.*;
 import br.com.tcc.project.command.enums.DisciplineEquivalenceErrors;
+import br.com.tcc.project.command.exception.AnalysisAlreadyRegisteredException;
 import br.com.tcc.project.command.exception.EquivalenceAlreadyRegisteredException;
 import br.com.tcc.project.command.repositoy.mapper.EquivalenceDocumentMapper;
 import br.com.tcc.project.command.repositoy.mapper.ProfessorDocumentMapper;
@@ -38,6 +39,7 @@ import javax.mail.MessagingException;
 import javax.validation.Valid;
 import java.text.MessageFormat;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Random;
 
 @Tag(name = "Professor")
@@ -73,7 +75,6 @@ public class RegisterEquivalenceController {
                     .collegeDestinyId(request.getFaculdadeDestinoId())
                     .disciplineOriginId(request.getDisciplinaOrigemId())
                     .disciplineDestinyId(request.getDisciplinaDestinoId())
-                    .status(Status.PENDING.name())
                     .build());
 
     if(analisesDocument == null) {

@@ -14,6 +14,7 @@ import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.text.MessageFormat;
+import java.util.List;
 
 @CommandReceiver(FindByAnalysisByOriginAndDestinyId.class)
 public class FindByAnalysisByOriginAndDestinyIdReceiver
@@ -25,6 +26,6 @@ public class FindByAnalysisByOriginAndDestinyIdReceiver
   protected AnalisesDocument doExecute(FindByAnalysisByOriginAndDestinyId.Request parameter) {
 
     return professorAnalysisRepository
-        .findByFaculdadeOrigemIdAndFaculdadeDestinoIdAndDisciplinaOrigemIdAndDisciplinaDestinoIdAndStatus(parameter.getCollegeOriginId(), parameter.getCollegeDestinyId(), parameter.getDisciplineOriginId(), parameter.getDisciplineDestinyId(), parameter.getStatus());
+        .findByFaculdadeOrigemIdAndFaculdadeDestinoIdAndDisciplinaOrigemIdAndDisciplinaDestinoId(parameter.getCollegeOriginId(), parameter.getCollegeDestinyId(), parameter.getDisciplineOriginId(), parameter.getDisciplineDestinyId());
   }
 }
