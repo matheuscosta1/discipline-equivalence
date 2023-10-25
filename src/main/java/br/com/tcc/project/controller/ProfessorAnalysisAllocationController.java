@@ -95,6 +95,8 @@ public class ProfessorAnalysisAllocationController {
                 disciplineDestinyDocument,
                 professorDocumennt,
                 adminUser,
+                request.getNomeAluno(),
+                request.getEmailAluno(),
                 null,
                 Status.PENDING.name()));
 
@@ -260,6 +262,8 @@ public class ProfessorAnalysisAllocationController {
                 disciplineDestinyDocument,
                 professorDocumennt,
                 adminUser,
+                request.getNomeAluno(),
+                request.getEmailAluno(),
                 id,
                 actualAnalisesDocument.getStatus())
         );

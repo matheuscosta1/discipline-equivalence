@@ -23,6 +23,8 @@ public interface ProfessorAnalysisMapper {
   @Mapping(target = "usuarioAdmin", source = "source.adminUserDocument")
   @Mapping(target = "professor", source = "source.professorDocument")
   @Mapping(target = "dataMaxima", expression = "java(convertData(source.maximumDate))")
+  @Mapping(target = "emailAluno", source = "source.studentEmail")
+  @Mapping(target = "nomeAluno", source = "source.studentName")
   AnalisesDocument map(RegisterProfessorAnalysis.Request source);
 
   default Date convertData(String maximumDate) {

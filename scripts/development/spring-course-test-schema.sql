@@ -15,15 +15,15 @@ INSERT INTO equivalencia_disciplina.disciplina (nome,codigo_origem,ementa,progra
 
 INSERT INTO equivalencia_disciplina.usuario (email,nome,password,perfil) VALUES
 	 ('matheusjcosta675@gmail.com','Matheus Jose - Admin','$2a$10$h.dVQ.0AJLRjZTqthgtnDeFBxgQd.XXgFe6a5cVKVFHWFiVdP6hHa',1),
-	 ('matheus.costa@tutanota.com','Matheus José','$2a$10$ZjIsFqU51y3N2E6c1BcTluV7BqN9.Cos4AETOHaBJXb5EnNxQcs0a',2);
+	 ('matheus.costa@tutanota.com','Matheus Jose','$2a$10$ZjIsFqU51y3N2E6c1BcTluV7BqN9.Cos4AETOHaBJXb5EnNxQcs0a',2);
 
 INSERT INTO equivalencia_disciplina.perfil (usuario_id,perfil) VALUES
 	 (1,1),
 	 (2,2);
 
 INSERT INTO equivalencia_disciplina.professor (nome,faculdade_id,curso_id,disciplina_id,usuario_id) VALUES
-	 ('Matheus José',1,2,1,2);
+	 ('Matheus Jose',1,2,1,2);
 
-INSERT INTO equivalencia_disciplina.analises (data_maxima,faculdade_origem_id,curso_origem_id,disciplina_origem_id,faculdade_destino_id,curso_destino_id,disciplina_destino_id,professor_id,admin_user_id,status) VALUES
-	 ('2023-10-31',2,1,2,1,2,1,1,1,'PENDING');
+INSERT INTO equivalencia_disciplina.analises (data_maxima,faculdade_origem_id,curso_origem_id,disciplina_origem_id,faculdade_destino_id,curso_destino_id,disciplina_destino_id,professor_id,admin_user_id,status,nome_aluno,email_aluno) VALUES
+	 ('2023-10-31',2,1,2,1,2,1,1,1,'PENDING', 'Flavio', 'fakeofcontas@gmail.com');
 

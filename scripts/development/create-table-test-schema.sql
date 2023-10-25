@@ -35,10 +35,10 @@ create table usuario
 (
     id int auto_increment
         primary key,
-    email varchar(255) null,
-    nome varchar(255) null,
-    password varchar(255) null,
-    perfil int null,
+    email varchar(100) not null,
+    nome varchar(100) not null,
+    password varchar(100) not null,
+    perfil int not null,
     constraint UK_dwk6cx0afu8bs9o4t536v1j5v
         unique (email)
 );
@@ -76,6 +76,8 @@ create table analises
     professor_id int not null,
     admin_user_id int not null,
     status varchar(10) not null,
+    email_aluno varchar(100) not null,
+    nome_aluno varchar(100) not null,
     constraint FKdr6rjc04htbtc3xab2b9xmq7r
             foreign key (faculdade_origem_id) references faculdade (id),
     constraint FKssroko2vyiaujfleclq1ifigj

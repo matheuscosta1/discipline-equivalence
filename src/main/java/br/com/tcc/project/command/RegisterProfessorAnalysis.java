@@ -28,5 +28,7 @@ public class RegisterProfessorAnalysis
     private UsuarioDocument adminUserDocument;
     public String maximumDate;
     public String status;
+    public String studentEmail;
+    public String studentName;
   }
 }

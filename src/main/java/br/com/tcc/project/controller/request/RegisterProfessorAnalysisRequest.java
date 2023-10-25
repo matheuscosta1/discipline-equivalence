@@ -13,6 +13,12 @@ import lombok.*;
 public class RegisterProfessorAnalysisRequest {
   private Integer id;
 
+  @NotNull
+  private String nomeAluno;
+
+  @NotNull
+  private String emailAluno;
+
   @Schema(example = "1", description = "Identificador da faculdade de origem")
   @NotNull
   private Integer faculdadeOrigemId;

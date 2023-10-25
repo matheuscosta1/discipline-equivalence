@@ -23,6 +23,8 @@ public interface RegisterProfessorAnalysisControllerMapper {
 
   @Mapping(target = "maximumDate", source = "source.dataMaxima")
   @Mapping(target = "id", source = "id")
+  @Mapping(target = "studentEmail", source = "emailAluno")
+  @Mapping(target = "studentName", source = "nomeAluno")
   RegisterProfessorAnalysis.Request map(
       RegisterProfessorAnalysisRequest source,
       CollegeDocument collegeOriginDocument,
@@ -33,6 +35,8 @@ public interface RegisterProfessorAnalysisControllerMapper {
       DisciplineDocument disciplineDestinyDocument,
       ProfessorDocument professorDocument,
       UsuarioDocument adminUserDocument,
+      String nomeAluno,
+      String emailAluno,
       Integer id,
       String status);
 
