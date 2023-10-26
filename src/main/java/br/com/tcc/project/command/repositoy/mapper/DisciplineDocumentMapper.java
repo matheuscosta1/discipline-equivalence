@@ -19,7 +19,9 @@ public interface DisciplineDocumentMapper {
   @Mapping(target = "programa", source = "source.programa")
   @Mapping(target = "cargaHoraria", source = "source.cargaHoraria")
   @Mapping(target = "faculdadeId", source = "source.faculdade.id")
+  @Mapping(target = "nomeFaculdade", source = "source.faculdade.nome")
   @Mapping(target = "cursoId", source = "source.curso.id")
+  @Mapping(target = "nomeCurso", source = "source.curso.nome")
   DisciplineResponse map(DisciplineDocument source);
 
   @Mapping(target = "id", source = "source.id")

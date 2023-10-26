@@ -1,29 +1,21 @@
 package br.com.tcc.project.command.discipline.receiver;
 
-import br.com.tcc.project.command.FindByAnalysisByOriginAndDestinyId;
-import br.com.tcc.project.command.FindCollegeById;
-import br.com.tcc.project.command.enums.DisciplineEquivalenceErrors;
-import br.com.tcc.project.command.exception.CollegeNotFoundException;
+import br.com.tcc.project.command.FindAnalysisByOriginAndDestinyId;
 import br.com.tcc.project.command.impl.AbstractReceiver;
-import br.com.tcc.project.command.repositoy.CollegeRepository;
 import br.com.tcc.project.command.repositoy.ProfessorAnalysisRepository;
 import br.com.tcc.project.command.repositoy.model.AnalisesDocument;
-import br.com.tcc.project.command.repositoy.model.CollegeDocument;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.text.MessageFormat;
-import java.util.List;
-
-@CommandReceiver(FindByAnalysisByOriginAndDestinyId.class)
+@CommandReceiver(FindAnalysisByOriginAndDestinyId.class)
 public class FindByAnalysisByOriginAndDestinyIdReceiver
-    extends AbstractReceiver<FindByAnalysisByOriginAndDestinyId.Request, AnalisesDocument> {
+    extends AbstractReceiver<FindAnalysisByOriginAndDestinyId.Request, AnalisesDocument> {
 
   @Autowired @Setter private ProfessorAnalysisRepository professorAnalysisRepository;
 
   @Override
-  protected AnalisesDocument doExecute(FindByAnalysisByOriginAndDestinyId.Request parameter) {
+  protected AnalisesDocument doExecute(FindAnalysisByOriginAndDestinyId.Request parameter) {
 
     return professorAnalysisRepository
         .findByFaculdadeOrigemIdAndFaculdadeDestinoIdAndDisciplinaOrigemIdAndDisciplinaDestinoId(parameter.getCollegeOriginId(), parameter.getCollegeDestinyId(), parameter.getDisciplineOriginId(), parameter.getDisciplineDestinyId());

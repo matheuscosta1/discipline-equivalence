@@ -16,6 +16,8 @@ public class DisciplineResponse {
   private String ementa;
   private String programa;
   private String cargaHoraria;
+  private String nomeCurso;
+  private String nomeFaculdade;
   private Integer faculdadeId;
   private Integer cursoId;
 }

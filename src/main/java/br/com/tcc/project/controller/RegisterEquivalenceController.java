@@ -2,24 +2,17 @@ package br.com.tcc.project.controller;
 
 import br.com.tcc.project.command.*;
 import br.com.tcc.project.command.enums.DisciplineEquivalenceErrors;
-import br.com.tcc.project.command.exception.AnalysisAlreadyRegisteredException;
 import br.com.tcc.project.command.exception.EquivalenceAlreadyRegisteredException;
 import br.com.tcc.project.command.repositoy.mapper.EquivalenceDocumentMapper;
-import br.com.tcc.project.command.repositoy.mapper.ProfessorDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.*;
 import br.com.tcc.project.controller.mapper.RegisterEquivalenceControllerMapper;
 import br.com.tcc.project.controller.mapper.RegisterProfessorAnalysisControllerMapper;
-import br.com.tcc.project.controller.mapper.RegisterProfessorControllerMapper;
 import br.com.tcc.project.controller.request.RegisterEquivalenceRequest;
-import br.com.tcc.project.controller.request.RegisterProfessorAnalysisRequest;
-import br.com.tcc.project.controller.request.RegisterProfessorRequest;
-import br.com.tcc.project.domain.Profile;
 import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.email.EmailService;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.EquivalenceResponse;
-import br.com.tcc.project.response.ProfessorResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Setter;
@@ -28,19 +21,13 @@ import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.concurrent.DefaultManagedAwareThreadFactory;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.webjars.NotFoundException;
 
 import javax.mail.MessagingException;
 import javax.validation.Valid;
-import java.text.MessageFormat;
 import java.text.ParseException;
-import java.util.List;
-import java.util.Random;
 
 @Tag(name = "Professor")
 @RestController
@@ -68,8 +55,8 @@ public class RegisterEquivalenceController {
 
 
     AnalisesDocument analisesDocument = commandGateway.invoke(
-            FindByAnalysisByOriginAndDestinyId.class,
-            FindByAnalysisByOriginAndDestinyId.Request
+            FindAnalysisByOriginAndDestinyId.class,
+            FindAnalysisByOriginAndDestinyId.Request
                     .builder()
                     .collegeOriginId(request.getFaculdadeOrigemId())
                     .collegeDestinyId(request.getFaculdadeDestinoId())

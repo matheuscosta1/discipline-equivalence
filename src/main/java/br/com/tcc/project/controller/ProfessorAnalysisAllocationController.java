@@ -9,7 +9,6 @@ import br.com.tcc.project.controller.mapper.RegisterProfessorAnalysisControllerM
 import br.com.tcc.project.controller.request.RegisterProfessorAnalysisRequest;
 import br.com.tcc.project.domain.NotificationStatus;
 import br.com.tcc.project.domain.Status;
-import br.com.tcc.project.email.EmailService;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.ProfessorAnaliseResponse;
@@ -25,8 +24,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Tag(name = "Professor")
 @RestController
@@ -46,8 +43,8 @@ public class ProfessorAnalysisAllocationController {
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<ProfessorAnaliseResponse> registerProfessor(
       @Valid @RequestBody RegisterProfessorAnalysisRequest request) {
-    AnalisesDocument analisesDocuments = commandGateway.invoke(FindByAnalysisByOriginAndDestinyId.class,
-            FindByAnalysisByOriginAndDestinyId
+    AnalisesDocument analisesDocuments = commandGateway.invoke(FindAnalysisByOriginAndDestinyId.class,
+            FindAnalysisByOriginAndDestinyId
                     .Request
                     .builder()
                     .disciplineDestinyId(request.getDisciplinaDestinoId())
@@ -289,7 +286,11 @@ public class ProfessorAnalysisAllocationController {
                 actualAnalisesDocument.getStatus())
         );
 
-    commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, null, professorDocumennt.getUsuario().getEmail()));
+    NotificationDocument notificationDocument = commandGateway.invoke(
+            FindPendingNotificationByAnalysisId.class,
+            FindPendingNotificationByAnalysisId.Request.builder().analiseId(request.getId()).build());
+
+    commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, notificationDocument != null ? notificationDocument.getId() : null, professorDocumennt.getUsuario().getEmail()));
 
     return ResponseEntity.ok(professorAnalysisMapper.map(analisesDocument));
   }

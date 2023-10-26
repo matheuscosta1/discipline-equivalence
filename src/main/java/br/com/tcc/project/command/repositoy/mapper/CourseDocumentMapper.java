@@ -14,5 +14,6 @@ public interface CourseDocumentMapper {
   @Mapping(target = "id", source = "source.id")
   @Mapping(target = "nome", source = "source.nome")
   @Mapping(target = "faculdadeId", source = "source.faculdade.id")
+  @Mapping(target = "nomeFaculdade", source = "source.faculdade.nome")
   CourseResponse map(CourseDocument source);
 }
