@@ -1,6 +1,8 @@
 package br.com.tcc.project.controller;
 
 import br.com.tcc.project.command.*;
+import br.com.tcc.project.command.enums.DisciplineEquivalenceErrors;
+import br.com.tcc.project.command.exception.EquivalenceAlreadyRegisteredException;
 import br.com.tcc.project.command.repositoy.mapper.ProfessorDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.*;
 import br.com.tcc.project.controller.mapper.RegisterProfessorControllerMapper;
@@ -40,7 +42,7 @@ public class ProfessorController {
   @Autowired
   private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-  private Random random = new Random();
+  private final Random random = new Random();
 
   @Operation(summary = "Register new professor", description = "Register new professor")
   @DocApiResponsesError
@@ -48,6 +50,18 @@ public class ProfessorController {
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<ProfessorResponse> registerProfessor(
       @Valid @RequestBody RegisterProfessorRequest request) {
+
+    boolean existsProfessor = commandGateway.invoke(
+            FindUserByEmail.class,
+            FindUserByEmail.Request.builder().email(request.getEmail()).build()) != null;
+
+    if(existsProfessor) {
+      log.error(DisciplineEquivalenceErrors.DEE0010.message());
+      throw new EquivalenceAlreadyRegisteredException(
+              DisciplineEquivalenceErrors.DEE0010.message(),
+              DisciplineEquivalenceErrors.DEE0010.name(),
+              DisciplineEquivalenceErrors.DEE0010.group());
+    }
 
     CollegeDocument collegeDocument =
         commandGateway.invoke(

@@ -77,7 +77,11 @@ public class RegisterEquivalenceController {
                     .disciplineDestinyId(request.getDisciplinaDestinoId())
                     .build());
 
-    if(analisesDocument == null) {
+    boolean existsEquivalence = commandGateway.invoke(
+            FindEquivalenceByAnalysisId.class,
+            FindEquivalenceByAnalysisId.Request.builder().analysisId(analisesDocument.getId()).build()) != null;
+
+    if(existsEquivalence) {
       log.error(DisciplineEquivalenceErrors.DEE0007.message());
       throw new EquivalenceAlreadyRegisteredException(
               DisciplineEquivalenceErrors.DEE0007.message(),

@@ -12,4 +12,7 @@ public interface DisciplineRepository extends JpaRepository<DisciplineDocument, 
   DisciplineDocument findByCodigoOrigem(String codigoOrigem);
 
   Page<DisciplineDocument> findByNomeContaining(String nome, Pageable pageRequest);
+
+  DisciplineDocument findByCodigoOrigemAndFaculdadeIdAndCursoId(
+          String codigoOrigem, Integer collegeId, Integer courseId);
 }

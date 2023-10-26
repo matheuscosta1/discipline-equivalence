@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @Slf4j
 @Validated
-public class DisciplineEquivalenceController {
+public class DisciplineEquivalenceReportController {
 
   @Autowired @Setter private CommandGateway commandGateway;
 

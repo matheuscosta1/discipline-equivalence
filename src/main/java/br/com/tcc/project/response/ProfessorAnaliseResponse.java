@@ -27,4 +27,6 @@ public class ProfessorAnaliseResponse {
   private String nomeDisciplinaDestino;
   private String dataMaxima;
   private String status;
+  private String nomeAluno;
+  private String emailAluno;
 }

@@ -1,11 +1,14 @@
 package br.com.tcc.project.controller;
 
 import br.com.tcc.project.command.*;
+import br.com.tcc.project.command.enums.DisciplineEquivalenceErrors;
+import br.com.tcc.project.command.exception.EquivalenceAlreadyRegisteredException;
 import br.com.tcc.project.command.repositoy.mapper.DisciplineDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.CollegeDocument;
 import br.com.tcc.project.command.repositoy.model.CourseDocument;
 import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
 import br.com.tcc.project.controller.mapper.RegisterDisciplineControllerMapper;
+import br.com.tcc.project.controller.request.FindDisciplineByCollegeAndCourseRequest;
 import br.com.tcc.project.controller.request.RegisterDisciplineRequest;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
@@ -40,6 +43,18 @@ public class DisciplineController {
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<DisciplineResponse> registerDiscipline(
       @Valid @RequestBody RegisterDisciplineRequest request) {
+
+    DisciplineDocument existsDiscipline = commandGateway.invoke(
+            FindDisciplineByCodeAndCollegeAndCourse.class,
+            FindDisciplineByCodeAndCollegeAndCourse.Request.builder().codigo(request.getCodigoOrigem()).faculdadeId(request.getFaculdadeId()).cursoId(request.getCursoId()).build());
+
+    if(existsDiscipline != null) {
+      log.error(DisciplineEquivalenceErrors.DEE0011.message());
+      throw new EquivalenceAlreadyRegisteredException(
+              DisciplineEquivalenceErrors.DEE0011.message(),
+              DisciplineEquivalenceErrors.DEE0011.name(),
+              DisciplineEquivalenceErrors.DEE0011.group());
+    }
 
     CollegeDocument collegeDocument =
         commandGateway.invoke(

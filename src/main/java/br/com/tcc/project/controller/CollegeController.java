@@ -1,11 +1,11 @@
 package br.com.tcc.project.controller;
 
-import br.com.tcc.project.command.DeleteById;
-import br.com.tcc.project.command.FindAllCollege;
-import br.com.tcc.project.command.FindCollegeById;
-import br.com.tcc.project.command.RegisterCollege;
+import br.com.tcc.project.command.*;
+import br.com.tcc.project.command.enums.DisciplineEquivalenceErrors;
+import br.com.tcc.project.command.exception.EquivalenceAlreadyRegisteredException;
 import br.com.tcc.project.command.repositoy.CollegeRepository;
 import br.com.tcc.project.command.repositoy.model.CollegeDocument;
+import br.com.tcc.project.command.repositoy.model.CourseDocument;
 import br.com.tcc.project.controller.mapper.RegisterDisciplineControllerMapper;
 import br.com.tcc.project.controller.request.RegisterCollegeRequest;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
@@ -39,6 +39,18 @@ public class CollegeController {
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CollegeDocument> registerCollege(
       @Valid @RequestBody RegisterCollegeRequest request) {
+
+    boolean existsCollege = commandGateway.invoke(
+            FindCollegeByName.class,
+            FindCollegeByName.Request.builder().name(request.getNome()).build()) != null;
+
+    if(existsCollege) {
+      log.error(DisciplineEquivalenceErrors.DEE0009.message());
+      throw new EquivalenceAlreadyRegisteredException(
+              DisciplineEquivalenceErrors.DEE0009.message(),
+              DisciplineEquivalenceErrors.DEE0009.name(),
+              DisciplineEquivalenceErrors.DEE0009.group());
+    }
 
     CollegeDocument collegeDocument =
         commandGateway.invoke(

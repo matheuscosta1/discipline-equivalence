@@ -1,6 +1,8 @@
 package br.com.tcc.project.controller;
 
 import br.com.tcc.project.command.*;
+import br.com.tcc.project.command.enums.DisciplineEquivalenceErrors;
+import br.com.tcc.project.command.exception.EquivalenceAlreadyRegisteredException;
 import br.com.tcc.project.command.repositoy.mapper.CourseDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.CollegeDocument;
 import br.com.tcc.project.command.repositoy.model.CourseDocument;
@@ -37,6 +39,18 @@ public class CourseController {
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CourseResponse> registerCourse(
       @Valid @RequestBody RegisterCourseRequest request) {
+
+    CourseDocument courseDocument = commandGateway.invoke(
+            FindCourseByNameAndCollegeId.class,
+            FindCourseByNameAndCollegeId.Request.builder().collegeId(request.getFaculdadeId()).name(request.getNome()).build());
+
+    if(courseDocument != null) {
+      log.error(DisciplineEquivalenceErrors.DEE0009.message());
+      throw new EquivalenceAlreadyRegisteredException(
+              DisciplineEquivalenceErrors.DEE0009.message(),
+              DisciplineEquivalenceErrors.DEE0009.name(),
+              DisciplineEquivalenceErrors.DEE0009.group());
+    }
 
     CollegeDocument collegeDocument =
         commandGateway.invoke(

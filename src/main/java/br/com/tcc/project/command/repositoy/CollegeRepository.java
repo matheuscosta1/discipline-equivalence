@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface CollegeRepository extends JpaRepository<CollegeDocument, Integer> {
 
-  CollegeDocument findByNomeContaining(String name);
+  CollegeDocument findByNome(String name);
 
   Page<CollegeDocument> findByNomeContaining(String nome, Pageable pageRequest);
 }

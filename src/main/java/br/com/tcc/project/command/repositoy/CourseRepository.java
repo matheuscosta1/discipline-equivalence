@@ -12,4 +12,5 @@ public interface CourseRepository extends JpaRepository<CourseDocument, Integer>
   Page<CourseDocument> findByNomeContaining(String nome, Pageable pageRequest);
 
   Page<CourseDocument> findByFaculdadeId(Integer faculdadeId, Pageable pageRequest);
+  CourseDocument findByNomeAndFaculdadeId(String nome, Integer faculdadeId);
 }

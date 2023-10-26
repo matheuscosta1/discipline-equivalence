@@ -33,6 +33,8 @@ public interface ProfessorAnalysisDocumentMapper {
   @Mapping(target = "nomeDisciplinaDestino", source = "source.disciplinaDestino.nome")
   @Mapping(target = "dataMaxima", expression = "java(convertData(source.dataMaxima))")
   @Mapping(target = "status", expression = "java(convertStatus(source.status))")
+  @Mapping(target = "nomeAluno", source = "source.nomeAluno")
+  @Mapping(target = "emailAluno", source = "source.emailAluno")
   ProfessorAnaliseResponse map(AnalisesDocument source);
 
   default String convertData(Date maximumDate) {

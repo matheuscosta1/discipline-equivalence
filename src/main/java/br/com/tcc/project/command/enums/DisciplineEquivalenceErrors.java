@@ -10,7 +10,10 @@ public enum DisciplineEquivalenceErrors {
   DEE0004("Não foi possível buscar a disciplina pelo id: {0}.", 1000),
   DEE0006("Usuário não existe.", 1000),
   DEE0007("Equivalência já foi registrada.", 1000),
-  DEE0008("Análise de equivalência já foi registrada.", 1000);
+  DEE0008("Análise de equivalência já foi registrada.", 1000),
+  DEE0009("Curso já registrado.", 1000),
+  DEE0010("Professor já registrado com esse e-mail.", 1000),
+  DEE0011("Disciplina já registrada.", 1000);
 
 
   private final String message;
