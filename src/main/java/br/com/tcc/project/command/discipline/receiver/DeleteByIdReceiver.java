@@ -16,6 +16,8 @@ public class DeleteByIdReceiver
   @Autowired DisciplineRepository disciplineRepository;
   @Autowired ProfessorRepository professorRepository;
   @Autowired ProfessorAnalysisRepository professorAnalysisRepository;
+  @Autowired NotificationRepository notificationRepository;
+  @Autowired EquivalenceRepository equivalenceRepository;
 
   @Override
   protected Void doExecute(DeleteById.Request request) {
@@ -29,6 +31,18 @@ public class DeleteByIdReceiver
       professorRepository.deleteById(request.getId());
     } else if (request.getGenericClass().equals(AnalisesDocument.class)) {
       professorAnalysisRepository.deleteById(request.getId());
+    } else if (request.getGenericClass().equals(NotificationDocument.class)) {
+      if(request.getAnalysisId() != null) {
+        notificationRepository.deleteByAnaliseId(request.getAnalysisId());
+      } else {
+        notificationRepository.deleteById(request.getId());
+      }
+    } else if (request.getGenericClass().equals(EquivalenceDocument.class)) {
+      if(request.getAnalysisId() != null) {
+        equivalenceRepository.deleteByAnaliseEquivalenciaId(request.getAnalysisId());
+      } else {
+        equivalenceRepository.deleteById(request.getId());
+      }
     } else {
       throw new IllegalArgumentException("Entity type not supported.");
     }

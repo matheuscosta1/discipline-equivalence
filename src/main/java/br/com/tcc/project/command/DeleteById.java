@@ -16,5 +16,6 @@ public class DeleteById
   public static class Request {
     Object genericClass;
     private Integer id;
+    private Integer analysisId;
   }
 }

@@ -3,6 +3,7 @@ package br.com.tcc.project.controller;
 import br.com.tcc.project.command.*;
 import br.com.tcc.project.command.enums.DisciplineEquivalenceErrors;
 import br.com.tcc.project.command.exception.AnalysisAlreadyRegisteredException;
+import br.com.tcc.project.command.exception.DuplicateEntryException;
 import br.com.tcc.project.command.repositoy.mapper.ProfessorAnalysisDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.*;
 import br.com.tcc.project.controller.mapper.RegisterProfessorAnalysisControllerMapper;
@@ -301,9 +302,27 @@ public class ProfessorAnalysisAllocationController {
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CollegeDocument> deleteAnaliseById(
           @PathVariable(value = "id") Integer id) {
+
+    AnalisesDocument actualAnalisesDocument = commandGateway.invoke(FindProfessorAnalysisById.class, FindProfessorAnalysisById.Request.builder().id(id).build());
+
+    if(!Status.PENDING.name().equals(actualAnalisesDocument.getStatus())) {
+      throw new DuplicateEntryException(DisciplineEquivalenceErrors.DEE0012.message(),
+              DisciplineEquivalenceErrors.DEE0012.name(),
+              DisciplineEquivalenceErrors.DEE0012.group());
+    }
+
+    commandGateway.invoke(
+            DeleteById.class,
+            DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.NotificationDocument.class).analysisId(id).build());
+
+    commandGateway.invoke(
+            DeleteById.class,
+            DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.EquivalenceDocument.class).analysisId(id).build());
+
     commandGateway.invoke(
             DeleteById.class,
             DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.AnalisesDocument.class).id(id).build());
+
     return null;
   }
 

@@ -43,7 +43,6 @@
 
         <spring-boot-admin.version>2.6.2</spring-boot-admin.version>
 
-        <container.registry>129201766587.dkr.ecr.ca-central-1.amazonaws.com/meios-de-pagamentos-tst</container.registry>
     </properties>
     <dependencies>
 

@@ -13,7 +13,8 @@ public enum DisciplineEquivalenceErrors {
   DEE0008("Análise de equivalência já foi registrada.", 1000),
   DEE0009("Curso já registrado.", 1000),
   DEE0010("Professor já registrado com esse e-mail.", 1000),
-  DEE0011("Disciplina já registrada.", 1000);
+  DEE0011("Disciplina já registrada.", 1000),
+  DEE0012("Análise de equivalência realizada, não é possível deletar.", 1000);
 
 
   private final String message;
