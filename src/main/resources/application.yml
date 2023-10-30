@@ -39,3 +39,9 @@ discipline-equivalence:
 jwt:
   secret: SecretToSignToken
   expiration: 86400000
+
+openai:
+  model: gpt-3.5-turbo
+  api:
+    url: https://api.openai.com/v1/chat/completions
+    key: ${API_KEY}

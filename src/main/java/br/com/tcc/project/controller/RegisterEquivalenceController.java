@@ -42,7 +42,6 @@ public class RegisterEquivalenceController {
       Mappers.getMapper(EquivalenceDocumentMapper.class);
   private final RegisterProfessorAnalysisControllerMapper professorAnalysisControllerMapper =
           Mappers.getMapper(RegisterProfessorAnalysisControllerMapper.class);
-
   @Autowired
   private EmailService emailService;
 
@@ -52,7 +51,6 @@ public class RegisterEquivalenceController {
   @PreAuthorize("hasAnyRole('ROLE_PROFESSOR')")
   public ResponseEntity<EquivalenceResponse> registerEquivalence(
       @Valid @RequestBody RegisterEquivalenceRequest request) throws ParseException, MessagingException {
-
 
     AnalisesDocument analisesDocument = commandGateway.invoke(
             FindAnalysisByOriginAndDestinyId.class,

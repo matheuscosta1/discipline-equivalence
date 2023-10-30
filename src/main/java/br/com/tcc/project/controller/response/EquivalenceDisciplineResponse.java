@@ -66,7 +66,7 @@ public class EquivalenceDisciplineResponse {
   @Schema(example = " 66.67", description = "Percentual de disciplinas equivalentes.")
   private BigDecimal percentualEquivalencia;
 
-  private Status consideracaoFinal;
+  private String consideracaoFinal;
   private String ementaEquivalente;
   private String ementaNaoEquivalente;
 }

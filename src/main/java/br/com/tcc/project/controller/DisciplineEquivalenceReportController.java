@@ -32,7 +32,6 @@ public class DisciplineEquivalenceReportController {
   @PreAuthorize("hasAnyRole('ROLE_PROFESSOR')")
   public ResponseEntity<EquivalenceDisciplineResponse> registerDisciplineEquivalence(
       @Valid @RequestBody RegisterDisciplineEquivalenceReportRequest request) {
-
     EquivalenceDisciplineResponse equivalenceDisciplineResponse =
         commandGateway.invoke(
             RegisterDisciplineEquivalence.class,
