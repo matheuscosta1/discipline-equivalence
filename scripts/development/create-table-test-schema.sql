@@ -131,3 +131,19 @@ create table equivalencia
     constraint FKfr6rlo04htbtc3xab2b9xmq7r
             foreign key (analise_equivalencia_id) references analises (id)
 );
+
+create table analise_equivalencia_open_ai
+(
+    id int auto_increment
+        primary key,
+    disciplina_origem_id int not null,
+    disciplina_destino_id int not null,
+    status varchar(10) not null,
+    semelhanca varchar (1000) null,
+    diferenca varchar (1000) null,
+    consideracao varchar (1000) null,
+    constraint FKmdroqj2vziaujabcdlq1fiigj
+            foreign key (disciplina_origem_id) references disciplina (id),
+    constraint FKmeroqj2vziaujabcdlq1fiigj
+                foreign key (disciplina_destino_id) references disciplina (id)
+);

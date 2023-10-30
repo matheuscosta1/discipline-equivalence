@@ -121,6 +121,17 @@ public class ProfessorAnalysisAllocationController {
 
     commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, null, professorDocumennt.getUsuario().getEmail()));
 
+    commandGateway.invoke(RegisterOpenAIEquivalenceAnalysis.class,
+            RegisterOpenAIEquivalenceAnalysis
+                    .Request
+                    .builder()
+                    .id(null)
+                    .status(Status.PENDING)
+                    .originDisciplineDocument(disciplineOriginDocument)
+                    .destinyDisciplineDocument(disciplineDestinyDocument)
+                    .build()
+    );
+
     return ResponseEntity.ok(professorAnalysisMapper.map(analisesDocument));
   }
 

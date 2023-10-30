@@ -2,13 +2,16 @@ package br.com.tcc.project.command;
 
 import br.com.tcc.project.command.impl.AbstractCommandChain;
 import br.com.tcc.project.command.repositoy.mapper.DisciplineDocumentMapper;
+import br.com.tcc.project.command.repositoy.model.OpenAIEquivalenceAnalysisDocument;
 import br.com.tcc.project.controller.response.EquivalenceDisciplineResponse;
 import br.com.tcc.project.domain.MenuEquivalence;
+import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.gateway.annotation.processor.GenerateCommandFactory;
 import br.com.tcc.project.response.AnaliseEquivalenciaDisciplineResponse;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,35 +51,13 @@ public class RegisterDisciplineEquivalence
                     .build()));
 
 
-    String content = invoke(
-            GetSummaryMenuInformationFromOpenAI.class,
-            GetSummaryMenuInformationFromOpenAI.Request.builder()
-                    .originDiscipline(originDisciplineResponse)
-                    .destinyDiscipline(destinyDisciplineResponse)
+    OpenAIEquivalenceAnalysisDocument openAIEquivalenceAnalysisDocuments = invoke(
+            FindOpenAIEquivalenceAnalysisByOriginDisciplineAndDestinyDisciplineAndProcessedStatus.class,
+            FindOpenAIEquivalenceAnalysisByOriginDisciplineAndDestinyDisciplineAndProcessedStatus.Request.builder()
+                    .originDisciplineId(originDisciplineResponse.getId())
+                    .destinyDisciplineId(destinyDisciplineResponse.getId())
+                    .status(Status.PROCESSED.name())
                     .build());
-
-    String semelhante = "";
-    String diferente = "";
-    String equivalente = "";
-
-    StringBuilder currentSection = new StringBuilder();
-    String[] parts = content.split("\n");
-    for (String part : parts) {
-      if ((currentSection.length() == 0) && !part.isEmpty()) {
-        currentSection = new StringBuilder(part);
-      } else if ((currentSection.length() > 0) && !part.isEmpty()) {
-        currentSection.append("\n").append(part);
-      } else if (currentSection.length() > 0) {
-        if (currentSection.toString().startsWith("Semelhante:")) {
-          semelhante = currentSection.substring("Semelhante:\n".length()).trim();
-        } else if (currentSection.toString().startsWith("Diferente:")) {
-          diferente = currentSection.substring("Diferente:\n".length()).trim();
-        }
-        currentSection = new StringBuilder();
-      }
-    }
-
-    equivalente = content.split("Equivalente:\n")[1];
 
     MenuEquivalence menuEquivalence =
         invoke(
@@ -112,22 +93,11 @@ public class RegisterDisciplineEquivalence
             .disciplinaOrigem(originDisciplineResponse)
             .disciplinaDestino(destinyDisciplineResponse)
             .percentualEquivalencia(menuEquivalencePercentage)
-            .ementaEquivalente(semelhante)
-            .ementaNaoEquivalente(diferente)
-            .consideracaoFinal(equivalente)
+            .ementaEquivalente(openAIEquivalenceAnalysisDocuments.getSemelhanca())
+            .ementaNaoEquivalente(openAIEquivalenceAnalysisDocuments.getDiferenca())
+            .consideracaoFinal(openAIEquivalenceAnalysisDocuments.getConsideracao())
             .build();
 
     setResult(equivalenceDisciplineResponse);
-  }
-
-  public static String extractSection(String input, String sectionName) {
-    Pattern pattern = Pattern.compile(sectionName + ":(.*?)(?=" + sectionName + "|$)", Pattern.DOTALL);
-    Matcher matcher = pattern.matcher(input);
-
-    if (matcher.find()) {
-      return matcher.group(1).trim();
-    } else {
-      return "";
-    }
   }
 }
