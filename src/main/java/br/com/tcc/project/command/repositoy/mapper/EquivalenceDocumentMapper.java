@@ -2,6 +2,7 @@ package br.com.tcc.project.command.repositoy.mapper;
 
 import br.com.tcc.project.command.repositoy.model.EquivalenceDocument;
 import br.com.tcc.project.command.repositoy.model.ProfessorDocument;
+import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.response.EquivalenceResponse;
 import br.com.tcc.project.response.ProfessorResponse;
 import org.mapstruct.Mapper;
@@ -29,10 +30,18 @@ public interface EquivalenceDocumentMapper {
   @Mapping(target = "equivalente", expression = "java(mapEquivalence(source.equivalente))")
   @Mapping(target = "dataCriacao", expression = "java(convertData(source.dataCriacao))")
   @Mapping(target = "justificativa", source = "source.justificativa")
+  @Mapping(target = "status", expression = "java(mapStatus(source))")
   EquivalenceResponse map(EquivalenceDocument source);
 
   default String mapEquivalence(Boolean equivalence) {
     return equivalence ? "EQUIVALENTE" : "NÃO EQUIVALENTE";
+  }
+
+  default String mapStatus(EquivalenceDocument source) {
+    if(Status.MENU_CHANGE.name().equals(source.getStatus())) {
+      return "MUDANÇA EMENTA";
+    }
+    return source.getEquivalente() ? "EQUIVALENTE" : "NÃO EQUIVALENTE";
   }
 
   default String convertData(Date maximumDate) {

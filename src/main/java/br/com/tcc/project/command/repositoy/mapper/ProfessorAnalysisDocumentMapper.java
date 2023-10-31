@@ -50,7 +50,7 @@ public interface ProfessorAnalysisDocumentMapper {
     if(Status.PENDING.name().equals(status) || Status.ANALYZED.name().equals(status)) {
       return "PENDING".equals(status) ? "PENDENTE" : "ANALISADO";
     } else if (Status.MENU_CHANGE.name().equals(status)) {
-      return "MUDANCA_EMENTA";
+      return "MUDANÇA EMENTA";
     }
     return status;
   }

@@ -22,6 +22,7 @@ public class EquivalenceResponse {
   private String cursoDestino;
   private String nomeProfessor;
   private String equivalente;
+  private String status;
   private String dataCriacao;
   private String justificativa;
 }
