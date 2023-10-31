@@ -56,6 +56,7 @@ public class ProfessorAnalysisAllocationController {
                     .disciplineOriginId(request.getDisciplinaOrigemId())
                     .collegeOriginId(request.getFaculdadeOrigemId())
                     .collegeDestinyId(request.getFaculdadeDestinoId())
+                    .status(Status.MENU_CHANGE.name())
                     .build());
 
     if(analisesDocuments != null) {

@@ -24,17 +24,20 @@ public class EquivalenceDocument {
 
   public Date dataCriacao;
 
+  public String status;
+
   @OneToOne
   @JoinColumn(name = "analiseEquivalenciaId")
   private AnalisesDocument analisesDocument;
 
   public EquivalenceDocument() {}
 
-  public EquivalenceDocument(Integer id, String justificativa, Boolean equivalente, Date dataCriacao, AnalisesDocument analisesDocument) {
+  public EquivalenceDocument(Integer id, String justificativa, Boolean equivalente, Date dataCriacao, String status, AnalisesDocument analisesDocument) {
     this.id = id;
     this.justificativa = justificativa;
     this.equivalente = equivalente;
     this.dataCriacao = dataCriacao;
+    this.status = status;
     this.analisesDocument = analisesDocument;
   }
 }

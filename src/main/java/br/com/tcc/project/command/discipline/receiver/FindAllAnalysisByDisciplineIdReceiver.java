@@ -4,6 +4,7 @@ import br.com.tcc.project.command.FindAllAnalysisByDisciplineId;
 import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.repositoy.ProfessorAnalysisRepository;
 import br.com.tcc.project.command.repositoy.model.AnalisesDocument;
+import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,6 @@ public class FindAllAnalysisByDisciplineIdReceiver
 
   @Override
   protected List<AnalisesDocument> doExecute(FindAllAnalysisByDisciplineId.Request parameter) {
-    return professorAnalysisRepository.findAllByDisciplinaId(parameter.getDisciplineId());
+    return professorAnalysisRepository.findAllByDisciplinaIdAndStatus(parameter.getDisciplineId(), Status.ANALYZED.name());
   }
 }

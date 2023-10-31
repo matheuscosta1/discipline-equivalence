@@ -60,7 +60,16 @@ public class RegisterEquivalenceController {
                     .collegeDestinyId(request.getFaculdadeDestinoId())
                     .disciplineOriginId(request.getDisciplinaOrigemId())
                     .disciplineDestinyId(request.getDisciplinaDestinoId())
+                    .status(Status.MENU_CHANGE.name())
                     .build());
+
+    if(analisesDocument == null) {
+      log.error(DisciplineEquivalenceErrors.DEE0013.message());
+      throw new EquivalenceAlreadyRegisteredException(
+              DisciplineEquivalenceErrors.DEE0013.message(),
+              DisciplineEquivalenceErrors.DEE0013.name(),
+              DisciplineEquivalenceErrors.DEE0013.group());
+    }
 
     boolean existsEquivalence = commandGateway.invoke(
             FindEquivalenceByAnalysisId.class,

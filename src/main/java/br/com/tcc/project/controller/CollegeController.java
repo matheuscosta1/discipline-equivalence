@@ -63,7 +63,7 @@ public class CollegeController {
   @Operation(summary = "Find colleges", description = "Find all colleges")
   @DocApiResponsesError
   @GetMapping("faculdades")
-  @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_PROFESSOR')")
+  @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<Page<CollegeDocument>> findAllColleges(
       @RequestParam(value = "pagina", defaultValue = "0", required = false) Integer pagina,
       @RequestParam(value = "paginas", defaultValue = "25", required = false) Integer paginas,

@@ -19,6 +19,6 @@ public class FindByAnalysisByOriginAndDestinyIdReceiver
   protected AnalisesDocument doExecute(FindAnalysisByOriginAndDestinyId.Request parameter) {
 
     return professorAnalysisRepository
-        .findByFaculdadeOrigemIdAndFaculdadeDestinoIdAndDisciplinaOrigemIdAndDisciplinaDestinoIdAndStatus(parameter.getCollegeOriginId(), parameter.getCollegeDestinyId(), parameter.getDisciplineOriginId(), parameter.getDisciplineDestinyId(), Status.MENU_CHANGE.name());
+        .findByFaculdadeOrigemIdAndFaculdadeDestinoIdAndDisciplinaOrigemIdAndDisciplinaDestinoIdAndStatus(parameter.getCollegeOriginId(), parameter.getCollegeDestinyId(), parameter.getDisciplineOriginId(), parameter.getDisciplineDestinyId(), parameter.getStatus());
   }
 }

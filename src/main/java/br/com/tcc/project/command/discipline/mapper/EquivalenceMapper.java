@@ -19,6 +19,7 @@ public interface EquivalenceMapper {
   @Mapping(target = "equivalente", source = "source.equivalent")
   @Mapping(target = "analisesDocument", source = "source.analisesDocument")
   @Mapping(target = "dataCriacao", expression = "java(getLocalDate())")
+  @Mapping(target = "status", source = "source.status")
   EquivalenceDocument map(RegisterEquivalence.Request source);
 
   default Date getLocalDate() {
