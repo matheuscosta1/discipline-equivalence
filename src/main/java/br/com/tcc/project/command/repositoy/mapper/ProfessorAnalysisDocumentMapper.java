@@ -49,7 +49,8 @@ public interface ProfessorAnalysisDocumentMapper {
   default String convertStatus(String status) {
     if(Status.PENDING.name().equals(status) || Status.ANALYZED.name().equals(status)) {
       return "PENDING".equals(status) ? "PENDENTE" : "ANALISADO";
-
+    } else if (Status.MENU_CHANGE.name().equals(status)) {
+      return "MUDANCA_EMENTA";
     }
     return status;
   }

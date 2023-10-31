@@ -26,6 +26,10 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Tag(name = "Professor")
 @RestController
 @Slf4j
@@ -118,9 +122,6 @@ public class ProfessorAnalysisAllocationController {
                 null,
                 Status.PENDING.name()));
 
-
-    commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, null, professorDocumennt.getUsuario().getEmail()));
-
     commandGateway.invoke(RegisterOpenAIEquivalenceAnalysis.class,
             RegisterOpenAIEquivalenceAnalysis
                     .Request
@@ -129,8 +130,11 @@ public class ProfessorAnalysisAllocationController {
                     .status(Status.PENDING)
                     .originDisciplineDocument(disciplineOriginDocument)
                     .destinyDisciplineDocument(disciplineDestinyDocument)
+                    .createdAt(LocalDateTime.now())
                     .build()
     );
+
+    commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(analisesDocument, analisesDocument.getDataMaxima(), NotificationStatus.PENDING, null, professorDocumennt.getUsuario().getEmail()));
 
     return ResponseEntity.ok(professorAnalysisMapper.map(analisesDocument));
   }

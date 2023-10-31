@@ -10,6 +10,7 @@ import br.com.tcc.project.command.repositoy.model.DisciplineDocument;
 import br.com.tcc.project.controller.mapper.RegisterDisciplineControllerMapper;
 import br.com.tcc.project.controller.request.FindDisciplineByCollegeAndCourseRequest;
 import br.com.tcc.project.controller.request.RegisterDisciplineRequest;
+import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.DisciplineResponse;
@@ -140,6 +141,10 @@ public class DisciplineController {
         commandGateway.invoke(
             RegisterDiscipline.class,
             registerDisciplineMapper.map(request, collegeDocument, courseDocument, id));
+
+    commandGateway.invoke(
+            RegisterDisciplineModification.class,
+            RegisterDisciplineModification.Request.builder().disciplineDocument(disciplineDocument).status(Status.PENDING.name()).id(null).build());
 
     return ResponseEntity.ok(mapper.map(disciplineDocument));
   }

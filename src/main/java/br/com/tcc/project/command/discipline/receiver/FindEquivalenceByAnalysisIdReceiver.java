@@ -6,6 +6,7 @@ import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.repositoy.EquivalenceRepository;
 import br.com.tcc.project.command.repositoy.mapper.EquivalenceDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.EquivalenceDocument;
+import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import br.com.tcc.project.response.EquivalenceResponse;
 import lombok.Setter;
@@ -27,6 +28,6 @@ public class FindEquivalenceByAnalysisIdReceiver
   @Override
   protected EquivalenceDocument doExecute(FindEquivalenceByAnalysisId.Request parameter) {
 
-    return equivalenceRepository.findByAnalysisId(parameter.getAnalysisId());
+    return equivalenceRepository.findByAnalysisId(parameter.getAnalysisId(), Status.ANALYZED.name());
   }
 }

@@ -76,8 +76,7 @@ public class RegisterEquivalenceController {
 
     EquivalenceDocument equivalenceDocument = commandGateway.invoke(
             RegisterEquivalence.class,
-            mapper.map(request, analisesDocument, null));
-
+            mapper.map(request, analisesDocument, null, Status.ANALYZED.name()));
 
     commandGateway.invoke(
             RegisterProfessorAnalysis.class,

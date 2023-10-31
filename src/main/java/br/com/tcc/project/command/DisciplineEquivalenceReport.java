@@ -11,9 +11,6 @@ import br.com.tcc.project.response.AnaliseEquivalenciaDisciplineResponse;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -21,9 +18,9 @@ import lombok.Setter;
 import org.mapstruct.factory.Mappers;
 
 @GenerateCommandFactory
-public class RegisterDisciplineEquivalence
+public class DisciplineEquivalenceReport
     extends AbstractCommandChain<
-        RegisterDisciplineEquivalence.Request, EquivalenceDisciplineResponse> {
+        DisciplineEquivalenceReport.Request, EquivalenceDisciplineResponse> {
 
   @Setter
   @Getter

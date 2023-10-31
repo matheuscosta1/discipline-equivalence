@@ -12,6 +12,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @GenerateCommandFactory
@@ -29,5 +30,6 @@ public class RegisterOpenAIEquivalenceAnalysis
     public String resemblance;
     public String difference;
     public String consideration;
+    public LocalDateTime createdAt;
   }
 }

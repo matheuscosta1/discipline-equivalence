@@ -15,7 +15,8 @@ public interface RegisterEquivalenceControllerMapper {
   @Mapping(target = "justification", source = "source.justificativa")
   @Mapping(target = "equivalent", source = "source.equivalente")
   @Mapping(target = "analisesDocument", source = "analisesDocument")
+  @Mapping(target = "status", source = "status")
   RegisterEquivalence.Request map(
           RegisterEquivalenceRequest source,
-          AnalisesDocument analisesDocument, Integer id);
+          AnalisesDocument analisesDocument, Integer id, String status);
 }

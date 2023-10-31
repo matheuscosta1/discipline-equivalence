@@ -18,6 +18,7 @@ public interface OpenAIEquivalenceAnalysisMapper {
   @Mapping(target = "semelhanca", source = "source.resemblance")
   @Mapping(target = "diferenca", source = "source.difference")
   @Mapping(target = "consideracao", source = "source.consideration")
+  @Mapping(target = "dataCriacao", source = "source.createdAt")
   OpenAIEquivalenceAnalysisDocument map(RegisterOpenAIEquivalenceAnalysis.Request source);
 
   default String getStatusName(Status status) {

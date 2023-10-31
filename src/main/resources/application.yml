@@ -37,6 +37,8 @@ discipline-equivalence:
     cron-schedule: 0 0/1 * 1/1 * ?
   open-ai-analysis:
     cron-schedule: 0 0/1 * 1/1 * ?
+  discipline-modification:
+    cron-schedule: 0 0/1 * 1/1 * ?
 
 jwt:
   secret: SecretToSignToken

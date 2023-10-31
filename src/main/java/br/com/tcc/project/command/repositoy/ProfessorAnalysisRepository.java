@@ -20,6 +20,14 @@ public interface ProfessorAnalysisRepository extends JpaRepository<AnalisesDocum
 
 
   Page<AnalisesDocument> findByProfessorId(Integer professorId, Pageable pageable);
-  AnalisesDocument findByFaculdadeOrigemIdAndFaculdadeDestinoIdAndDisciplinaOrigemIdAndDisciplinaDestinoId(Integer faculdadeOrigemId, Integer faculdadeDestinoId, Integer disciplinaOrigemId, Integer disciplinaDestinoId);
-
+  @Query(
+          value =
+                  "SELECT * FROM analises WHERE faculdade_origem_id = :faculdadeOrigemId and faculdade_destino_id = :faculdadeDestinoId and disciplina_origem_id = :disciplinaOrigemId and disciplina_destino_id = :disciplinaDestinoId and status <> :status",
+          nativeQuery = true)
+  AnalisesDocument findByFaculdadeOrigemIdAndFaculdadeDestinoIdAndDisciplinaOrigemIdAndDisciplinaDestinoIdAndStatus(@Param("faculdadeOrigemId") Integer faculdadeOrigemId, @Param("faculdadeDestinoId") Integer faculdadeDestinoId, @Param("disciplinaOrigemId") Integer disciplinaOrigemId, @Param("disciplinaDestinoId") Integer disciplinaDestinoId, @Param("status") String status);
+  @Query(
+          value =
+                  "SELECT * FROM analises WHERE disciplina_origem_id = :disciplinaId or disciplina_destino_id = :disciplinaId",
+          nativeQuery = true)
+  List<AnalisesDocument> findAllByDisciplinaId(@Param("disciplinaId") Integer disciplinaId);
 }

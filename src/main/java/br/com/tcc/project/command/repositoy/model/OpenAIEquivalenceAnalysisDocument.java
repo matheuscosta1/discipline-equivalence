@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Setter
@@ -34,10 +35,12 @@ public class OpenAIEquivalenceAnalysisDocument {
 
   public String consideracao;
 
+  public LocalDateTime dataCriacao;
+
   public OpenAIEquivalenceAnalysisDocument() {
   }
 
-  public OpenAIEquivalenceAnalysisDocument(Integer id, DisciplineDocument disciplinaOrigem, DisciplineDocument disciplinaDestino, String status, String semelhanca, String diferenca, String consideracao) {
+  public OpenAIEquivalenceAnalysisDocument(Integer id, DisciplineDocument disciplinaOrigem, DisciplineDocument disciplinaDestino, String status, String semelhanca, String diferenca, String consideracao, LocalDateTime dataCriacao) {
     this.id = id;
     this.disciplinaOrigem = disciplinaOrigem;
     this.disciplinaDestino = disciplinaDestino;
@@ -45,5 +48,6 @@ public class OpenAIEquivalenceAnalysisDocument {
     this.semelhanca = semelhanca;
     this.diferenca = diferenca;
     this.consideracao = consideracao;
+    this.dataCriacao = dataCriacao;
   }
 }

@@ -1,6 +1,6 @@
 package br.com.tcc.project.controller;
 
-import br.com.tcc.project.command.RegisterDisciplineEquivalence;
+import br.com.tcc.project.command.DisciplineEquivalenceReport;
 import br.com.tcc.project.controller.request.RegisterDisciplineEquivalenceReportRequest;
 import br.com.tcc.project.controller.response.EquivalenceDisciplineResponse;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
@@ -34,8 +34,8 @@ public class DisciplineEquivalenceReportController {
       @Valid @RequestBody RegisterDisciplineEquivalenceReportRequest request) {
     EquivalenceDisciplineResponse equivalenceDisciplineResponse =
         commandGateway.invoke(
-            RegisterDisciplineEquivalence.class,
-            RegisterDisciplineEquivalence.Request.builder()
+            DisciplineEquivalenceReport.class,
+            DisciplineEquivalenceReport.Request.builder()
                 .idDisciplinaOrigem(request.getIdDisciplinaOrigem())
                 .idDisciplinaDestino(request.getIdDisciplinaDestino())
                 .build());

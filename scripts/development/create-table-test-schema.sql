@@ -75,7 +75,7 @@ create table analises
     disciplina_destino_id int not null,
     professor_id int not null,
     admin_user_id int not null,
-    status varchar(10) not null,
+    status varchar(15) not null,
     email_aluno varchar(100) not null,
     nome_aluno varchar(100) not null,
     constraint FKdr6rjc04htbtc3xab2b9xmq7r
@@ -103,7 +103,7 @@ create table notificacao
         primary key,
     data_maxima date not null,
     analise_id int not null,
-    status varchar(10) not null,
+    status varchar(15) not null,
     email varchar (50) not null,
     constraint FKssroqj2vziaujabcdlq1fiigj
             foreign key (analise_id) references analises (id)
@@ -128,6 +128,7 @@ create table equivalencia
     equivalente BOOLEAN not null,
     analise_equivalencia_id int not null,
     data_criacao date not null,
+    status varchar(15) not null,
     constraint FKfr6rlo04htbtc3xab2b9xmq7r
             foreign key (analise_equivalencia_id) references analises (id)
 );
@@ -138,12 +139,23 @@ create table analise_equivalencia_open_ai
         primary key,
     disciplina_origem_id int not null,
     disciplina_destino_id int not null,
-    status varchar(10) not null,
+    status varchar(15) not null,
     semelhanca varchar (1000) null,
     diferenca varchar (1000) null,
     consideracao varchar (1000) null,
+    data_criacao TIMESTAMP not null,
     constraint FKmdroqj2vziaujabcdlq1fiigj
             foreign key (disciplina_origem_id) references disciplina (id),
     constraint FKmeroqj2vziaujabcdlq1fiigj
                 foreign key (disciplina_destino_id) references disciplina (id)
+);
+
+create table modificacao_ementa_disciplina
+(
+    id int auto_increment
+        primary key,
+    disciplina_id int not null,
+    status varchar(15) not null,
+    constraint FKmeroqj2vziaukabcdlq1fiigj
+                foreign key (disciplina_id) references disciplina (id)
 );

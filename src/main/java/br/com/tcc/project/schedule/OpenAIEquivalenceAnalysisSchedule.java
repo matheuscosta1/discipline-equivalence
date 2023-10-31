@@ -62,6 +62,7 @@ public class OpenAIEquivalenceAnalysisSchedule {
                       .resemblance(openAIEquivalenceAnalysisResponse.resemblance)
                       .consideration(openAIEquivalenceAnalysisResponse.consideration)
                       .status(Status.PROCESSED)
+                      .createdAt(openAIEquivalenceAnalysisDocument.getDataCriacao())
                       .build()
       );
     }
