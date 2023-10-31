@@ -23,4 +23,5 @@ public class EquivalenceResponse {
   private String nomeProfessor;
   private String equivalente;
   private String dataCriacao;
+  private String justificativa;
 }

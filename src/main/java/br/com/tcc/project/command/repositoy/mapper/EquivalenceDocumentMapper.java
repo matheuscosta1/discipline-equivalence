@@ -28,6 +28,7 @@ public interface EquivalenceDocumentMapper {
   @Mapping(target = "nomeProfessor", source = "source.analisesDocument.professor.nome")
   @Mapping(target = "equivalente", expression = "java(mapEquivalence(source.equivalente))")
   @Mapping(target = "dataCriacao", expression = "java(convertData(source.dataCriacao))")
+  @Mapping(target = "justificativa", source = "source.justificativa")
   EquivalenceResponse map(EquivalenceDocument source);
 
   default String mapEquivalence(Boolean equivalence) {
