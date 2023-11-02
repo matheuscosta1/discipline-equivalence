@@ -18,6 +18,7 @@ public class DeleteByIdReceiver
   @Autowired ProfessorAnalysisRepository professorAnalysisRepository;
   @Autowired NotificationRepository notificationRepository;
   @Autowired EquivalenceRepository equivalenceRepository;
+  @Autowired UserRepository userRepository;
 
   @Override
   protected Void doExecute(DeleteById.Request request) {
@@ -31,7 +32,9 @@ public class DeleteByIdReceiver
       professorRepository.deleteById(request.getId());
     } else if (request.getGenericClass().equals(AnalisesDocument.class)) {
       professorAnalysisRepository.deleteById(request.getId());
-    } else if (request.getGenericClass().equals(NotificationDocument.class)) {
+    } else if (request.getGenericClass().equals(UsuarioDocument.class)) {
+      userRepository.deleteById(request.getId());
+    }else if (request.getGenericClass().equals(NotificationDocument.class)) {
       if(request.getAnalysisId() != null) {
         notificationRepository.deleteByAnaliseId(request.getAnalysisId());
       } else {

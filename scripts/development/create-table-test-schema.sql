@@ -51,7 +51,8 @@ create table professor
     faculdade_id int not null,
     curso_id int not null,
     disciplina_id int not null,
-    usuario_id int not null,
+    usuario_id int null,
+    status varchar(15) not null,
     constraint FKfr6rjc04htbtc3xab2b9xmq7r
             foreign key (faculdade_id) references faculdade (id),
     constraint FKssroqj2vyiaujfleclq1ifigj

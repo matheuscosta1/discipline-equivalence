@@ -7,6 +7,7 @@ import br.com.tcc.project.command.exception.CollegeNotFoundException;
 import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.repositoy.ProfessorRepository;
 import br.com.tcc.project.command.repositoy.model.ProfessorDocument;
+import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import lombok.Setter;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,6 @@ public class FindProfessorByUserIdReceiver
   @Override
   protected ProfessorDocument doExecute(FindProfessorByUserId.Request parameter) {
     return professorRepository
-            .findByUsuarioId(parameter.getId());
+            .findByUsuarioIdAndStatus(parameter.getId(), Status.ACTIVE.name());
   }
 }

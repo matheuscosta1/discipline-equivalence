@@ -7,10 +7,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ProfessorRepository extends JpaRepository<ProfessorDocument, Integer> {
 
-  Page<ProfessorDocument> findByDisciplinaId(Integer disciplinaId, Pageable pageRequest);
+  Page<ProfessorDocument> findByDisciplinaIdAndStatus(Integer disciplinaId, String status, Pageable pageRequest);
 
-  Page<ProfessorDocument> findByNomeContaining(String nome, Pageable pageRequest);
+  Page<ProfessorDocument> findByNomeContainingAndStatus(String nome, String status, Pageable pageRequest);
 
-  ProfessorDocument findByUsuarioId(Integer usuarioId);
+  ProfessorDocument findByUsuarioIdAndStatus(Integer usuarioId, String status);
+  Page<ProfessorDocument> findAllByStatus(String status, Pageable pageRequest);
 
 }

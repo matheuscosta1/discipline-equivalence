@@ -18,6 +18,8 @@ public class ProfessorDocument {
 
   private String nome;
 
+  private String status;
+
   @OneToOne
   @JoinColumn(name = "usuarioId")
   private UsuarioDocument usuario;
@@ -36,9 +38,10 @@ public class ProfessorDocument {
 
   public ProfessorDocument() {}
 
-  public ProfessorDocument(Integer id, String nome, UsuarioDocument usuario, CollegeDocument faculdade, CourseDocument curso, DisciplineDocument disciplina) {
+  public ProfessorDocument(Integer id, String nome, String status, UsuarioDocument usuario, CollegeDocument faculdade, CourseDocument curso, DisciplineDocument disciplina) {
     this.id = id;
     this.nome = nome;
+    this.status = status;
     this.usuario = usuario;
     this.faculdade = faculdade;
     this.curso = curso;

@@ -8,6 +8,7 @@ import br.com.tcc.project.command.repositoy.model.*;
 import br.com.tcc.project.controller.mapper.RegisterProfessorControllerMapper;
 import br.com.tcc.project.controller.request.RegisterProfessorRequest;
 import br.com.tcc.project.domain.Profile;
+import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
 import br.com.tcc.project.gateway.CommandGateway;
 import br.com.tcc.project.response.ProfessorResponse;
@@ -95,7 +96,7 @@ public class ProfessorController {
     ProfessorDocument professorDocument =
         commandGateway.invoke(
             RegisterProfessor.class,
-            mapper.map(request, collegeDocument, courseDocument, disciplineDocument, usuarioDocument, null));
+            mapper.map(request, collegeDocument, courseDocument, disciplineDocument, usuarioDocument, null, Status.ACTIVE.name()));
 
     return ResponseEntity.ok(professorDocumentMapper.map(professorDocument));
   }
@@ -181,7 +182,7 @@ public class ProfessorController {
     ProfessorDocument professorDocument =
             commandGateway.invoke(
                     RegisterProfessor.class,
-                    mapper.map(request, collegeDocument, courseDocument, disciplineDocument, usuarioDocument, id));
+                    mapper.map(request, collegeDocument, courseDocument, disciplineDocument, usuarioDocument, id, Status.ACTIVE.name()));
 
     return ResponseEntity.ok(professorDocumentMapper.map(professorDocument));
   }
@@ -192,9 +193,27 @@ public class ProfessorController {
   @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
   public ResponseEntity<CollegeDocument> deleteAnaliseById(
           @PathVariable(value = "id") Integer id) {
+
+    ProfessorDocument professorDocument = commandGateway.invoke(FindProfessorById.class, FindProfessorById.Request.builder().id(id).build());
+
+    Integer userId = professorDocument.getUsuario().getId();
+
+    commandGateway.invoke(
+            RegisterProfessor.class,
+            RegisterProfessor.Request
+                    .builder()
+                    .collegeDocument(professorDocument.getFaculdade())
+                    .courseDocument(professorDocument.getCurso())
+                    .disciplineDocument(professorDocument.getDisciplina())
+                    .usuarioDocument(null)
+                    .id(professorDocument.getId())
+                    .nome(professorDocument.getNome())
+                    .status(Status.INACTIVE.name())
+                    .build());
+
     commandGateway.invoke(
             DeleteById.class,
-            DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.ProfessorDocument.class).id(id).build());
+            DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.UsuarioDocument.class).id(userId).build());
     return null;
   }
 

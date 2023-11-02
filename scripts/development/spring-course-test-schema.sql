@@ -21,8 +21,8 @@ INSERT INTO equivalencia_disciplina.perfil (usuario_id,perfil) VALUES
 	 (1,1),
 	 (2,2);
 
-INSERT INTO equivalencia_disciplina.professor (nome,faculdade_id,curso_id,disciplina_id,usuario_id) VALUES
-	 ('Matheus Jose',1,2,1,2);
+INSERT INTO equivalencia_disciplina.professor (nome,faculdade_id,curso_id,disciplina_id,usuario_id, status) VALUES
+	 ('Matheus Jose',1,2,1,2, 'ACTIVE');
 
 INSERT INTO equivalencia_disciplina.analises (data_maxima,faculdade_origem_id,curso_origem_id,disciplina_origem_id,faculdade_destino_id,curso_destino_id,disciplina_destino_id,professor_id,admin_user_id,status,nome_aluno,email_aluno) VALUES
 	 ('2023-10-31',2,1,2,1,2,1,1,1,'PENDING', 'Flavio', 'fakeofcontas@gmail.com');

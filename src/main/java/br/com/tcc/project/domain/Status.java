@@ -8,6 +8,8 @@ public enum Status {
   NON_EQUIVALENCE,
   PENDING,
   ANALYZED,
+  ACTIVE,
+  INACTIVE,
   PROCESSED,
   MENU_CHANGE
 }

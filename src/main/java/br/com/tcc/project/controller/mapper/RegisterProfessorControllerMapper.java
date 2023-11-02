@@ -18,5 +18,5 @@ public interface RegisterProfessorControllerMapper {
           RegisterProfessorRequest source,
           CollegeDocument collegeDocument,
           CourseDocument courseDocument,
-          DisciplineDocument disciplineDocument, UsuarioDocument usuarioDocument, Integer id);
+          DisciplineDocument disciplineDocument, UsuarioDocument usuarioDocument, Integer id, String status);
 }

@@ -5,6 +5,7 @@ import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.repositoy.ProfessorRepository;
 import br.com.tcc.project.command.repositoy.mapper.ProfessorDocumentMapper;
 import br.com.tcc.project.command.repositoy.model.ProfessorDocument;
+import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.gateway.annotation.CommandReceiver;
 import br.com.tcc.project.response.ProfessorResponse;
 import java.util.List;
@@ -36,7 +37,7 @@ public class FindAllProfessorReceiver
 
     if (parameter.getNome() != null && !parameter.getNome().isBlank()) {
       Page<ProfessorDocument> professorDocuments =
-          professorRepository.findByNomeContaining(parameter.getNome(), pageRequest);
+          professorRepository.findByNomeContainingAndStatus(parameter.getNome(), Status.ACTIVE.name(), pageRequest);
 
       courseResponses = mapper.map(professorDocuments.getContent());
       return new PageImpl<>(courseResponses, pageRequest, professorDocuments.getTotalElements());
@@ -44,13 +45,13 @@ public class FindAllProfessorReceiver
 
     if (parameter.getDisciplinaId() != null) {
       Page<ProfessorDocument> professorDocuments =
-          professorRepository.findByDisciplinaId(
-              Integer.valueOf(parameter.getDisciplinaId()), pageRequest);
+          professorRepository.findByDisciplinaIdAndStatus(
+              Integer.valueOf(parameter.getDisciplinaId()),  Status.ACTIVE.name(), pageRequest);
       courseResponses = mapper.map(professorDocuments.getContent());
       return new PageImpl<>(courseResponses, pageRequest, professorDocuments.getTotalElements());
     }
 
-    Page<ProfessorDocument> courseDocumentPage = professorRepository.findAll(pageRequest);
+    Page<ProfessorDocument> courseDocumentPage = professorRepository.findAllByStatus(Status.ACTIVE.name(), pageRequest);
     courseResponses = mapper.map(courseDocumentPage.getContent());
 
     return new PageImpl<>(courseResponses, pageRequest, courseDocumentPage.getTotalElements());

@@ -17,6 +17,7 @@ public class RegisterProfessor
   public static class Request {
     private Integer id;
     private String nome;
+    private String status;
     private CollegeDocument collegeDocument;
     private CourseDocument courseDocument;
     private DisciplineDocument disciplineDocument;
