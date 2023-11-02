@@ -1,6 +1,5 @@
 package br.com.tcc.project.email;
 
-import br.com.tcc.project.command.repositoy.model.AnalisesDocument;
 import br.com.tcc.project.command.repositoy.model.EquivalenceDocument;
 import br.com.tcc.project.command.repositoy.model.NotificationDocument;
 import br.com.tcc.project.command.repositoy.model.UsuarioDocument;
@@ -19,7 +18,7 @@ public interface EmailService {
     void sendProfessorNotificationForAnaliseExpiration(NotificationDocument request);
 
     void sendNewPasswordEmail(UsuarioDocument customer, String newPassword);
-    void sendOrderConfirmationHtmlEmail(EquivalenceDocument equivalenceDocument) throws MessagingException;
+    void sendEquivalenceReportHtmlEmail(EquivalenceDocument equivalenceDocument) throws MessagingException;
     void sendNewPasswordEmailHtml(UsuarioDocument usuarioDocument, String newPassword) throws MessagingException;
     void sendProfessorNotificationForAnaliseExpirationHtml(NotificationDocument request) throws MessagingException;
 }

@@ -52,7 +52,7 @@ public abstract class AbstractEmailService implements EmailService{
     }
 
     @Override
-    public void sendOrderConfirmationHtmlEmail(EquivalenceDocument equivalenceDocument) throws MessagingException {
+    public void sendEquivalenceReportHtmlEmail(EquivalenceDocument equivalenceDocument) throws MessagingException {
         MimeMessage mimeMessageProfessor = prepareMimeMessageFromRequestToProfessor(equivalenceDocument);
         sendHtmlEmail(mimeMessageProfessor);
 

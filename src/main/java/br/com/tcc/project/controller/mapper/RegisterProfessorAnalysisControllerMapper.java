@@ -25,6 +25,8 @@ public interface RegisterProfessorAnalysisControllerMapper {
   @Mapping(target = "id", source = "id")
   @Mapping(target = "studentEmail", source = "emailAluno")
   @Mapping(target = "studentName", source = "nomeAluno")
+  @Mapping(target = "professorDocument", source = "professorDocument")
+  @Mapping(target = "status", source = "status")
   RegisterProfessorAnalysis.Request map(
       RegisterProfessorAnalysisRequest source,
       CollegeDocument collegeOriginDocument,
@@ -44,6 +46,8 @@ public interface RegisterProfessorAnalysisControllerMapper {
   @Mapping(target = "studentEmail", source = "studentEmail")
   @Mapping(target = "studentName", source = "studentName")
   @Mapping(target = "id", source = "id")
+  @Mapping(target = "professorDocument", source = "professorDocument")
+  @Mapping(target = "status", source = "status")
   RegisterProfessorAnalysis.Request map(
           Date dataMaxima,
           CollegeDocument collegeOriginDocument,
@@ -75,6 +79,20 @@ public interface RegisterProfessorAnalysisControllerMapper {
   @Mapping(target = "id", source = "id")
   RegisterProfessorNotification.Request map(
           AnalisesDocument analisesDocument,
+          Date maximumDate,
+          NotificationStatus status,
+          Integer id,
+          String email);
+
+  @Mapping(target = "maximumDate", expression = "java(calculateDateForNotificationSevenDaysBeforeExpiration(maximumDate))")
+  @Mapping(target = "analisesDocument", source = "analisesDocument")
+  @Mapping(target = "email", source = "email")
+  @Mapping(target = "status", source = "status")
+  @Mapping(target = "id", source = "id")
+  @Mapping(target = "equivalenceDocument", source = "equivalenceDocument")
+  RegisterProfessorNotification.Request map(
+          AnalisesDocument analisesDocument,
+          EquivalenceDocument equivalenceDocument,
           Date maximumDate,
           NotificationStatus status,
           Integer id,

@@ -8,6 +8,7 @@ import br.com.tcc.project.command.repositoy.model.*;
 import br.com.tcc.project.controller.mapper.RegisterEquivalenceControllerMapper;
 import br.com.tcc.project.controller.mapper.RegisterProfessorAnalysisControllerMapper;
 import br.com.tcc.project.controller.request.RegisterEquivalenceRequest;
+import br.com.tcc.project.domain.NotificationStatus;
 import br.com.tcc.project.domain.Status;
 import br.com.tcc.project.email.EmailService;
 import br.com.tcc.project.exception.documentation.DocApiResponsesError;
@@ -42,6 +43,7 @@ public class RegisterEquivalenceController {
       Mappers.getMapper(EquivalenceDocumentMapper.class);
   private final RegisterProfessorAnalysisControllerMapper professorAnalysisControllerMapper =
           Mappers.getMapper(RegisterProfessorAnalysisControllerMapper.class);
+
   @Autowired
   private EmailService emailService;
 
@@ -104,8 +106,38 @@ public class RegisterEquivalenceController {
                     analisesDocument.getNomeAluno(),
                     Status.ANALYZED.name()));
 
+    NotificationDocument notificationDocument = commandGateway.invoke(
+            FindNotificationByAnalysisId.class,
+            FindNotificationByAnalysisId.Request.builder().analiseId(analisesDocument.getId()).build()
+    );
 
-    emailService.sendOrderConfirmationHtmlEmail(equivalenceDocument);
+    commandGateway.invoke(RegisterProfessorNotification.class,
+            RegisterProfessorNotification
+                    .Request
+                    .builder()
+                    .id(null)
+                    .analisesDocument(notificationDocument.getAnalisesDocument())
+                    .email(notificationDocument.getEmail())
+                    .maximumDate(notificationDocument.getDataMaxima())
+                    .equivalenceDocument(equivalenceDocument)
+                    .status(NotificationStatus.PENDING)
+                    .build()
+    );
+
+    if(!NotificationStatus.SENT.name().equals(notificationDocument.getStatus())) {
+      commandGateway.invoke(RegisterProfessorNotification.class,
+              RegisterProfessorNotification
+                      .Request
+                      .builder()
+                      .id(notificationDocument.getId())
+                      .analisesDocument(notificationDocument.getAnalisesDocument())
+                      .email(notificationDocument.getEmail())
+                      .maximumDate(notificationDocument.getDataMaxima())
+                      .equivalenceDocument(null)
+                      .status(NotificationStatus.SENT)
+                      .build()
+      );
+    }
 
     return ResponseEntity.ok(professorDocumentMapper.map(equivalenceDocument));
   }

@@ -23,6 +23,10 @@ public class NotificationDocument {
   @JoinColumn(name = "analiseId")
   private AnalisesDocument analisesDocument;
 
+  @ManyToOne
+  @JoinColumn(name = "equivalenciaId")
+  private EquivalenceDocument equivalencia;
+
   private String status;
 
   private String email;
@@ -31,9 +35,10 @@ public class NotificationDocument {
 
   public NotificationDocument() {}
 
-  public NotificationDocument(Integer id, AnalisesDocument analisesDocument, String status, String email, Date dataMaxima) {
+  public NotificationDocument(Integer id, AnalisesDocument analisesDocument, EquivalenceDocument equivalencia, String status, String email, Date dataMaxima) {
     this.id = id;
     this.analisesDocument = analisesDocument;
+    this.equivalencia = equivalencia;
     this.status = status;
     this.email = email;
     this.dataMaxima = dataMaxima;

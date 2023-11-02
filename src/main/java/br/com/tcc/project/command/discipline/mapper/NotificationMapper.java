@@ -17,6 +17,7 @@ public interface NotificationMapper {
 
   @Mapping(target = "dataMaxima", source = "source.maximumDate")
   @Mapping(target = "status", expression = "java(getStatusName(source.status))")
+  @Mapping(target = "equivalencia", source = "equivalenceDocument")
   NotificationDocument map(RegisterProfessorNotification.Request source);
 
   default String getStatusName(NotificationStatus status) {

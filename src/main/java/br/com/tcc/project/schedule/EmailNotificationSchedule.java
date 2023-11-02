@@ -1,8 +1,8 @@
 package br.com.tcc.project.schedule;
 
-import br.com.tcc.project.command.FindAllPendingNotificationsByDate;
+import br.com.tcc.project.command.FindAllEquivalenceNotifications;
+import br.com.tcc.project.command.FindAllPendingAnalysisExpirationNotificationsByDate;
 import br.com.tcc.project.command.RegisterProfessorNotification;
-import br.com.tcc.project.command.repositoy.model.AnalisesDocument;
 import br.com.tcc.project.command.repositoy.model.NotificationDocument;
 import br.com.tcc.project.controller.mapper.RegisterProfessorAnalysisControllerMapper;
 import br.com.tcc.project.domain.NotificationStatus;
@@ -35,11 +35,26 @@ public class EmailNotificationSchedule {
 
   @Scheduled(cron = "${discipline-equivalence.email-notification.cron-schedule}")
   protected void schedule() throws MessagingException {
-    List<NotificationDocument> notificationDocuments = commandGateway.invoke(FindAllPendingNotificationsByDate.class, FindAllPendingNotificationsByDate.Request.builder().maximumDate(Date.from(Instant.now())).build());
+    List<NotificationDocument> analysisNotification = commandGateway.invoke(FindAllPendingAnalysisExpirationNotificationsByDate.class, FindAllPendingAnalysisExpirationNotificationsByDate.Request.builder().maximumDate(Date.from(Instant.now())).build());
 
-    for (NotificationDocument notificationDocument : notificationDocuments) {
+    for (NotificationDocument notificationDocument : analysisNotification) {
       emailService.sendProfessorNotificationForAnaliseExpirationHtml(notificationDocument);
       commandGateway.invoke(RegisterProfessorNotification.class, mapper.map(notificationDocument.getAnalisesDocument(), normalizeDate(notificationDocument.getDataMaxima()), NotificationStatus.SENT, notificationDocument.getId(), notificationDocument.getEmail()));
+    }
+
+    List<NotificationDocument> equivalenceNotification = commandGateway.invoke(FindAllEquivalenceNotifications.class, FindAllEquivalenceNotifications.Request.builder().status(NotificationStatus.SENT.name()).build());
+
+    for (NotificationDocument equivalence : equivalenceNotification) {
+      emailService.sendEquivalenceReportHtmlEmail(equivalence.getEquivalencia());
+      commandGateway.invoke(RegisterProfessorNotification.class,
+              mapper.map(
+                      equivalence.getAnalisesDocument(),
+                      equivalence.getEquivalencia(),
+                      normalizeDate(equivalence.getDataMaxima()),
+                      NotificationStatus.SENT,
+                      equivalence.getId(),
+                      equivalence.getEmail())
+      );
     }
   }
 

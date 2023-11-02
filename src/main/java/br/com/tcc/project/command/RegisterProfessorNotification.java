@@ -21,6 +21,7 @@ public class RegisterProfessorNotification
     Integer id;
     String email;
     private AnalisesDocument analisesDocument;
+    private EquivalenceDocument equivalenceDocument;
     private Date maximumDate;
     public NotificationStatus status;
   }

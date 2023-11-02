@@ -98,17 +98,7 @@ create table analises
 );
 
 
-create table notificacao
-(
-    id int auto_increment
-        primary key,
-    data_maxima date not null,
-    analise_id int not null,
-    status varchar(15) not null,
-    email varchar (50) not null,
-    constraint FKssroqj2vziaujabcdlq1fiigj
-            foreign key (analise_id) references analises (id)
-);
+
 
 
 create table perfil
@@ -132,6 +122,21 @@ create table equivalencia
     status varchar(15) not null,
     constraint FKfr6rlo04htbtc3xab2b9xmq7r
             foreign key (analise_equivalencia_id) references analises (id)
+);
+
+create table notificacao
+(
+    id int auto_increment
+        primary key,
+    data_maxima date not null,
+    analise_id int not null,
+    equivalencia_id int null,
+    status varchar(15) not null,
+    email varchar (50) not null,
+    constraint FKssroqj2vziaujabcdlq1fiigj
+            foreign key (analise_id) references analises (id),
+    constraint FKssroqj2vziaujabcdlq1fkkgj
+                foreign key (equivalencia_id) references equivalencia (id)
 );
 
 create table analise_equivalencia_open_ai

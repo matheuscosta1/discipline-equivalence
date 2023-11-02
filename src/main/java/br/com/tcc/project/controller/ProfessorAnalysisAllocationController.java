@@ -333,10 +333,6 @@ public class ProfessorAnalysisAllocationController {
 
     commandGateway.invoke(
             DeleteById.class,
-            DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.EquivalenceDocument.class).analysisId(id).build());
-
-    commandGateway.invoke(
-            DeleteById.class,
             DeleteById.Request.builder().genericClass(br.com.tcc.project.command.repositoy.model.AnalisesDocument.class).id(id).build());
 
     return null;

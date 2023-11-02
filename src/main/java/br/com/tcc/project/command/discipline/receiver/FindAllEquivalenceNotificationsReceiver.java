@@ -1,5 +1,6 @@
 package br.com.tcc.project.command.discipline.receiver;
 
+import br.com.tcc.project.command.FindAllEquivalenceNotifications;
 import br.com.tcc.project.command.FindAllPendingAnalysisExpirationNotificationsByDate;
 import br.com.tcc.project.command.impl.AbstractReceiver;
 import br.com.tcc.project.command.repositoy.NotificationRepository;
@@ -13,20 +14,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-@CommandReceiver(FindAllPendingAnalysisExpirationNotificationsByDate.class)
-public class FindAllPendingNotificationsByDateReceiver
-    extends AbstractReceiver<FindAllPendingAnalysisExpirationNotificationsByDate.Request, List<NotificationDocument>> {
+@CommandReceiver(FindAllEquivalenceNotifications.class)
+public class FindAllEquivalenceNotificationsReceiver
+    extends AbstractReceiver<FindAllEquivalenceNotifications.Request, List<NotificationDocument>> {
 
   @Autowired @Setter private NotificationRepository notificationRepository;
 
   @Override
-  protected List<NotificationDocument> doExecute(FindAllPendingAnalysisExpirationNotificationsByDate.Request parameter) {
+  protected List<NotificationDocument> doExecute(FindAllEquivalenceNotifications.Request parameter) {
 
-    return notificationRepository.findByDataMaximaAndStatusIsNotSent(formatDate(parameter.getMaximumDate()), NotificationStatus.SENT.name());
+    return notificationRepository.findAllEquivalenceNotifications(parameter.getStatus());
   }
 
-  private String formatDate(Date date) {
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    return sdf.format(date);
-  }
 }
