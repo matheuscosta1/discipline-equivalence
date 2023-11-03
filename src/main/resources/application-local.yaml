@@ -1,7 +1,7 @@
 spring:
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/equivalencia_disciplina
-    username: root
+    url: jdbc:postgresql://${DATABASE_HOST:localhost}:5432/equivalencia_disciplina
+    username: equivalencia_disciplina
     password: equivalencia_disciplina
   jpa:
     show-sql: true
@@ -10,6 +10,7 @@ spring:
     properties:
         hibernate:
           format_sql: false
+          dialect: org.hibernate.dialect.PostgreSQLDialect
   mail:
     host: smtp.gmail.com
     username: ${MAIL_USERNAME}

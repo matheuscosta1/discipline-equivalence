@@ -1,18 +1,17 @@
 version: '3'
 
 services:
-  mysqlsrv:
-    image: mysql:5.7
-    environment:
-      MYSQL_ROOT_PASSWORD: "equivalencia_disciplina"
-      MYSQL_DATABASE: "equivalencia_disciplina"
-    ports:
-      - "3306:3306"
+  postgres:
+    image: postgres
     volumes:
-      - ./scripts/development/create-table-test-schema.sql:/docker-entrypoint-initdb.d/create-tables.sql
-      - ./scripts/development/spring-course-test-schema.sql:/docker-entrypoint-initdb.d/insert.sql
-    networks:
-      - mysql-compose-network
+      - ./scripts/development/postgres/create-table-test-schema.sql:/docker-entrypoint-initdb.d/create-tables.sql
+      - ./scripts/development/postgres/spring-course-test-schema.sql:/docker-entrypoint-initdb.d/insert.sql
+    environment:
+      POSTGRES_USER: "equivalencia_disciplina"
+      POSTGRES_PASSWORD: "equivalencia_disciplina"
+      POSTGRES_DB: "equivalencia_disciplina"
+    ports:
+      - "5432:5432"
 
 networks:
   mysql-compose-network:
