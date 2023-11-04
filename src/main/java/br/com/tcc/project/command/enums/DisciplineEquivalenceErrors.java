@@ -15,7 +15,9 @@ public enum DisciplineEquivalenceErrors {
   DEE0010("Professor já registrado com esse e-mail.", 1000),
   DEE0011("Disciplina já registrada.", 1000),
   DEE0012("Análise de equivalência realizada, não é possível deletar.", 1000),
-  DEE0013("Não é possível realizar o registro de equivalência para uma análise que não está pendente ou não existe.", 1000);
+  DEE0013("Não é possível realizar o registro de equivalência para uma análise que não está pendente ou não existe.", 1000),
+  DEE0014("Senha atual inválida.", 1000),
+  DEE0015("Já existe um usuário cadastrado com este e-mail.", 1000);
 
 
   private final String message;
