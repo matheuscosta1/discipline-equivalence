@@ -45,10 +45,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     web.ignoring()
         .antMatchers(
             "/v2/api-docs",
+            "/actuator",
             "/configuration/ui",
             "/swagger-resources/**",
             "/configuration/**",
-            "/swagger-ui.html",
+            "/swagger-ui/**",
             "/webjars/**");
   }
 
