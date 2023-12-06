@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Federal Uberlandia\"\n}",
+							"raw": "{\n    \"nome\": \"Universidade Federal de São Paulo\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -24,7 +24,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/discipline-equivalence/register-college",
+							"raw": "http://localhost:8080/discipline-equivalence/faculdades",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -32,7 +32,7 @@
 							"port": "8080",
 							"path": [
 								"discipline-equivalence",
-								"register-college"
+								"faculdades"
 							]
 						}
 					},
@@ -44,11 +44,21 @@
 						"disableBodyPruning": true
 					},
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9mZXNzb3JAZ21haWwuY29tIiwiZXhwIjoxNjk3NDY3NzQ5LCJyb2xlcyI6WyJST0xFX1BST0ZFU1NPUiJdfQ.LyQ7ZbcRdLgSAr8IwpugnAap6tMTIvF5An2u7_PLFJfTiy-GoN5lCT9pL_tz80jysJ_O7-wE1U_YkqI3fP5KAQ",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Federal Uberlandia\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -56,7 +66,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/discipline-equivalence/find-colleges",
+							"raw": "http://localhost:8080/discipline-equivalence/faculdades?paginas=1&pagina=0&direction=ASC&nome=",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -64,7 +74,68 @@
 							"port": "8080",
 							"path": [
 								"discipline-equivalence",
-								"find-colleges"
+								"faculdades"
+							],
+							"query": [
+								{
+									"key": "paginas",
+									"value": "1"
+								},
+								{
+									"key": "pagina",
+									"value": "0"
+								},
+								{
+									"key": "direction",
+									"value": "ASC"
+								},
+								{
+									"key": "nome",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca faculdades por id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJwcm9mZXNzb3JAZ21haWwuY29tIiwiZXhwIjoxNjk3NDY5NTA4LCJyb2xlcyI6WyJST0xFX1BST0ZFU1NPUiJdfQ.0Z4xvfZZ3NH5qRcEP3AdRdh3YovJepKQLgIcPXBIz2OgtIlgdCfh9BnRGc61T1bhknf9T8dNMFCyTmUvgLElzw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/faculdades/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"faculdades",
+								"1"
 							]
 						}
 					},
@@ -82,7 +153,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"workLoad\": \"60\",\n    \"originCode\": \"FAMAT123\",\n    \"course\": \"Ciência da Computação\",\n    \"menu\": \"Limites; Derivadas\",\n    \"college\": \"Universidade Federal de Uberlândia\",\n    \"name\": \"Cálculo 3\",\n    \"program\": \"Limites; Derivadas\"\n}",
+							"raw": "{\n    \"workLoad\": \"60\",\n    \"originCode\": \"FAMAT124\",\n    \"courseId\": 1,\n    \"menu\": \"Limites; Derivadas\",\n    \"collegeId\": 1,\n    \"name\": \"Cálculo 3\",\n    \"program\": \"Limites; Derivadas\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -122,7 +193,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/discipline-equivalence/find-discipline?disciplineCode=FAMAT0001",
+							"raw": "http://localhost:8080/discipline-equivalence/find-discipline?disciplineCode=FAMAT1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -135,7 +206,7 @@
 							"query": [
 								{
 									"key": "disciplineCode",
-									"value": "FAMAT0001"
+									"value": "FAMAT1"
 								}
 							]
 						}
@@ -152,7 +223,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"courseName\": \"Ciência da Computação\",\n    \"collegeName\": \"Universidade Federal de Uberlândia\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -160,7 +231,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/discipline-equivalence/find-disciplines",
+							"raw": "http://localhost:8080/discipline-equivalence/disciplinas?paginas=5&pagina=0&direction=ASC&nome=Calculo",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -168,7 +239,25 @@
 							"port": "8080",
 							"path": [
 								"discipline-equivalence",
-								"find-disciplines"
+								"disciplinas"
+							],
+							"query": [
+								{
+									"key": "paginas",
+									"value": "5"
+								},
+								{
+									"key": "pagina",
+									"value": "0"
+								},
+								{
+									"key": "direction",
+									"value": "ASC"
+								},
+								{
+									"key": "nome",
+									"value": "Calculo"
+								}
 							]
 						}
 					},
@@ -186,7 +275,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Dança\",\n    \"collegeName\": \"Federal Uberlandia\"\n}",
+							"raw": "{\n    \"nome\": \"Dança 3\",\n    \"faculdadeId\": 2\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -194,7 +283,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/discipline-equivalence/register-course",
+							"raw": "http://localhost:8080/discipline-equivalence/cursos",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -202,7 +291,7 @@
 							"port": "8080",
 							"path": [
 								"discipline-equivalence",
-								"register-course"
+								"cursos"
 							]
 						}
 					},
@@ -218,7 +307,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"name\": \"Federal Uberlandia\"\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -226,7 +315,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/discipline-equivalence/find-courses",
+							"raw": "http://localhost:8080/discipline-equivalence/cursos?paginas=5&pagina=0&direction=ASC&nome=Engenharia",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -234,7 +323,25 @@
 							"port": "8080",
 							"path": [
 								"discipline-equivalence",
-								"find-courses"
+								"cursos"
+							],
+							"query": [
+								{
+									"key": "paginas",
+									"value": "5"
+								},
+								{
+									"key": "pagina",
+									"value": "0"
+								},
+								{
+									"key": "direction",
+									"value": "ASC"
+								},
+								{
+									"key": "nome",
+									"value": "Engenharia"
+								}
 							]
 						}
 					},
@@ -258,7 +365,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/discipline-equivalence/find-courses?college=Universidade Federal de Uberlândia",
+							"raw": "http://localhost:8080/discipline-equivalence/cursos/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -266,13 +373,206 @@
 							"port": "8080",
 							"path": [
 								"discipline-equivalence",
-								"find-courses"
-							],
-							"query": [
-								{
-									"key": "college",
-									"value": "Universidade Federal de Uberlândia"
+								"cursos",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Professores",
+			"item": [
+				{
+					"name": "Registra professor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Alfredo\",\n    \"faculdadeId\": 1,\n    \"cursoId\": 47,\n    \"disciplinaId\": 57\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/professores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"professores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca professores",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/professores",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"professores"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca professores por id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Federal Uberlandia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/professores/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"professores",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Analises",
+			"item": [
+				{
+					"name": "Registra professor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"nome\": \"Alfredo\",\n    \"faculdadeId\": 1,\n    \"cursoId\": 47,\n    \"disciplina\": 57\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/analises",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"analises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca professores",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/analises",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"analises"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Busca professores por id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Federal Uberlandia\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/discipline-equivalence/analises/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"discipline-equivalence",
+								"analises",
+								"1"
 							]
 						}
 					},
@@ -290,7 +590,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"originCode\": \"FAMAT0002\",\n    \"destinyCode\": \"FAMAT123\"\n}",
+							"raw": "{\n    \"originCode\": \"FAMAT1\",\n    \"destinyCode\": \"FAMAT124\"\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -307,6 +607,99 @@
 							"path": [
 								"discipline-equivalence",
 								"register-discipline-equivalence"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"professortcc@gmail.com\",\n    \"password\": \"Zq5No7gHY5\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/discipline-equivalence/login",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"discipline-equivalence",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\": \"matheus.costa@tutanota.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/discipline-equivalence/auth/forgot",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"discipline-equivalence",
+								"auth",
+								"forgot"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYXJpYUBnbWFpbC5jb20iLCJleHAiOjE1OTI3MDc2Nzd9.yd5KD3ii8QMPLzwRCOYuDWLCPHIXv8LfssUpNu0ZYVyd7XwO491QPqrsQS-qqDHbuqYMvhi1XaQ2vS-mfkMTig",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{host}}/auth/refresh_token",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"auth",
+								"refresh_token"
 							]
 						}
 					},
