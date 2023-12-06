@@ -5,7 +5,7 @@
 - Java
 - Maven
 - Docker
-- MongoDB
+- PostgreSQL
 - Spring Boot
 - Swagger
 
