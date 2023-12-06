@@ -41,11 +41,11 @@ discipline-equivalence:
     cron-schedule: 0 0/1 * 1/1 * ?
 
 jwt:
-  secret: SecretToSignToken
+  secret: ${SECRET_JWT}
   expiration: 86400000
 
 openai:
-  model: gpt-3.5-turbo
+  model: ${OPEN_AI_MODEL}
   api:
     url: https://api.openai.com/v1/chat/completions
     key: ${API_KEY}
